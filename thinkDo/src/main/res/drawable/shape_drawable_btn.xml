@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="8dp" />
+    <solid android:color="@color/dark_bule" />
+    <size
+        android:width="@dimen/fixPosition_btn_bg_dimen"
+        android:height="@dimen/fixPosition_btn_bg_dimen"/>
+
+</shape>

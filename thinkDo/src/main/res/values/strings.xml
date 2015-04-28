@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ThinkDo</string>
+    <string name="menu">Menu</string>
+    <string name="alignment">Alignment</string>
+	<string name="preferences">Preferences</string>
+	<string name="maintenance">Maintenance</string>
+	<string name="net_set">Net Set</string>
+	<string name="db_update">Database Update</string>
+	<string name="about">About</string>
+	<string name="exit">Exit</string>
+	<string name="host_address_set">Host Address set</string>
+	<string name="ip">IP</string>
+	<string name="port">Port</string>
+	<string name="save">Save</string>
+	<string name="reset">Reset</string>
+    <string name="about_explain">ThinkDoTech company all right reserved!</string>
+    <string name="current_version">Current Version: </string>
+    <string name="started_measure">Started Measure</string>
+    <string name="fast_measure">Fast Measure</string>
+    <string name="photo_monitor">Photo Monitor</string>
+    <string name="special_measure">Special Measure</string>
+    <string name="user_data">User Data</string>
+    <string name="unit_set">Unit Set</string>
+    <string name="garage_set">Garage Set</string>
+    <string name="print_set">Print Set</string>
+    <string name="add_car">Add Vehicle</string>
+    <string name="vehicles_choice">VehiclesPick</string>
+    <string name="pull_test">PullTest</string>
+    <string name="kingpin_test">KingpinTest</string>
+    <string name="rearAxle_show">RearAxleShow</string>
+    <string name="frontAxle_show">FrontAxleShow</string>
+    <string name="data_print">DataPrint</string>
+</resources>

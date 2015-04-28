@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:background="@drawable/shape_form"
+        android:padding="3dp">
+
+        <com.thinkdo.view.BarItem
+            android:id="@+id/bar_unitSet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            skd:barIcon="@drawable/ic_unit"
+            skd:barTitle="@string/unit_set" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <com.thinkdo.view.BarItem
+            android:id="@+id/bar_garageSet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            skd:barIcon="@drawable/ic_garage"
+            skd:barTitle="@string/garage_set" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <com.thinkdo.view.BarItem
+            android:id="@+id/bar_printSet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            skd:barIcon="@drawable/ic_print"
+            skd:barTitle="@string/print_set" />
+    </LinearLayout>
+</ScrollView>

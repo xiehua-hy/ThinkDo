@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="BarItem">
+        <attr name="barIcon" format="reference" />
+        <attr name="barNextIcon" format="reference" />
+        <attr name="barTitle" format="string" />
+        <attr name="barTextColor" format="color"/>
+        <attr name="barBg" format="reference"/>
+    </declare-styleable>
+
+</resources>
