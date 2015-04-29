@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_blue"
-    android:paddingRight="8dp"
+    android:paddingRight="@dimen/main_title_padding"
     android:orientation="horizontal">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:drawableLeft="@drawable/ic_action_previous_item"
         android:gravity="center"
-        android:paddingLeft="8dp"
+        android:paddingLeft="@dimen/main_title_padding"
         android:paddingBottom="@dimen/main_title_padding"
         android:paddingTop="@dimen/main_title_padding" />
 

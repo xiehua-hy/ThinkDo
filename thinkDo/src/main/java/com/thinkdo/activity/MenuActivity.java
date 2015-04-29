@@ -47,7 +47,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
 		sm.setFadeEnabled(true);
 		sm.setMode(SlidingMenu.LEFT);
 		sm.setTouchModeAbove(SlidingMenu.LEFT);
-		sm.setBehindWidthRes(R.dimen.slidingmenu_width);
+		sm.setBehindWidthRes(R.dimen.slidingMenu_width);
 		
 		BarItem item = (BarItem) findViewById(R.id.barItem_hostSet);
 		item.setOnClickListener(this);

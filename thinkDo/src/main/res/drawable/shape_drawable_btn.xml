@@ -3,7 +3,7 @@
     android:shape="rectangle">
 
     <corners android:radius="8dp" />
-    <solid android:color="@color/dark_bule" />
+    <solid android:color="@color/dark_blue" />
     <size
         android:width="@dimen/fixPosition_btn_bg_dimen"
         android:height="@dimen/fixPosition_btn_bg_dimen"/>

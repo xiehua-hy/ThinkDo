@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <ImageView
+        android:id="@+id/imageView_circle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/kingpin_item_margin"
+        android:background="@drawable/ib_kingpin"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/ib_kingpin_center" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="@dimen/kingpin_result_width"
+        android:layout_height="@dimen/kingpin_result_height"
+        android:layout_below="@+id/imageView_circle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/kingpin_item_margin"
+        android:background="@android:color/white"
+        android:gravity="center"
+        android:maxLength="7"
+        android:textSize="@dimen/kingpin_result_font_size" />
+
+    <ImageView
+        android:id="@+id/imageView_wheel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_result"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/kingpin_wheel_margin"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/if_steeringwheel" />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView_wheel"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/kingpin_btn_margin_bottom"
+        android:layout_marginRight="@dimen/kingpin_btn_margin_right"
+        android:background="@drawable/selector_next_btn"
+        android:padding="@dimen/kingpin_btn_padding"
+        android:text="@string/next"
+        android:textSize="@dimen/kingpin_btn_font_size" />
+
+
+</RelativeLayout>

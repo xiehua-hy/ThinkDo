@@ -32,5 +32,6 @@
     <string name="rearAxle_show">后轴显示</string>
     <string name="frontAxle_show">前轴显示</string>
     <string name="data_print">数据打印</string>
+    <string name="next">下一步</string>
 
 </resources>

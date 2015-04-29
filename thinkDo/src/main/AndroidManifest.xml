@@ -30,7 +30,8 @@
         <activity android:name=".AboutActivity"
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".MainActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
     </application>
 
 </manifest>
