@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ib_test">
+
+
+    <com.thinkdo.view.ButtonRaise
+        android:id="@+id/btn_raise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_frontTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        skd:RealTimeTitle="@string/front_total_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_leftFrontToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_frontTotalToe"
+        android:layout_toLeftOf="@+id/window_frontTotalToe"
+        android:layout_toStartOf="@+id/window_frontTotalToe"
+        skd:RealTimeTitle="@string/left_front_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_leftFrontCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/window_leftFrontToe"
+        android:layout_marginBottom="43dp"
+        android:layout_toLeftOf="@+id/window_leftFrontToe"
+        android:layout_toStartOf="@+id/window_leftFrontToe"
+        skd:RealTimeTitle="@string/left_front_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_leftCaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/window_leftFrontToe"
+        android:layout_alignRight="@+id/window_leftFrontToe"
+        android:layout_below="@+id/window_frontTotalToe"
+        skd:RealTimeTitle="@string/left_caster" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rightFrontToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/window_leftFrontToe"
+        android:layout_toEndOf="@+id/window_frontTotalToe"
+        android:layout_toRightOf="@+id/window_frontTotalToe"
+        skd:RealTimeTitle="@string/right_front_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rightCaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_rightFrontToe"
+        android:layout_alignStart="@+id/window_rightFrontToe"
+        android:layout_alignTop="@+id/window_leftCaster"
+        skd:RealTimeTitle="@string/right_caster" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rightFrontCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/window_leftFrontCamber"
+        android:layout_toEndOf="@+id/window_rightFrontToe"
+        android:layout_toRightOf="@+id/window_rightFrontToe"
+        skd:RealTimeTitle="@string/right_front_camber" />
+
+</RelativeLayout>

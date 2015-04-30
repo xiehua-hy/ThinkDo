@@ -18,4 +18,9 @@
     <dimen name="kingpin_btn_margin_bottom">48dp</dimen>
     <dimen name="kingpin_btn_padding">12dp</dimen>
     <dimen name="kingpin_btn_font_size">24sp</dimen>
+    <dimen name="raise_btn_font_size">18sp</dimen>
+    <dimen name="window_real_width">180dp</dimen>
+    <dimen name="window_real_height">108dp</dimen>
+    <dimen name="window_real_tv_font_size">16sp</dimen>
+    <dimen name="window_real_result_font_size">40sp</dimen>
 </resources>

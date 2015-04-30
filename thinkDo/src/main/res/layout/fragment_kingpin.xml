@@ -46,6 +46,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/kingpin_btn_margin_bottom"
+        android:layout_marginEnd="@dimen/kingpin_btn_margin_right"
         android:layout_marginRight="@dimen/kingpin_btn_margin_right"
         android:background="@drawable/selector_next_btn"
         android:padding="@dimen/kingpin_btn_padding"

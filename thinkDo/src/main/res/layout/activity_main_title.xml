@@ -3,16 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_blue"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/main_title_padding"
+    android:paddingLeft="@dimen/main_title_padding"
     android:paddingRight="@dimen/main_title_padding"
-    android:orientation="horizontal">
+    android:paddingStart="@dimen/main_title_padding">
 
     <TextView
         android:id="@+id/tv_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:drawableLeft="@drawable/ic_action_previous_item"
+        android:drawableStart="@drawable/ic_action_previous_item"
         android:gravity="center"
-        android:paddingLeft="@dimen/main_title_padding"
         android:paddingBottom="@dimen/main_title_padding"
         android:paddingTop="@dimen/main_title_padding" />
 
@@ -28,13 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:checked="false"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
             android:text="@string/vehicles_choice"
             android:textColor="@color/font_red_holo"
-            android:textSize="@dimen/main_title_font_size"
-            android:checked="false" />
+            android:textSize="@dimen/main_title_font_size" />
 
         <RadioButton
             android:id="@+id/radio_pull"

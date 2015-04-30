@@ -33,5 +33,19 @@
     <string name="frontAxle_show">前轴显示</string>
     <string name="data_print">数据打印</string>
     <string name="next">下一步</string>
+    <string name="front_total_toe">前轮总前束</string>
+    <string name="left_caster">左后轮后倾</string>
+    <string name="left_front_camber">左后轮外倾</string>
+    <string name="left_front_toe">左前轮前束</string>
+    <string name="left_kpi">左前轮内倾</string>
+    <string name="left_rear_camber">左后轮外倾</string>
+    <string name="left_rear_toe">左后轮前束</string>
+    <string name="rear_total_toe">后轮总前束</string>
+    <string name="right_front_camber">右前轮外倾</string>
+    <string name="right_KPI">右前轮内倾</string>
+    <string name="right_caster">右前轮后倾</string>
+    <string name="right_front_toe">右前轮前束</string>
+    <string name="right_rear_camber">右后轮外倾</string>
+    <string name="right_rear_toe">右后轮前束</string>
 
 </resources>

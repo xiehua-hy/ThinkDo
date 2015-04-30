@@ -20,4 +20,12 @@
     <dimen name="kingpin_btn_margin_bottom">32dp</dimen>
     <dimen name="kingpin_btn_padding">8dp</dimen>
     <dimen name="kingpin_btn_font_size">20sp</dimen>
+    <dimen name="raise_btn_font_size">15sp</dimen>
+    <dimen name="window_real_width">126dp</dimen>
+    <dimen name="window_real_height">77dp</dimen>
+    <dimen name="window_real_tv_font_size">12sp</dimen>
+    <dimen name="window_real_result_font_size">28sp</dimen>
+    <dimen name="bar_print_title_width">160dp</dimen>
+    <dimen name="bar_print_content_width">96dp</dimen>
+    <dimen name="bar_print_font_size">16sp</dimen>
 </resources>

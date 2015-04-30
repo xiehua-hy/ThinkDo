@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ib_test">
+
+    <com.thinkdo.view.ButtonRaise
+        android:id="@+id/btn_raise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_leftRearToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@+id/window_rearTotalToe"
+        android:layout_toStartOf="@+id/window_rearTotalToe"
+        skd:RealTimeTitle="@string/left_rear_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_leftRearCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/window_leftRearToe"
+        android:layout_toStartOf="@+id/window_leftRearToe"
+        skd:RealTimeTitle="@string/left_rear_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rightRearToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/window_leftRearToe"
+        android:layout_toEndOf="@+id/window_rearTotalToe"
+        android:layout_toRightOf="@+id/window_rearTotalToe"
+        skd:RealTimeTitle="@string/right_rear_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rightRearCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/window_leftRearCamber"
+        android:layout_toEndOf="@+id/window_rightRearToe"
+        android:layout_toRightOf="@+id/window_rightRearToe"
+        skd:RealTimeTitle="@string/right_rear_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_rearTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_raise"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        skd:RealTimeTitle="@string/rear_total_toe" />
+
+</RelativeLayout>

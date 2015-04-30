@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="@dimen/bar_print_title_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/bar_print_font_size" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tv_before"
+        android:layout_width="@dimen/bar_print_content_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textSize="@dimen/bar_print_font_size" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tv_min"
+        android:layout_width="@dimen/bar_print_content_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textSize="@dimen/bar_print_font_size" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tv_max"
+        android:layout_width="@dimen/bar_print_content_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textSize="@dimen/bar_print_font_size" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tv_after"
+        android:layout_width="@dimen/bar_print_content_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textSize="@dimen/bar_print_font_size" />
+
+</LinearLayout>
