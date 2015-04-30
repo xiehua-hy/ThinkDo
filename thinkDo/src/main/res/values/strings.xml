@@ -33,4 +33,18 @@
     <string name="frontAxle_show">FrontAxleShow</string>
     <string name="data_print">DataPrint</string>
     <string name="next">Next</string>
+    <string name="left_front_camber">leftFrontCamber</string>
+    <string name="right_front_camber">rightFrontCamber</string>
+    <string name="left_kpi">leftKPI</string>
+    <string name="right_KPI">rightKPI</string>
+    <string name="left_caster">leftCaster</string>
+    <string name="right_caster">rightCaster</string>
+    <string name="front_total_toe">frontTotalToe</string>
+    <string name="left_front_toe">leftFrontToe</string>
+    <string name="right_front_toe">rightFrontToe</string>
+    <string name="left_rear_camber">leftRearCamber</string>
+    <string name="right_rear_camber">rightRearCamber</string>
+    <string name="rear_total_toe">rearTotalToe</string>
+    <string name="left_rear_toe">leftRearToe</string>
+    <string name="right_rear_toe">rightRearToe</string>
 </resources>

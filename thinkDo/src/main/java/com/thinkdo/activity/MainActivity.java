@@ -8,8 +8,11 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.ManufacturerFragment;
+import com.thinkdo.fragment.PushCarFragment;
+import com.thinkdo.fragment.RearAxleShowFragment;
 
 /**
  * Created by xiehua on 2015/4/28.
@@ -57,7 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         if (v.getId() == R.id.tv_back) {
             finish();
-        }else{
+        } else {
             radioButtonCheckedChange(v.getId());
         }
     }
@@ -69,18 +72,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.radio_pick:
                 fragmentCommit(new ManufacturerFragment());
                 break;
-
             case R.id.radio_pull:
-                fragmentCommit(new KingpinFragment());
+                fragmentCommit(new PushCarFragment());
                 break;
             case R.id.radio_kingpin:
-
+                fragmentCommit(new KingpinFragment());
                 break;
             case R.id.radio_rear:
-
+                fragmentCommit(new RearAxleShowFragment());
                 break;
             case R.id.radio_front:
-
+                fragmentCommit(new FrontAxletShowFragment());
                 break;
             case R.id.radio_print:
 

@@ -7,7 +7,7 @@ import android.view.MenuItem;
 /**
  * Created by xiehua on 2015/4/27.
  */
-public class DBUpdateActivity extends Activity{
+public class DBUpdateActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

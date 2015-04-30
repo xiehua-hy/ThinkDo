@@ -9,4 +9,4 @@
     android:numColumns="auto_fit"
     android:scrollingCache="true"
     android:stretchMode="none"
-    android:verticalSpacing="1dp"/>
+    android:verticalSpacing="1dp" />

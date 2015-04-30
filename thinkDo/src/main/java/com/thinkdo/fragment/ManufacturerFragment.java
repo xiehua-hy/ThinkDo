@@ -20,7 +20,7 @@ import com.thinkdo.activity.R;
 public class ManufacturerFragment extends Fragment {
     private GridView gridView;
     private final int bitmapDimen = 153;
-    private final int countryCount =3;
+    private final int countryCount = 3;
     private int count = 3000;
 
     private int[] manuID_CN = {50000, 50072, 50099, 50001, 50002, 50037,
@@ -224,8 +224,8 @@ public class ManufacturerFragment extends Fragment {
 //    }
 
 
-    public int[] getImageId(){
-        switch(count%countryCount){
+    public int[] getImageId() {
+        switch (count % countryCount) {
             case 0:
                 return ImageId_CN;
             case 1:

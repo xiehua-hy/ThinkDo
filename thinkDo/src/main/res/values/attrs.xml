@@ -5,8 +5,21 @@
         <attr name="barIcon" format="reference" />
         <attr name="barNextIcon" format="reference" />
         <attr name="barTitle" format="string" />
-        <attr name="barTextColor" format="color"/>
-        <attr name="barBg" format="reference"/>
+        <attr name="barTextColor" format="color" />
+        <attr name="barBg" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ButtonRaise">
+        <attr name="buttonTextInUp" format="string" />
+        <attr name="buttonTextInDown" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="WindowRealTime">
+        <attr name="RealTimeTitle" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="BarPrint">
+        <attr name="PrintTitle" format="string" />
+        <attr name="PrintContentBg" format="color" />
+    </declare-styleable>
 </resources>
