@@ -8,15 +8,13 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.ManufacturerFragment;
 import com.thinkdo.fragment.PushCarFragment;
 import com.thinkdo.fragment.RearAxleShowFragment;
 
-/**
- * Created by xiehua on 2015/4/28.
- */
 public class MainActivity extends Activity implements View.OnClickListener {
     private int preCheckedRadio = R.id.radio_pick;
 
@@ -24,13 +22,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         init();
     }
 
     private void init() {
         TextView back = (TextView) findViewById(R.id.tv_back);
-
         back.setOnClickListener(this);
 
         RadioButton rb = (RadioButton) findViewById(R.id.radio_pick);
@@ -85,7 +81,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 fragmentCommit(new FrontAxletShowFragment());
                 break;
             case R.id.radio_print:
-
+                fragmentCommit(new DataPrintFragment());
                 break;
         }
 

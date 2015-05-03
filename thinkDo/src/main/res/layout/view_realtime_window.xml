@@ -3,7 +3,7 @@
     android:id="@+id/linearLayout"
     android:layout_width="@dimen/window_real_width"
     android:layout_height="@dimen/window_real_height"
-    android:background="@drawable/ib_realtime_window"
+    android:background="@drawable/ib_real_time_window"
     android:orientation="vertical">
 
     <TextView

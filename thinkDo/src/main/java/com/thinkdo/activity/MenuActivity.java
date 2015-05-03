@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +15,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -36,7 +35,6 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         setContentView(R.layout.activity_menu);
         initSlidingMenu();
         init();
-
     }
 
     private void initSlidingMenu() {
@@ -60,12 +58,10 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
 
         Button btn = (Button) findViewById(R.id.btn_exit);
         btn.setOnClickListener(this);
-
-
     }
 
     private void init() {
-        TextView tv = (TextView) findViewById(R.id.tv_toggle);
+        Button tv = (Button) findViewById(R.id.btn_toggle);
         tv.setOnClickListener(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -74,31 +70,29 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
 
         final RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
-        radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio0:
-                        radiofontColorChange(checkedId);
+                        radioFontColorChange(checkedId);
                         viewPager.setCurrentItem(0);
                         break;
                     case R.id.radio1:
-                        radiofontColorChange(checkedId);
+                        radioFontColorChange(checkedId);
                         viewPager.setCurrentItem(1);
                         break;
                     case R.id.radio2:
-                        radiofontColorChange(checkedId);
+                        radioFontColorChange(checkedId);
                         viewPager.setCurrentItem(2);
                         break;
                     default:
                         break;
                 }
-
             }
         });
 
-        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        viewPager.setOnPageChangeListener(new SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 switch (position) {
@@ -118,7 +112,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         });
     }
 
-    public void radiofontColorChange(int radioId) {
+    public void radioFontColorChange(int radioId) {
         RadioButton rb = (RadioButton) findViewById(R.id.radio0);
         rb.setTextColor(getResources().getColor(R.color.font_black));
 
@@ -163,7 +157,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_toggle:
+            case R.id.btn_toggle:
                 toggle();
                 break;
             case R.id.barItem_hostSet:
@@ -184,6 +178,5 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
             default:
                 break;
         }
-
     }
 }

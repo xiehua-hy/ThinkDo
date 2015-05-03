@@ -13,8 +13,7 @@ import com.thinkdo.activity.R;
 
 public class FixedPositionFragment extends Fragment implements View.OnClickListener {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_fixedposition, container, false);
         Button btn = (Button) rootView.findViewById(R.id.btn_start);
         btn.setOnClickListener(this);

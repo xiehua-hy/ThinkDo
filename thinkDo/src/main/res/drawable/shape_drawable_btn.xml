@@ -6,6 +6,6 @@
     <solid android:color="@color/dark_blue" />
     <size
         android:width="@dimen/fixPosition_btn_bg_dimen"
-        android:height="@dimen/fixPosition_btn_bg_dimen"/>
+        android:height="@dimen/fixPosition_btn_bg_dimen" />
 
 </shape>

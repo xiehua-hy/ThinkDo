@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/30.
- */
 public class FrontAxletShowFragment extends Fragment {
 
     @Override

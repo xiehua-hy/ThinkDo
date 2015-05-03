@@ -14,9 +14,6 @@ import android.widget.ImageView;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/29.
- */
 public class ManufacturerFragment extends Fragment {
     private GridView gridView;
     private final int bitmapDimen = 153;

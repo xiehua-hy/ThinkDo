@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/30.
- */
 public class WindowRealTime extends LinearLayout {
     private TextView left, mid, right, title, result;
     private LinearLayout linearLayout;

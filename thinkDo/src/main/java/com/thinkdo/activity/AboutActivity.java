@@ -6,17 +6,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-/**
- * Created by xiehua on 2015/4/27.
- */
-
 public class AboutActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         init();
-
     }
 
     private void init() {
@@ -32,8 +27,6 @@ public class AboutActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

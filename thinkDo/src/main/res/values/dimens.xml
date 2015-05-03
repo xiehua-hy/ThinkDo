@@ -16,9 +16,9 @@
     <dimen name="kingpin_result_margin">16dp</dimen>
     <dimen name="kingpin_result_font_size">30sp</dimen>
     <dimen name="kingpin_wheel_margin">8dp</dimen>
+    <dimen name="kingpin_btn_width">100dp</dimen>
     <dimen name="kingpin_btn_margin_right">32dp</dimen>
     <dimen name="kingpin_btn_margin_bottom">32dp</dimen>
-    <dimen name="kingpin_btn_padding">8dp</dimen>
     <dimen name="kingpin_btn_font_size">20sp</dimen>
     <dimen name="raise_btn_font_size">15sp</dimen>
     <dimen name="window_real_width">126dp</dimen>
@@ -28,4 +28,8 @@
     <dimen name="bar_print_title_width">160dp</dimen>
     <dimen name="bar_print_content_width">96dp</dimen>
     <dimen name="bar_print_font_size">16sp</dimen>
+    <dimen name="print_title_margin">8dp</dimen>
+    <dimen name="print_title_font_size">22sp</dimen>
+    <dimen name="print_btn_width">150dp</dimen>
+    <dimen name="print_btn_height">50dp</dimen>
 </resources>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_main">
+    android:background="@color/light_blue">
 
     <ImageView
         android:id="@+id/imageView_circle"
@@ -36,11 +36,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/kingpin_wheel_margin"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/if_steeringwheel" />
+        android:src="@drawable/if_steering_wheel" />
 
     <Button
         android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/kingpin_btn_width"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageView_wheel"
         android:layout_alignParentEnd="true"
@@ -49,9 +49,7 @@
         android:layout_marginEnd="@dimen/kingpin_btn_margin_right"
         android:layout_marginRight="@dimen/kingpin_btn_margin_right"
         android:background="@drawable/selector_next_btn"
-        android:padding="@dimen/kingpin_btn_padding"
         android:text="@string/next"
         android:textSize="@dimen/kingpin_btn_font_size" />
-
 
 </RelativeLayout>

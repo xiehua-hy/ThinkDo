@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/29.
- */
 public class KingpinFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

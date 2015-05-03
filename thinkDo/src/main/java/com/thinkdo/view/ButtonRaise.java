@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/30.
- */
 public class ButtonRaise extends LinearLayout {
     private TextView tv;
     private Button btn;

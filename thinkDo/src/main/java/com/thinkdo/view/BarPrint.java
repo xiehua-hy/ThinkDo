@@ -10,13 +10,10 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 
-/**
- * Created by Administrator on 2015/4/30.
- */
 public class BarPrint extends LinearLayout {
     private TextView title, before, after, max, min;
 
-    public BarPrint(Context context, AttributeSet attrs){
+    public BarPrint(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BarPrint);
         String str = array.getString(R.styleable.BarPrint_PrintTitle);
@@ -34,47 +31,47 @@ public class BarPrint extends LinearLayout {
         setContextBg(color);
     }
 
-    public void setTitleText(String text){
+    public void setTitleText(String text) {
         title.setText(text);
     }
 
-    public void setTitleText(int resid){
-        title.setText(resid);
+    public void setTitleText(int resId) {
+        title.setText(resId);
     }
 
-    public void setBeforeText(String text){
+    public void setBeforeText(String text) {
         before.setText(text);
     }
 
-    public void setBeforeText(int resid){
-        before.setText(resid);
+    public void setBeforeText(int resId) {
+        before.setText(resId);
     }
 
-    public void setAfterText(String text){
+    public void setAfterText(String text) {
         after.setText(text);
     }
 
-    public void setAfterText(int resid){
-        after.setText(resid);
+    public void setAfterText(int resId) {
+        after.setText(resId);
     }
 
-    public void setMinText(String text){
+    public void setMinText(String text) {
         min.setText(text);
     }
 
-    public void setMinText(int resid){
-        min.setText(resid);
+    public void setMinText(int resId) {
+        min.setText(resId);
     }
 
-    public void setMaxText(String text){
+    public void setMaxText(String text) {
         max.setText(text);
     }
 
-    public void setMaxText(int resid){
-        max.setText(resid);
+    public void setMaxText(int resId) {
+        max.setText(resId);
     }
 
-    public void setContextBg(int color){
+    public void setContextBg(int color) {
         before.setBackgroundColor(color);
         after.setBackgroundColor(color);
         min.setBackgroundColor(color);
