@@ -29,6 +29,7 @@
     <string name="vehicles_choice">VehiclesPick</string>
     <string name="pull_test">PullTest</string>
     <string name="kingpin_test">KingpinTest</string>
+    <string name="fast_test">fast_test</string>
     <string name="rearAxle_show">RearAxleShow</string>
     <string name="frontAxle_show">FrontAxleShow</string>
     <string name="data_print">DataPrint</string>
@@ -59,4 +60,5 @@
     <string name="right_turn_angle">RightTurnAngle</string>
     <string name="left_max_turn_angle">LeftTurnAngle</string>
     <string name="right_max_turn_angle">RightTurnAngle</string>
+
 </resources>

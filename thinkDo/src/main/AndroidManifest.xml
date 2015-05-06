@@ -32,6 +32,8 @@
         <activity android:name="com.thinkdo.activity.MainActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
+        <activity android:name=".FastTestActivity"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

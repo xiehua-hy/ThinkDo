@@ -26,12 +26,13 @@
     <string name="garage_set">店家设置</string>
     <string name="print_set">打印设置</string>
     <string name="add_car">自定义车型</string>
-    <string name="vehicles_choice">车辆选择</string>
-    <string name="pull_test">推车测试</string>
-    <string name="kingpin_test">主销测试</string>
-    <string name="rearAxle_show">后轴显示</string>
-    <string name="frontAxle_show">前轴显示</string>
-    <string name="data_print">数据打印</string>
+    <string name="vehicles_choice">选车</string>
+    <string name="pull_test">推车</string>
+    <string name="fast_test">快速</string>
+    <string name="kingpin_test">主销</string>
+    <string name="rearAxle_show">后轴</string>
+    <string name="frontAxle_show">前轴</string>
+    <string name="data_print">打印</string>
     <string name="next">下一步</string>
     <string name="front_total_toe">前轮总前束</string>
     <string name="left_caster">左前轮后倾</string>
@@ -59,5 +60,6 @@
     <string name="right_turn_angle">右转20度前张角</string>
     <string name="left_max_turn_angle">左转最大转向角</string>
     <string name="right_max_turn_angle">右转最大转向角</string>
+
 
 </resources>

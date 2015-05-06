@@ -14,6 +14,7 @@ import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.ManufacturerFragment;
 import com.thinkdo.fragment.PushCarFragment;
 import com.thinkdo.fragment.RearAxleShowFragment;
+import com.thinkdo.fragment.TestResultFragment;
 
 public class MainActivity extends Activity implements View.OnClickListener {
     private int preCheckedRadio = R.id.radio_pick;
@@ -35,8 +36,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         rb = (RadioButton) findViewById(R.id.radio_pull);
         rb.setOnClickListener(this);
 
-
         rb = (RadioButton) findViewById(R.id.radio_kingpin);
+        rb.setOnClickListener(this);
+
+        rb = (RadioButton) findViewById(R.id.radio_fast);
         rb.setOnClickListener(this);
 
         rb = (RadioButton) findViewById(R.id.radio_rear);
@@ -70,6 +73,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.radio_pull:
                 fragmentCommit(new PushCarFragment());
+                break;
+            case R.id.radio_fast:
+                fragmentCommit(new TestResultFragment());
                 break;
             case R.id.radio_kingpin:
                 fragmentCommit(new KingpinFragment());

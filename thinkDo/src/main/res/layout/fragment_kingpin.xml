@@ -50,6 +50,7 @@
         android:layout_marginRight="@dimen/kingpin_btn_margin_right"
         android:background="@drawable/selector_next_btn"
         android:text="@string/next"
+        android:textColor="@color/font_black"
         android:textSize="@dimen/kingpin_btn_font_size" />
 
 </RelativeLayout>

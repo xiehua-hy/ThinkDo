@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
 
@@ -41,7 +42,8 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_fast:
-
+                intent = new Intent(getActivity(), FastTestActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_special:
 

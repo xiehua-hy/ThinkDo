@@ -14,7 +14,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:background="@color/divider" />
 
     <TextView
         android:id="@+id/tv_before"
@@ -27,7 +27,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:background="@color/divider" />
 
     <TextView
         android:id="@+id/tv_min"
@@ -40,7 +40,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:background="@color/divider" />
 
     <TextView
         android:id="@+id/tv_max"
@@ -53,7 +53,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@android:color/black" />
+        android:background="@color/divider" />
 
     <TextView
         android:id="@+id/tv_after"

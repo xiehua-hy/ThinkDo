@@ -17,7 +17,7 @@ public class BarPrint extends LinearLayout {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BarPrint);
         String str = array.getString(R.styleable.BarPrint_PrintTitle);
-        int color = array.getColor(R.styleable.BarPrint_PrintContentBg, Color.rgb(0xFF, 0xFF, 0xCC));
+        int color = array.getColor(R.styleable.BarPrint_PrintContentBg, Color.WHITE);
         array.recycle();
 
         LayoutInflater.from(context).inflate(R.layout.view_print_bar, this);

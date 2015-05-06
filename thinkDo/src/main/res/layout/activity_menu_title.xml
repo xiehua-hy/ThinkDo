@@ -14,6 +14,7 @@
         android:drawableStart="@drawable/ic_drawer_am"
         android:gravity="center"
         android:paddingLeft="12dp"
+        android:paddingRight="12dp"
         android:text="@string/menu"
         android:textColor="@color/font_black"
         android:textSize="@dimen/menu_font_size" />
