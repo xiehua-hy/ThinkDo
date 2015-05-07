@@ -77,5 +77,11 @@
     <string name="fax">Fax</string>
     <string name="post_code">Post Code</string>
     <string name="repair_man">Repair Man</string>
+    <string name="mini_print">Mini Print</string>
+    <string name="standard_print">Standard Print</string>
+    <string name="unit">Unit</string>
+    <string name="toe_unit">Toe Unit</string>
+    <string name="unit1">Degree(°)</string>
+    <string name="unit2">Degree Second(°\')</string>
 
 </resources>

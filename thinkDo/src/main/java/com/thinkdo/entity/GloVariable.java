@@ -13,6 +13,9 @@ public class GloVariable {
     public static final String garageRepairManKey = "repairManKey";
     public static final String garagePostCodeKey = "garagePostCodeKey";
     public static final String garageFaxKey = "garageFaxKey";
+    public static final String printSetKey = "printSetKey";
+    public static final String unitKey = "unitKey";
+    public static final String toeUnitKey = "toeUnitKey";
 
     //defaultValues
     public static final String defaultIp = "192.168.100.4";

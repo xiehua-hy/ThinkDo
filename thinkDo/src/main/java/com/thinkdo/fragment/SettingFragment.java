@@ -18,13 +18,18 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_preferences, container, false);
 
-        BarItem uniSet = (BarItem) rootView.findViewById(R.id.bar_unitSet);
-        BarItem garageSet = (BarItem) rootView.findViewById(R.id.bar_garageSet);
-        BarItem printSet = (BarItem) rootView.findViewById(R.id.bar_printSet);
+        BarItem barItem = (BarItem) rootView.findViewById(R.id.bar_unitSet);
+        barItem.setOnClickListener(this);
 
-        uniSet.setOnClickListener(this);
-        garageSet.setOnClickListener(this);
-        printSet.setOnClickListener(this);
+        barItem = (BarItem) rootView.findViewById(R.id.bar_garageSet);
+        barItem.setOnClickListener(this);
+
+        barItem = (BarItem) rootView.findViewById(R.id.bar_printSet);
+        barItem.setOnClickListener(this);
+
+        barItem = (BarItem) rootView.findViewById(R.id.bar_addcar);
+        barItem.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -40,6 +45,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bar_printSet:
                 intent.putExtra(extraIntKey, 3);
+                break;
+            case R.id.bar_addcar:
+                intent.putExtra(extraIntKey, 4);
                 break;
             default:
                 intent = null;

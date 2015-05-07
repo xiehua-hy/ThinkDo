@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/unit_set">
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/unit"
+            android:entries="@array/unitEntry"
+            android:entryValues="@array/unitEntryValue"
+            android:key="unitKey"
+            android:negativeButtonText="@string/cancel"
+            android:title="@string/unit" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/toe_unit"
+            android:entries="@array/toeUnitEntry"
+            android:entryValues="@array/toeUnitEntryValue"
+            android:key="toeUnitKey"
+            android:negativeButtonText="@string/cancel"
+            android:title="@string/toe_unit" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

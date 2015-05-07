@@ -77,5 +77,11 @@
     <string name="fax">传真</string>
     <string name="post_code">邮编</string>
     <string name="repair_man">维修员</string>
+    <string name="standard_print">标准打印</string>
+    <string name="mini_print">迷你打印</string>
+    <string name="unit">单位</string>
+    <string name="toe_unit">前束角单位</string>
+    <string name="unit1">百分度(°)</string>
+    <string name="unit2">度分(°\')</string>
 
 </resources>

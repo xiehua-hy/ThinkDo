@@ -23,7 +23,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#ccc" />
+            android:background="@color/divider" />
 
         <com.thinkdo.view.BarItem
             android:id="@+id/bar_garageSet"
@@ -35,7 +35,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#ccc" />
+            android:background="@color/divider" />
 
         <com.thinkdo.view.BarItem
             android:id="@+id/bar_printSet"
@@ -43,5 +43,18 @@
             android:layout_height="wrap_content"
             skd:barIcon="@drawable/ic_print"
             skd:barTitle="@string/print_set" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider" />
+
+        <com.thinkdo.view.BarItem
+            android:id="@+id/bar_addcar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            skd:barIcon="@drawable/if_addcar"
+            skd:barTitle="@string/add_car" />
+
     </LinearLayout>
 </ScrollView>
