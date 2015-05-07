@@ -28,28 +28,28 @@
         android:padding="16dp">
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/et_ip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:gravity="center"
-            android:hint="@string/ip"
+            android:hint="@string/ip_hint"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLength="15"
             android:textSize="24sp" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/et_port"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:hint="@string/port"
-            android:imeOptions="actionNext"
+            android:hint="@string/port_hint"
+            android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="5"
             android:textSize="24sp" />
@@ -61,7 +61,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@id/btn_save"
+                android:id="@+id/btn_reset"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="150sp"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                 android:textSize="24sp" />
 
             <Button
-                android:id="@id/btn_reset"
+                android:id="@id/btn_save"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="150sp"
                 android:layout_height="wrap_content"

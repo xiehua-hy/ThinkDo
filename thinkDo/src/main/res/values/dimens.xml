@@ -20,7 +20,7 @@
     <dimen name="kingpin_btn_margin_right">32dp</dimen>
     <dimen name="kingpin_btn_margin_bottom">32dp</dimen>
     <dimen name="kingpin_btn_font_size">18sp</dimen>
-    <dimen name="raise_btn_font_size">15sp</dimen>
+    <dimen name="raise_btn_font_size">13sp</dimen>
     <dimen name="window_real_width">126dp</dimen>
     <dimen name="window_real_height">77dp</dimen>
     <dimen name="window_real_tv_font_size">12sp</dimen>
@@ -32,4 +32,9 @@
     <dimen name="print_title_font_size">20sp</dimen>
     <dimen name="print_btn_width">150dp</dimen>
     <dimen name="print_btn_height">50dp</dimen>
+    <dimen name="fast_test_margin">0dp</dimen>
+    <dimen name="window_special_title_font_size">13sp</dimen>
+    <dimen name="window_special_image_dimen">35dp</dimen>
+    <dimen name="window_special_tv_width">84sp</dimen>
+    <dimen name="window_special_result_font_size">21sp</dimen>
 </resources>

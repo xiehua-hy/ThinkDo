@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ib_test"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal">
+
+    <com.thinkdo.view.WindowSpecial
+        android:id="@+id/leftLateralDeviation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_gravity="center_vertical"
+        skd:specialSrc="@drawable/if_wheelbase_1"
+        skd:specialTitle="@string/leftLateralDeviation" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/wheelbaseDiff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            skd:specialSrc="@drawable/if_wheelbase_2"
+            skd:specialTitle="@string/wheelbase_diff" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/fontFlinchAngle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            skd:specialSrc="@drawable/if_wheelbase_3"
+            skd:specialTitle="@string/fontFlinchAngle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/axleOffset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            skd:specialSrc="@drawable/if_wheelbase_4"
+            skd:specialTitle="@string/axleOffset" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/rearFlinchAngle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            skd:specialSrc="@drawable/if_wheelbase_5"
+            skd:specialTitle="@string/rearFlinchAngle" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical">
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/wheelDiff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            skd:specialSrc="@drawable/if_wheelbase_6"
+            skd:specialTitle="@string/wheel_diff" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <com.thinkdo.view.WindowSpecial
+            android:id="@+id/rightLateralDeviation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"
+            skd:specialSrc="@drawable/if_wheelbase_7"
+            skd:specialTitle="@string/rightLateralDeviation" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
+    </LinearLayout>
+</LinearLayout>

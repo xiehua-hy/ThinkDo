@@ -22,4 +22,9 @@
         <attr name="PrintTitle" format="string" />
         <attr name="PrintContentBg" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="WindowSpecial">
+        <attr name="specialTitle" format="string" />
+        <attr name="specialSrc" format="reference" />
+    </declare-styleable>
 </resources>

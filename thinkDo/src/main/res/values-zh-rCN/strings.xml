@@ -11,8 +11,8 @@
     <string name="about">关于</string>
     <string name="exit">退出</string>
     <string name="host_address_set">主机地址设置</string>
-    <string name="ip">IP</string>
-    <string name="port">端口号</string>
+    <string name="ip_hint">IP或主机名</string>
+    <string name="port_hint">端口号</string>
     <string name="save">保存</string>
     <string name="reset">清空</string>
     <string name="about_explain">顺易公司版权所有，侵权必究！</string>
@@ -60,6 +60,22 @@
     <string name="right_turn_angle">右转20度前张角</string>
     <string name="left_max_turn_angle">左转最大转向角</string>
     <string name="right_max_turn_angle">右转最大转向角</string>
-
+    <string name="rightLateralDeviation">右侧横向偏位</string>
+    <string name="leftLateralDeviation">左侧横向偏位</string>
+    <string name="fontFlinchAngle">前轮退缩角</string>
+    <string name="rearFlinchAngle">后轮退缩角</string>
+    <string name="axleOffset">轴偏位</string>
+    <string name="tip_add_data">确定添加数据？</string>
+    <string name="sure">确定</string>
+    <string name="cancel">取消</string>
+    <string name="tip_data_cannot_null">数据不能为空</string>
+    <string name="tip_data_success_save">保存成功</string>
+    <string name="garage_information">店面资料设置</string>
+    <string name="garage_name">店名</string>
+    <string name="address">地址</string>
+    <string name="contact_number">电话</string>
+    <string name="fax">传真</string>
+    <string name="post_code">邮编</string>
+    <string name="repair_man">维修员</string>
 
 </resources>

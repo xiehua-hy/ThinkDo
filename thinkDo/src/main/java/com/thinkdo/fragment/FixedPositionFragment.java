@@ -11,6 +11,7 @@ import android.widget.Button;
 import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
+import com.thinkdo.activity.SpecialTestActivity;
 
 public class FixedPositionFragment extends Fragment implements View.OnClickListener {
     @Override
@@ -46,7 +47,8 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_special:
-
+                intent = new Intent(getActivity(), SpecialTestActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_photo:
 

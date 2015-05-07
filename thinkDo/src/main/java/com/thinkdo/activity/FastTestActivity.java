@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.thinkdo.fragment.FastTestFragment;
 import com.thinkdo.fragment.TestResultFragment;
 
 /**
@@ -21,7 +22,7 @@ public class FastTestActivity extends Activity {
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        getFragmentManager().beginTransaction().replace(R.id.frameLayout, new TestResultFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.frameLayout, new FastTestFragment()).commit();
     }
 
     @Override

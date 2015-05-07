@@ -8,14 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -173,8 +171,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_exit:
-                Log.d("TAG", "exit");
-                Toast.makeText(this, "exit", Toast.LENGTH_SHORT).show();
+                finish();
             default:
                 break;
         }

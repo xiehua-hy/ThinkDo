@@ -11,8 +11,8 @@
 	<string name="about">About</string>
 	<string name="exit">Exit</string>
 	<string name="host_address_set">Host Address set</string>
-	<string name="ip">IP</string>
-	<string name="port">Port</string>
+	<string name="ip_hint">host IP or hostName</string>
+	<string name="port_hint">Port</string>
 	<string name="save">Save</string>
 	<string name="reset">Reset</string>
     <string name="about_explain">ThinkDoTech company all right reserved!</string>
@@ -60,5 +60,22 @@
     <string name="right_turn_angle">RightTurnAngle</string>
     <string name="left_max_turn_angle">LeftTurnAngle</string>
     <string name="right_max_turn_angle">RightTurnAngle</string>
+    <string name="leftLateralDeviation">LeftLateralDeviation</string>
+    <string name="rightLateralDeviation">RightLateralDeviation</string>
+    <string name="fontFlinchAngle">FontFlinchAngle</string>
+    <string name="rearFlinchAngle">RearFlinchAngle</string>
+    <string name="axleOffset">AxleOffset</string>
+    <string name="tip_add_data">sure to add data?</string>
+    <string name="sure">Sure</string>
+    <string name="cancel">Cancel</string>
+    <string name="tip_data_cannot_null">Data cannot be empty</string>
+    <string name="tip_data_success_save">success save</string>
+    <string name="garage_information">Garage Information</string>
+    <string name="garage_name">GarageName</string>
+    <string name="address">Address</string>
+    <string name="contact_number">Contact Number</string>
+    <string name="fax">Fax</string>
+    <string name="post_code">Post Code</string>
+    <string name="repair_man">Repair Man</string>
 
 </resources>

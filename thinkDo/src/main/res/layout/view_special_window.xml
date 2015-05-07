@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_window_special"
+    android:orientation="vertical"
+    android:paddingBottom="1dp"
+    android:paddingLeft="1dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/window_special_title_font_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/window_special_image_dimen"
+            android:layout_height="@dimen/window_special_image_dimen"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/divider" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="@dimen/window_special_tv_width"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="@dimen/window_special_result_font_size" />
+    </LinearLayout>
+
+</LinearLayout>
