@@ -5,20 +5,29 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.db.VehicleDbUtil;
+import com.thinkdo.entity.GloVariable;
 
-public class ManufacturerFragment extends Fragment {
+
+public class ManufacturerFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnTouchListener {
     private GridView gridView;
     private final int bitmapDimen = 153;
     private final int countryCount = 3;
     private int count = 3000;
+    private ManufacturerCallback callback;
+    private GestureDetector gesture;
 
     private int[] manuID_CN = {50000, 50072, 50099, 50001, 50002, 50037,
             50005, 50119, 50003, 50028, 50017, 50030, 50007, 50018, 50110,
@@ -37,23 +46,23 @@ public class ManufacturerFragment extends Fragment {
             51009, 51010, 51011, 51012, 51013, 51014, 51015, 51016, 51017,
             51018, 51019};
 
-//    private int[] manuID_EUP = {10000, 10001, 10002, 10003, 10004, 10005,
-//            10006, 10007, 10008, 10009, 10010, 10011, 10012, 10013, 10014,
-//            10015, 10016, 10017, 10018, 10019, 10020, 10021, 10022, 10023,
-//            10024, 10025, 10026, 10027, 10028, 10029, 10030, 10031, 10032,
-//            10033, 10034, 10035, 10036, 10037, 10038, 10039, 10040, 10041,
-//            10042, 10043, 10044, 10045, 10046, 10047, 10048, 10049, 10050,
-//            10051, 10052, 10053, 10054, 10055, 10056, 10057, 10058, 10059,
-//            10060, 10061, 10062, 10063};
-//
-//    private int[] manuID_NA = {30000, 30001, 30002, 30003, 30004, 30005,
-//            30006, 30007, 30008, 30009, 30010, 30011, 30012, 30013, 30014,
-//            30015, 30016, 30017, 30018, 30019, 30020, 30021, 30022, 30023,
-//            30024, 30025, 30026, 30027, 30028, 30029, 30030, 30031, 30032,
-//            30033, 30034, 30035, 30036, 30037, 30038, 30039, 30040, 30041,
-//            30042, 30043, 30044, 30045, 30046, 30047, 30048, 30049, 30050,
-//            30051, 30052, 30053, 30054, 30055, 30056, 30057, 30058, 30059,
-//            30060, 30061};
+    private int[] manuID_EUP = {10000, 10001, 10002, 10003, 10004, 10005,
+            10006, 10007, 10008, 10009, 10010, 10011, 10012, 10013, 10014,
+            10015, 10016, 10017, 10018, 10019, 10020, 10021, 10022, 10023,
+            10024, 10025, 10026, 10027, 10028, 10029, 10030, 10031, 10032,
+            10033, 10034, 10035, 10036, 10037, 10038, 10039, 10040, 10041,
+            10042, 10043, 10044, 10045, 10046, 10047, 10048, 10049, 10050,
+            10051, 10052, 10053, 10054, 10055, 10056, 10057, 10058, 10059,
+            10060, 10061, 10062, 10063};
+
+    private int[] manuID_NA = {30000, 30001, 30002, 30003, 30004, 30005,
+            30006, 30007, 30008, 30009, 30010, 30011, 30012, 30013, 30014,
+            30015, 30016, 30017, 30018, 30019, 30020, 30021, 30022, 30023,
+            30024, 30025, 30026, 30027, 30028, 30029, 30030, 30031, 30032,
+            30033, 30034, 30035, 30036, 30037, 30038, 30039, 30040, 30041,
+            30042, 30043, 30044, 30045, 30046, 30047, 30048, 30049, 30050,
+            30051, 30052, 30053, 30054, 30055, 30056, 30057, 30058, 30059,
+            30060, 30061};
 
     private int[] ImageId_CN = {
             R.drawable.manu_search,
@@ -175,6 +184,12 @@ public class ManufacturerFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        try {
+            callback = (ManufacturerCallback) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(
+                    "Activity must implement ManufacturerCallback.");
+        }
     }
 
     @Override
@@ -195,30 +210,33 @@ public class ManufacturerFragment extends Fragment {
         int padding = (windowWidth % (bitmapWidth + divider)) / 2;
         gridView.setPadding(padding, 0, padding, 0);
         gridView.setAdapter(new MGridAdapter());
+        gridView.setOnItemClickListener(this);
+        gridView.setOnTouchListener(this);
+        gesture = new GestureDetector(getActivity(), new MyGestureListener());
 
     }
 
-//    public String getTip(){
-//        switch (count%countryCount) {
-//            case 0:
-//                return "中国车型";
-//            case 1:
-//                return "美洲车型";
-//            default:
-//                return "欧洲车型";
-//        }
-//    }
+    public String getTip() {
+        switch (count % countryCount) {
+            case 0:
+                return "中国车型";
+            case 1:
+                return "美洲车型";
+            default:
+                return "欧洲车型";
+        }
+    }
 
-//    public int[] getManuID(){
-//        switch (count%countryCount) {
-//            case 0:
-//                return manuID_CN;
-//            case 1:
-//                return manuID_NA;
-//            default:
-//                return manuID_EUP;
-//        }
-//    }
+    public int[] getManuID() {
+        switch (count % countryCount) {
+            case 0:
+                return manuID_CN;
+            case 1:
+                return manuID_NA;
+            default:
+                return manuID_EUP;
+        }
+    }
 
 
     public int[] getImageId() {
@@ -232,14 +250,29 @@ public class ManufacturerFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        if (position == 0) {
-//            //进入搜索栏
-//            return;
-//        }
-//
-//    }
+
+    //点击事件
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
+            //进入搜索栏
+            return;
+        }
+
+        int dbIndex = 0;
+        int manuId = getManuID()[position - 1];
+        String info = new VehicleDbUtil().queryManufacturerInfo(manuId);
+
+        if (callback != null) {
+            callback.onManufacturerItemSelected(String.valueOf(manuId), info, null, dbIndex);
+        }
+
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        return gesture.onTouchEvent(motionEvent);
+    }
 
 
     class MGridAdapter extends BaseAdapter {
@@ -271,6 +304,35 @@ public class ManufacturerFragment extends Fragment {
             imageView.setImageResource(getImageId()[position]);
             return imageView;
         }
+    }
+
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            float yRel = Math.abs(e1.getY() - e2.getY());
+            float xRel = e1.getX() - e2.getX();
+            if (Math.abs(xRel) > 80) {
+                if (xRel - yRel > 0) {
+                    count--;
+                    gridDataChanged();
+                    return true;
+                } else if (xRel + yRel < 0) {
+                    count++;
+                    gridDataChanged();
+                    return true;
+                }
+            }
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+    }
+
+    public void gridDataChanged() {
+        ((BaseAdapter) gridView.getAdapter()).notifyDataSetChanged();
+        Toast.makeText(GloVariable.context, getTip(), Toast.LENGTH_SHORT).show();
+    }
+
+    public interface ManufacturerCallback {
+        void onManufacturerItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex);
     }
 
 

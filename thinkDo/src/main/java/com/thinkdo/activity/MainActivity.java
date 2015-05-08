@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -12,11 +13,12 @@ import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.ManufacturerFragment;
+import com.thinkdo.fragment.ManufacturerFragment.ManufacturerCallback;
 import com.thinkdo.fragment.PushCarFragment;
 import com.thinkdo.fragment.RearAxleShowFragment;
 import com.thinkdo.fragment.TestResultFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback {
     private int preCheckedRadio = R.id.radio_pick;
 
     @Override
@@ -109,4 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
     }
 
+    @Override
+    public void onManufacturerItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex) {
+
+    }
 }

@@ -35,7 +35,7 @@ public class GarageFragment extends Fragment {
         final EditText fax = (EditText) view.findViewById(R.id.et_garageFax);
         final EditText repairMan = (EditText) view.findViewById(R.id.et_garageRepairman);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
 
         name.setText(shared.getString(GloVariable.garageNameKey, GloVariable.emptyString));
         address.setText(shared.getString(GloVariable.garageAddressKey, GloVariable.emptyString));
@@ -52,7 +52,7 @@ public class GarageFragment extends Fragment {
                 String garageAddress = address.getText().toString();
                 String garageContactNum = contactNum.getText().toString();
 
-                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
                 final SharedPreferences.Editor edit = shared.edit();
                 edit.putString(GloVariable.garageNameKey, garageName);
                 edit.putString(GloVariable.garageAddressKey, garageAddress);
@@ -69,7 +69,7 @@ public class GarageFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 edit.apply();
-                                Toast.makeText(getActivity(), R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(GloVariable.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             }
                         })

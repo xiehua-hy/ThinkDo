@@ -32,7 +32,7 @@ public class HostSetActivity extends Activity implements View.OnClickListener {
         et_ip = (EditText) findViewById(R.id.et_ip);
         et_port = (EditText) findViewById(R.id.et_port);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
         String ip = shared.getString(GloVariable.hostIpKey, GloVariable.defaultIp);
         String port = String.valueOf(shared.getInt(GloVariable.hostPortKey, GloVariable.defaultPort));
 
@@ -78,13 +78,13 @@ public class HostSetActivity extends Activity implements View.OnClickListener {
                                     Toast.makeText(getApplicationContext(), R.string.tip_data_cannot_null, Toast.LENGTH_SHORT).show();
                                 } else {
                                     int newPort = Integer.parseInt(port);
-                                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+                                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(GloVariable.context).edit();
                                     edit.putString(GloVariable.hostIpKey, ip);
                                     edit.putInt(GloVariable.hostPortKey, newPort);
                                     edit.apply();
                                     GloVariable.ip = ip;
                                     GloVariable.port = newPort;
-                                    Toast.makeText(getApplicationContext(), R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(GloVariable.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
 

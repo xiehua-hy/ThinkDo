@@ -1,5 +1,7 @@
 package com.thinkdo.entity;
 
+import android.content.Context;
+
 /**
  * Created by Administrator on 2015/5/7.
  */
@@ -22,6 +24,10 @@ public class GloVariable {
     public static final int defaultPort = 6000;
 
     //other
+    public static final String carSqliteName = "SKDDATA.db";
+    public static final String customSqliteName = "SKDSELFDATA.db";
+
+    public static Context context;
     public static final String emptyString = "";
     public static String ip = defaultIp;
     public static int port = defaultPort;

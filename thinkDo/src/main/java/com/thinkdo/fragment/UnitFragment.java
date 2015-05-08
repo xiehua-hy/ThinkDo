@@ -31,7 +31,7 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
 
      public void loadSummary(String key){
          String[] array = getResources().getStringArray(R.array.toeUnitEntry);
-         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
          if (array == null || shared == null) return;
          ListPreference listPre= (ListPreference) findPreference(key);
          switch (shared.getString(key , "0")){

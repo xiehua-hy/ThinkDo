@@ -29,7 +29,7 @@ public class PrintSetFragment extends Fragment {
         RadioButton mini = (RadioButton) view.findViewById(R.id.radio_mini);
         RadioButton standard = (RadioButton) view.findViewById(R.id.radio_standard);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
         int currentValues = shared.getInt(GloVariable.printSetKey, 0);
 
         switch (currentValues) {
@@ -46,7 +46,7 @@ public class PrintSetFragment extends Fragment {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
                 SharedPreferences.Editor edit = shared.edit();
 
                 switch (checkedId) {
