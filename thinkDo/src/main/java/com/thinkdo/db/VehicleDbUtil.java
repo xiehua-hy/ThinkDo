@@ -171,7 +171,7 @@ public class VehicleDbUtil {
 
             data.setRearTotalToe(new ValuesPair(rearTotalToeMin, rearTotalToe, rearTotalToeMax));
             data.setLeftRearToe(new ValuesPair(data.getRearTotalToe()));
-            data.setRightRearToe(data.getRightRearToe());
+            data.setRightRearToe(data.getLeftRearToe().copy());
 
             data.setLeftRearCamber(new ValuesPair(leftRearCamberMin, leftRearCamber, leftRearCamberMax));
             data.setRightRearCamber(new ValuesPair(rightRearCamberMin, rightRearCamber, rightRearCamberMax));
