@@ -219,11 +219,11 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     public String getTip() {
         switch (count % countryCount) {
             case 0:
-                return "中国车型";
+                return getResources().getString(R.string.tip_chinese_vehicle);
             case 1:
-                return "美洲车型";
+                return getResources().getString(R.string.tip_american_vehicle);
             default:
-                return "欧洲车型";
+                return getResources().getString(R.string.tip_european_vehicle);
         }
     }
 
@@ -293,13 +293,13 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View view, ViewGroup parent) {
             ImageView imageView;
-            if (convertView == null) {
+            if (view == null) {
                 imageView = new ImageView(getActivity());
                 imageView.setScaleType(ImageView.ScaleType.CENTER);
             } else {
-                imageView = (ImageView) convertView;
+                imageView = (ImageView) view;
             }
             imageView.setImageResource(getImageId()[position]);
             return imageView;

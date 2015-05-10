@@ -83,5 +83,22 @@
     <string name="toe_unit">前束角单位</string>
     <string name="unit1">百分度(°)</string>
     <string name="unit2">度分(°\')</string>
+    <string name="tip_chinese_vehicle">中国车</string>
+    <string name="tip_american_vehicle">美洲车</string>
+    <string name="tip_european_vehicle">欧洲车</string>
+    <string name="front">前轮</string>
+    <string name="rear">后轮</string>
+    <string name="min">最小值</string>
+    <string name="max">最大值</string>
+    <string name="mid">标准值</string>
+    <string name="toe">前束角</string>
+    <string name="camber">外倾角</string>
+    <string name="caster">后倾角</string>
+    <string name="kpi">内倾角</string>
+    <string name="totalToe">总前束角</string>
+    <string name="max_thrust_angle">最大推力角</string>
+    <string name="front_wheel">前轮距</string>
+    <string name="rearWheel">后轮距</string>
+    <string name="wheelbase">轴距</string>
 
 </resources>

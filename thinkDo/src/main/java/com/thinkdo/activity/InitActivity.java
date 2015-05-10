@@ -2,9 +2,12 @@ package com.thinkdo.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.UnitEnum;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -24,6 +27,13 @@ public class InitActivity extends Activity {
     }
 
     private void init() {
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+
+        GloVariable.ip = shared.getString(GloVariable.hostIpKey, GloVariable.defaultIp);
+        GloVariable.port = shared.getInt(GloVariable.hostPortKey, GloVariable.defaultPort);
+        GloVariable.unit = UnitEnum.getUnitFromValue(shared.getString(GloVariable.unitKey, "0"));
+        GloVariable.toeUnit = UnitEnum.getUnitFromValue(shared.getString(GloVariable.toeUnitKey, "0"));
+
         File sqliteCustom = getDatabasePath(GloVariable.customSqliteName);
         File sqliteCar = getDatabasePath(GloVariable.carSqliteName);
 

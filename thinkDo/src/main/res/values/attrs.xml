@@ -27,4 +27,16 @@
         <attr name="specialTitle" format="string" />
         <attr name="specialSrc" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="BarReferData">
+        <attr name="referTitle" format="string" />
+        <attr name="referLeftMinText" format="string" />
+        <attr name="referLeftMidText" format="string" />
+        <attr name="referLeftMaxText" format="string" />
+        <attr name="referRightMinText" format="string" />
+        <attr name="referRightMidText" format="string" />
+        <attr name="referRightMaxText" format="string" />
+        <attr name="referTitleFontColor" format="color" />
+        <attr name="referDefaultBg" format="boolean" />
+    </declare-styleable>
 </resources>

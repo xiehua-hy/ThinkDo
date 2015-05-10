@@ -32,4 +32,6 @@
     <dimen name="window_special_image_dimen">50dp</dimen>
     <dimen name="window_special_tv_width">120sp</dimen>
     <dimen name="window_special_result_font_size">30sp</dimen>
+    <dimen name="bar_refer_title_font_size">20sp</dimen>
+    <dimen name="bar_refer_content_font_size">18sp</dimen>
 </resources>

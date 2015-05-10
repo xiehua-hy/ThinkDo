@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="1"
+        android:ellipsize="marquee"
+        android:gravity="end|center_horizontal"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_title_font_size" />
+
+    <TextView
+        android:id="@+id/tv_leftMin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#FFFFCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_content_font_size" />
+
+    <TextView
+        android:id="@+id/tv_leftMid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#66CCCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_content_font_size" />
+
+    <TextView
+        android:id="@+id/tv_leftMax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#FFFFCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_content_font_size" />
+
+    <TextView
+        android:id="@+id/tv_rightMin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_weight="1"
+        android:background="#FFFFCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_rightMid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#66CCCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_content_font_size" />
+
+    <TextView
+        android:id="@+id/tv_rightMax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#FFFFCC"
+        android:gravity="center"
+        android:maxLength="8"
+        android:singleLine="true"
+        android:textSize="@dimen/bar_refer_content_font_size" />
+
+</LinearLayout>

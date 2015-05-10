@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.UnitEnum;
 
 
 /**
@@ -29,28 +30,43 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
         loadSummary(key);
     }
 
-     public void loadSummary(String key){
-         String[] array = getResources().getStringArray(R.array.toeUnitEntry);
-         SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
-         if (array == null || shared == null) return;
-         ListPreference listPre= (ListPreference) findPreference(key);
-         switch (shared.getString(key , "0")){
-             case "0":
-                 listPre.setSummary(array[0]);
-                 break;
-             case "1":
-                 listPre.setSummary(array[1]);
-                 break;
-             case "2":
-                 listPre.setSummary(array[2]);
-                 break;
-             case "3":
-                 listPre.setSummary(array[3]);
-                 break;
-             default:
-                 break;
-         }
-     }
+    public void loadSummary(String key) {
+        String[] array = getResources().getStringArray(R.array.toeUnitEntry);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+        if (array == null || shared == null) return;
+        ListPreference listPre = (ListPreference) findPreference(key);
+
+        UnitEnum unit = UnitEnum.getUnitFromValue(shared.getString(key, "0"));
+
+        switch (unit) {
+            case degreeSecond:
+                listPre.setSummary(array[0]);
+                break;
+            case degree:
+                listPre.setSummary(array[1]);
+                break;
+            case mm:
+                listPre.setSummary(array[2]);
+                break;
+            case inch:
+                listPre.setSummary(array[3]);
+                break;
+            default:
+                break;
+        }
+        recordCurUnit(key, unit);
+    }
+
+    public void recordCurUnit(String key, UnitEnum unit) {
+        switch (key) {
+            case GloVariable.unitKey:
+                GloVariable.unit = unit;
+                break;
+            case GloVariable.toeUnitKey:
+                GloVariable.toeUnit = unit;
+                break;
+        }
+    }
 
     @Override
     public void onDestroy() {

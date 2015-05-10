@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.thinkdo.activity.InitActivity"
-            android:screenOrientation="sensorLandscape">
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:screenOrientation="sensorLandscape" />
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
         <activity
             android:name="com.thinkdo.activity.HostSetActivity"
             android:screenOrientation="sensorLandscape" />

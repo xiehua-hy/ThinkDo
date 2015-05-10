@@ -29,7 +29,11 @@ public class GloVariable {
 
     public static Context context;
     public static final String emptyString = "";
+    public static final String initValue = "99.99";
     public static String ip = defaultIp;
     public static int port = defaultPort;
+
+    public static UnitEnum unit;
+    public static UnitEnum toeUnit;
 
 }

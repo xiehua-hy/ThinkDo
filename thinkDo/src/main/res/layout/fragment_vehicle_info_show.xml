@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="32dp"
+        android:paddingEnd="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingStart="8dp"
+        android:paddingTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_explain"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_form_refer"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_front"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referLeftMaxText="@string/max"
+                skd:referLeftMidText="@string/mid"
+                skd:referLeftMinText="@string/min"
+                skd:referRightMaxText="@string/max"
+                skd:referRightMidText="@string/mid"
+                skd:referRightMinText="@string/min"
+                skd:referTitle="@string/front"
+                skd:referTitleFontColor="@color/font_red_holo" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_frontSingleToe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/toe" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_frontCamber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/camber" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_caster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/caster" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_kpi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/kpi" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_frontTotalToe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/totalToe" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_form_refer"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_rear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referLeftMaxText="@string/max"
+                skd:referLeftMidText="@string/mid"
+                skd:referLeftMinText="@string/min"
+                skd:referRightMaxText="@string/max"
+                skd:referRightMidText="@string/mid"
+                skd:referRightMinText="@string/min"
+                skd:referTitle="@string/rear"
+                skd:referTitleFontColor="@color/font_red_holo" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_rearSingleToe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/toe" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_rearCamber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/camber" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_rearTotalToe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referTitle="@string/totalToe" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/shape_form_refer"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp">
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_maxThrust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referDefaultBg="true"
+                skd:referTitle="@string/max_thrust_angle" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_wheelbase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referDefaultBg="true"
+                skd:referTitle="@string/wheelbase" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_frontWheel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referDefaultBg="true"
+                skd:referTitle="@string/front_wheel" />
+
+            <com.thinkdo.view.BarReferData
+                android:id="@+id/bar_rearWheel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                skd:referDefaultBg="true"
+                skd:referTitle="@string/rearWheel" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/selector_next_btn"
+            android:text="@string/next"
+            android:textColor="@color/font_black" />
+
+    </LinearLayout>
+</ScrollView>
