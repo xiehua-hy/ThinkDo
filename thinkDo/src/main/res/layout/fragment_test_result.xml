@@ -36,13 +36,14 @@
             android:id="@+id/window_leftFrontToe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/left_front_toe" />
 
         <com.thinkdo.view.WindowRealTime
             android:id="@+id/window_leftKPI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/left_kpi" />
 
         <com.thinkdo.view.WindowRealTime
@@ -56,7 +57,7 @@
             android:id="@+id/window_leftRearToe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/left_rear_toe" />
     </LinearLayout>
 
@@ -70,6 +71,7 @@
             android:id="@+id/window_frontTotalToe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/front_total_toe" />
 
         <com.thinkdo.view.ButtonRaise
@@ -99,13 +101,14 @@
             android:id="@+id/window_rightFrontToe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/right_front_toe" />
 
         <com.thinkdo.view.WindowRealTime
             android:id="@+id/window_rightKPI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/right_kpi" />
 
         <com.thinkdo.view.WindowRealTime
@@ -119,7 +122,7 @@
             android:id="@+id/window_rightRearToe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             skd:RealTimeTitle="@string/right_rear_toe" />
     </LinearLayout>
 
