@@ -157,7 +157,7 @@ public class VehicleDbUtil {
             float thrustAngleMax = cur.getFloat(cur.getColumnIndex("Specs57"));
 
             data.setFrontTotalToe(new ValuesPair(frontTotalToeMin, frontTotalToe, frontTotalToeMax));
-            data.setLeftFrontToe(new ValuesPair(data.getFrontTotalToe()));
+            data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
             data.setRightFrontToe(data.getLeftFrontToe().copy());
 
             data.setLeftFrontCamber(new ValuesPair(leftFrontCamberMin, leftFrontCamber, leftFrontCamberMax));
@@ -170,7 +170,7 @@ public class VehicleDbUtil {
             data.setRightKpi(new ValuesPair(rightKPIMin, rightKPI, rightKPIMax));
 
             data.setRearTotalToe(new ValuesPair(rearTotalToeMin, rearTotalToe, rearTotalToeMax));
-            data.setLeftRearToe(new ValuesPair(data.getRearTotalToe()));
+            data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
             data.setRightRearToe(data.getLeftRearToe().copy());
 
             data.setLeftRearCamber(new ValuesPair(leftRearCamberMin, leftRearCamber, leftRearCamberMax));

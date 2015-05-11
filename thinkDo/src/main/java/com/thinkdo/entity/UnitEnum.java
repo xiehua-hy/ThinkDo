@@ -11,7 +11,7 @@ public enum UnitEnum {
 
     private String value;
 
-    private UnitEnum(String value) {
+    UnitEnum(String value) {
         this.value = value;
     }
 
@@ -28,6 +28,20 @@ public enum UnitEnum {
             case "2":
                 return mm;
             case "3":
+                return inch;
+        }
+        return degreeSecond;
+    }
+
+    public static UnitEnum getUnitFromValue(int value) {
+        switch (value) {
+            case 0:
+                return degreeSecond;
+            case 1:
+                return degree;
+            case 2:
+                return mm;
+            case 3:
                 return inch;
         }
         return degreeSecond;

@@ -30,33 +30,34 @@ public class VehicleInfoShow extends Fragment {
 
     private void initView() {
         BarReferData bar;
-
+        ReferData copy = data.copy();
+        copy.unitConvert();
         bar = (BarReferData) view.findViewById(R.id.bar_frontTotalToe);
-        bar.setAllValues(data.getFrontTotalToe(), null);
+        bar.setAllValues(copy.getFrontTotalToe(), null);
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontSingleToe);
-        bar.setAllValues(data.getLeftFrontToe(), data.getRightFrontToe());
+        bar.setAllValues(copy.getLeftFrontToe(), copy.getRightFrontToe());
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontCamber);
-        bar.setAllValues(data.getLeftFrontCamber(), data.getRightFrontCamber());
+        bar.setAllValues(copy.getLeftFrontCamber(), copy.getRightFrontCamber());
 
         bar = (BarReferData) view.findViewById(R.id.bar_caster);
-        bar.setAllValues(data.getLeftCaster(), data.getRightCaster());
+        bar.setAllValues(copy.getLeftCaster(), copy.getRightCaster());
 
         bar = (BarReferData) view.findViewById(R.id.bar_kpi);
-        bar.setAllValues(data.getLeftKpi(), data.getRightKpi());
+        bar.setAllValues(copy.getLeftKpi(), copy.getRightKpi());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearTotalToe);
-        bar.setAllValues(data.getRearTotalToe(), null);
+        bar.setAllValues(copy.getRearTotalToe(), null);
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearSingleToe);
-        bar.setAllValues(data.getLeftRearToe(), data.getRightRearToe());
+        bar.setAllValues(copy.getLeftRearToe(), copy.getRightRearToe());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearCamber);
-        bar.setAllValues(data.getLeftRearCamber(), data.getRightRearCamber());
+        bar.setAllValues(copy.getLeftRearCamber(), copy.getRightRearCamber());
 
         bar = (BarReferData) view.findViewById(R.id.bar_maxThrust);
-        bar.setLeftMinText(data.getMaxThrust());
+        bar.setLeftMinText(copy.getMaxThrust());
     }
 
     public void setVehicleId(String vehicleId) {

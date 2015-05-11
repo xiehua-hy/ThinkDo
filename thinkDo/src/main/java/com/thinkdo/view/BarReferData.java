@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ValuesPair;
 
 /**
@@ -16,6 +17,7 @@ import com.thinkdo.entity.ValuesPair;
  */
 public class BarReferData extends LinearLayout {
     private TextView title, leftMin, leftMid, leftMax, rightMin, rightMid, rightMax;
+    private final String initSign = "—";
 
     public BarReferData(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -71,27 +73,51 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setLeftMinText(String text) {
-        leftMin.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            leftMin.setText(initSign);
+        } else {
+            leftMin.setText(text);
+        }
     }
 
     public void setLeftMidText(String text) {
-        leftMid.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            leftMid.setText(initSign);
+        } else {
+            leftMid.setText(text);
+        }
     }
 
     public void setLeftMaxText(String text) {
-        leftMax.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            leftMax.setText(initSign);
+        } else {
+            leftMax.setText(text);
+        }
     }
 
     public void setRightMinText(String text) {
-        rightMin.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            rightMin.setText(initSign);
+        } else {
+            rightMin.setText(text);
+        }
     }
 
     public void setRightMidText(String text) {
-        rightMid.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            rightMid.setText(initSign);
+        } else {
+            rightMid.setText(text);
+        }
     }
 
     public void setRightMaxText(String text) {
-        rightMax.setText(text);
+        if (text.equals(GloVariable.initValue)) {
+            rightMax.setText(initSign);
+        } else {
+            rightMax.setText(text);
+        }
     }
 
     public void setAllValues(ValuesPair left, ValuesPair right) {

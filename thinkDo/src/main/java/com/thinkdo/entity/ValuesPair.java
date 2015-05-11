@@ -29,32 +29,60 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param fmax 下偏差
      */
     public ValuesPair(float fmin, float fmid, float fmax) {
+        this(fmin, fmid, fmax, false);
+    }
+
+    /**
+     * @param flag 当flag为true时, fmin,fmax表示最小值,最大值;
+     *             否则fmin,fmax表示下偏差,上偏差
+     */
+    public ValuesPair(float fmin, float fmid, float fmax, boolean flag) {
         String smid = format(fmid);
         if (isInitValue(smid)) {
             init();
             return;
         }
+
         mid = smid;
         if (isInitValue(format(fmin))) {
             min = mid;
             max = mid;
+            return;
+        }
+
+        if (flag) {
+            min = format(fmin);
+            max = format(fmax);
         } else {
             min = format(fmid - fmin);
             max = format(fmid + fmax);
         }
+
     }
 
     /**
-     * 由总前束生成前束角
+     * 把自己当成总前束 产生一个 单前束
      */
-    public ValuesPair(ValuesPair totalToe) {
-        if (totalToe.getMid().equals(GloVariable.initValue)) {
-            init();
+    public ValuesPair generateSingleToe() {
+        if (mid.equals(GloVariable.initValue)) {
+            return new ValuesPair();
         } else {
-            min = format(Float.parseFloat(totalToe.getMin()) / 2);
-            mid = format(Float.parseFloat(totalToe.getMid()) / 2);
-            max = format(Float.parseFloat(totalToe.getMax()) / 2);
+            return new ValuesPair(format(Float.parseFloat(min) / 2),
+                    format(Float.parseFloat(mid) / 2),
+                    format(Float.parseFloat(max) / 2));
         }
+    }
+
+    /**
+     * 与 valuesPair 合并
+     * 如果valuesPair的值不为初始值的话,则将值替换成valuesPair的值;
+     */
+    public void combine(ValuesPair valuesPair) {
+        if (valuesPair.getMid().equals(GloVariable.initValue)) return;
+
+        min = valuesPair.getMin();
+        mid = valuesPair.getMid();
+        max = valuesPair.getMax();
     }
 
     private void init() {
@@ -123,6 +151,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @return String
      */
     private String unitConvert(String angle, UnitEnum unit) {
+        if (angle.equals(GloVariable.initValue)) return angle;
         float val = Float.parseFloat(angle);
 
         switch (unit) {
