@@ -109,9 +109,9 @@ public class VehicleDbUtil {
             data.setVehicleInfo(cur.getString(cur.getColumnIndex("Model5")));
         }
 
-        String sqlwhere = String.format("Specs1 = (select Model15 from StandTypelevel where Model1= %s )", modelId);
+        String sqlWhere = String.format("Specs1 = (select Model15 from StandTypelevel where Model1= %s )", modelId);
 
-        cur = db.query("Standdeterment", null, sqlwhere, null, null, null, null);
+        cur = db.query("Standdeterment", null, sqlWhere, null, null, null, null);
         if (cur.moveToNext()) {
 
             float leftCaster = cur.getFloat(cur.getColumnIndex("Specs2"));
@@ -179,8 +179,26 @@ public class VehicleDbUtil {
             data.setMaxThrust(CommonUtil.format(thrustAngleMax, 2));
         }
 
+        sqlWhere = String.format("Dimension1 = (select Model21 from StandTypelevel where Model1= %s)", modelId);
+
+        cur = db.query("StandDimensiontype", null, sqlWhere, null, null, null, null);
+        if (cur.moveToFirst()) {
+            float wheelbase = cur.getFloat(cur.getColumnIndex("Dimension20"));
+            float frontWheel = cur.getFloat(cur.getColumnIndex("Dimension14"));
+            float rearWheel = cur.getFloat(cur.getColumnIndex("Dimension17"));
+
+            data.setWheelbase(dataInitHandle(wheelbase, 0));
+            data.setFrontWheel(dataInitHandle(frontWheel, 0));
+            data.setRearWheel(dataInitHandle(rearWheel, 0));
+        }
         cur.close();
         db.close();
         return data;
+    }
+
+    public String dataInitHandle(float value, int num) {
+        if (CommonUtil.format(value, 2).equals(GloVariable.initValue)) return GloVariable.initValue;
+
+        return CommonUtil.format(value, num);
     }
 }

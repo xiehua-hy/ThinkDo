@@ -24,38 +24,38 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     /**
-     * @param fmin 上偏差
-     * @param fmid 标准值
-     * @param fmax 下偏差
+     * @param nTol 下偏差
+     * @param fMid 标准值
+     * @param pTol 上偏差
      */
-    public ValuesPair(float fmin, float fmid, float fmax) {
-        this(fmin, fmid, fmax, false);
+    public ValuesPair(float nTol, float fMid, float pTol) {
+        this(nTol, fMid, nTol, false);
     }
 
     /**
-     * @param flag 当flag为true时, fmin,fmax表示最小值,最大值;
-     *             否则fmin,fmax表示下偏差,上偏差
+     * @param flag 当flag为true时, fMin,fMax表示最小值,最大值;
+     *             否则fMin,fMax表示下偏差,上偏差
      */
-    public ValuesPair(float fmin, float fmid, float fmax, boolean flag) {
-        String smid = format(fmid);
-        if (isInitValue(smid)) {
+    public ValuesPair(float fMin, float fMid, float fMax, boolean flag) {
+        String sMid = format(fMid);
+        if (isInitValue(sMid)) {
             init();
             return;
         }
 
-        mid = smid;
-        if (isInitValue(format(fmin))) {
+        mid = sMid;
+        if (isInitValue(format(fMin))) {
             min = mid;
             max = mid;
             return;
         }
 
         if (flag) {
-            min = format(fmin);
-            max = format(fmax);
+            min = format(fMin);
+            max = format(fMax);
         } else {
-            min = format(fmid - fmin);
-            max = format(fmid + fmax);
+            min = format(fMid - fMin);
+            max = format(fMid + fMax);
         }
 
     }

@@ -58,6 +58,16 @@ public class VehicleInfoShow extends Fragment {
 
         bar = (BarReferData) view.findViewById(R.id.bar_maxThrust);
         bar.setLeftMinText(copy.getMaxThrust());
+
+        bar = (BarReferData) view.findViewById(R.id.bar_wheelbase);
+        bar.setLeftMinText(copy.getWheelbase());
+
+        bar = (BarReferData) view.findViewById(R.id.bar_frontWheel);
+        bar.setLeftMinText(copy.getFrontWheel());
+
+        bar = (BarReferData) view.findViewById(R.id.bar_rearWheel);
+        bar.setLeftMinText(copy.getRearWheel());
+
     }
 
     public void setVehicleId(String vehicleId) {

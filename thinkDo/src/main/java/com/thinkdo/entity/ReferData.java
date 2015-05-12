@@ -44,8 +44,18 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
 
     //特殊参数
     private String maxThrust;
+
+    private String wheelbase;
     private String frontWheel;
     private String rearWheel;
+
+    public String getWheelbase() {
+        return wheelbase;
+    }
+
+    public void setWheelbase(String wheelbase) {
+        this.wheelbase = wheelbase;
+    }
 
     @Override
     public ReferData copy() {
@@ -62,6 +72,7 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
         copy.setEndYear(endYear);
 
         copy.setMaxThrust(maxThrust);
+        copy.setWheelbase(wheelbase);
         copy.setFrontWheel(frontWheel);
         copy.setRearWheel(rearWheel);
 
