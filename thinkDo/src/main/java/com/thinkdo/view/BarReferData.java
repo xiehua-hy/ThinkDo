@@ -12,9 +12,6 @@ import com.thinkdo.activity.R;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ValuesPair;
 
-/**
- * Created by xh on 15/5/10.
- */
 public class BarReferData extends LinearLayout {
     private TextView title, leftMin, leftMid, leftMax, rightMin, rightMid, rightMax;
     private final String initSign = "—";
@@ -73,6 +70,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setLeftMinText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             leftMin.setText(initSign);
         } else {
@@ -81,6 +79,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setLeftMidText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             leftMid.setText(initSign);
         } else {
@@ -89,6 +88,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setLeftMaxText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             leftMax.setText(initSign);
         } else {
@@ -97,6 +97,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setRightMinText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             rightMin.setText(initSign);
         } else {
@@ -105,6 +106,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setRightMidText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             rightMid.setText(initSign);
         } else {
@@ -113,6 +115,7 @@ public class BarReferData extends LinearLayout {
     }
 
     public void setRightMaxText(String text) {
+        if (text == null) return;
         if (text.equals(GloVariable.initValue)) {
             rightMax.setText(initSign);
         } else {

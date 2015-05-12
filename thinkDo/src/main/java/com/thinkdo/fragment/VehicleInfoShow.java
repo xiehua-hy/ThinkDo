@@ -12,9 +12,6 @@ import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.view.BarReferData;
 
-/**
- * Created by xh on 15/5/10.
- */
 public class VehicleInfoShow extends Fragment {
     private VehicleInfoCallback callback;
     public static ReferData data;
@@ -29,9 +26,12 @@ public class VehicleInfoShow extends Fragment {
     }
 
     private void initView() {
-        BarReferData bar;
+        if (data == null) return;
+
         ReferData copy = data.copy();
         copy.unitConvert();
+
+        BarReferData bar;
         bar = (BarReferData) view.findViewById(R.id.bar_frontTotalToe);
         bar.setAllValues(copy.getFrontTotalToe(), null);
 
