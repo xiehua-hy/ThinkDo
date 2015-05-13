@@ -100,5 +100,13 @@
     <string name="front_wheel">FrontWheel</string>
     <string name="rearWheel">RearWheel</string>
     <string name="wheelbase">Wheelbase</string>
-
+    <string name="default_signal" translatable="false">—</string>
+    <string name="attention_content_height">检查汽车状态，并调节相关部件，使相应的高度测量值都在标准范围内</string>
+    <string name="front_height_values">Front Height Values</string>
+    <string name="rear_height_values">Rear Height Values</string>
+    <string name="semicolon" translatable="false">:</string>
+    <string name="left_front_height_value">Left Front Height Value</string>
+    <string name="right_front_height_value">Right Front Height Value</string>
+    <string name="left_rear_height_value">Left Rear Height Value</string>
+    <string name="right_rear_height_value">Right Rear Height Value</string>
 </resources>

@@ -1,15 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ib_car_weight">
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:orientation="vertical">
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="600dp"
+            android:layout_height="312dp"
+            android:background="@drawable/ib_car_weight">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tv_trunk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="78dp"
+                android:layout_marginRight="78dp"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_rightFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_trunk"
+                android:layout_marginBottom="35dp"
+                android:layout_marginLeft="237dp"
+                android:layout_marginStart="237dp"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_leftFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_rightFront"
+                android:layout_alignStart="@+id/tv_rightFront"
+                android:layout_below="@id/tv_trunk"
+                android:layout_marginTop="35dp"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_rear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="120dp"
+                android:layout_marginStart="120dp"
+                android:layout_toRightOf="@+id/tv_rightFront"
+                android:layout_toEndOf="@+id/tv_rightFront"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_rightRear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_rear"
+                android:layout_alignLeft="@+id/tv_rear"
+                android:layout_alignStart="@+id/tv_rear"
+                android:layout_marginBottom="35dp"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_leftRear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_rear"
+                android:layout_alignStart="@+id/tv_rear"
+                android:layout_below="@+id/tv_rear"
+                android:layout_marginTop="35dp"
+                android:text="@string/default_signal"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/selector_next_btn"
+            android:text="@string/next"
+            android:textColor="@color/font_black" />
+
+
+    </LinearLayout>
+
+</ScrollView>

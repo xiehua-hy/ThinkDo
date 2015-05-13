@@ -100,5 +100,12 @@
     <string name="front_wheel">前轮距</string>
     <string name="rearWheel">后轮距</string>
     <string name="wheelbase">轴距</string>
+    <string name="attention_content_height">检查汽车状态，并调节相关部件，使相应的高度测量值都在标准范围内</string>
+    <string name="front_height_values">前部车身高度</string>
+    <string name="rear_height_values">后部车身高度</string>
+    <string name="left_front_height_value">前轮左侧高度</string>
+    <string name="right_front_height_value">前轮右侧高度</string>
+    <string name="left_rear_height_value">后轮左侧高度</string>
+    <string name="right_rear_height_value">后轮右侧高度</string>
 
 </resources>
