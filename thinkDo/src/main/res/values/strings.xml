@@ -109,4 +109,8 @@
     <string name="right_front_height_value">Right Front Height Value</string>
     <string name="left_rear_height_value">Left Rear Height Value</string>
     <string name="right_rear_height_value">Right Rear Height Value</string>
+    <string name="left_front_level_value">Left Front Level Value</string>
+    <string name="right_front_level_value">Right Front Level Value</string>
+    <string name="left_rear_level_value">Left Rear Level Value</string>
+    <string name="right_rear_level_value">Right Rear Level Value</string>
 </resources>

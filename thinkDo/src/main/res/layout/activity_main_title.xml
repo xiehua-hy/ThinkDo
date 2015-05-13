@@ -29,9 +29,11 @@
             android:layout_weight="1"
             android:button="@null"
             android:checked="false"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/vehicles_choice"
             android:textColor="@color/font_red_holo"
             android:textSize="@dimen/main_title_font_size" />
@@ -42,9 +44,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/pull_test"
             android:textSize="@dimen/main_title_font_size" />
 
@@ -54,12 +58,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:checked="false"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/fast_test"
-            android:textSize="@dimen/main_title_font_size"
-            android:checked="false" />
+            android:textSize="@dimen/main_title_font_size" />
 
         <RadioButton
             android:id="@+id/radio_rear"
@@ -67,9 +73,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/rearAxle_show"
             android:textSize="@dimen/main_title_font_size" />
 
@@ -79,9 +87,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/frontAxle_show"
             android:textSize="@dimen/main_title_font_size" />
 
@@ -91,9 +101,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/data_print"
             android:textSize="@dimen/main_title_font_size" />
 
@@ -103,9 +115,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:button="@null"
+            android:ellipsize="marquee"
             android:gravity="center"
             android:paddingBottom="@dimen/main_title_padding"
             android:paddingTop="@dimen/main_title_padding"
+            android:singleLine="true"
             android:text="@string/kingpin_test"
             android:textSize="@dimen/main_title_font_size" />
     </RadioGroup>

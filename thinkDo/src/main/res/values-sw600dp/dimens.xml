@@ -34,4 +34,6 @@
     <dimen name="window_special_result_font_size">30sp</dimen>
     <dimen name="bar_refer_title_font_size">20sp</dimen>
     <dimen name="bar_refer_content_font_size">18sp</dimen>
+    <dimen name="fragment_height_margin">40dp</dimen>
+    <dimen name="fragment_level_margin">120dp</dimen>
 </resources>

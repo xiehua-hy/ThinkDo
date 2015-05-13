@@ -107,5 +107,8 @@
     <string name="right_front_height_value">前轮右侧高度</string>
     <string name="left_rear_height_value">后轮左侧高度</string>
     <string name="right_rear_height_value">后轮右侧高度</string>
-
+    <string name="left_front_level_value">左前轮水平值</string>
+    <string name="right_front_level_value">右前轮水平值</string>
+    <string name="left_rear_level_value">左后轮水平值</string>
+    <string name="right_rear_level_value">右后轮水平值</string>
 </resources>
