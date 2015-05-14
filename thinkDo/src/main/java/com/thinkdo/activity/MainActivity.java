@@ -15,7 +15,7 @@ import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.ManufacturerFragment;
 import com.thinkdo.fragment.ManufacturerFragment.ManufacturerCallback;
 import com.thinkdo.fragment.PickCarFragment;
-import com.thinkdo.fragment.PickCarFragment.VehicleIDCallbacks;
+import com.thinkdo.fragment.PickCarFragment.VehicleCallbacks;
 import com.thinkdo.fragment.PickCusCarFragment;
 import com.thinkdo.fragment.PickCusCarFragment.CusManufacturerCallback;
 import com.thinkdo.fragment.PushCarFragment;
@@ -24,7 +24,7 @@ import com.thinkdo.fragment.TestResultFragment;
 import com.thinkdo.fragment.VehicleInfoShow;
 import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
 
-public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleIDCallbacks, CusManufacturerCallback, VehicleInfoCallback {
+public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback {
     private int preCheckedRadio = R.id.radio_pick;
 
     @Override
@@ -118,31 +118,31 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onManufacturerItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex) {
-        if (manuId.equals("0")) {
+    public void onManufacturerSelected(String manId, String manInfo, String pyIndex, int dbIndex) {
+        if (manId.equals("0")) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
         }
         PickCarFragment fragment = new PickCarFragment();
-        fragment.setParams(manuId, pyIndex, dbIndex);
+        fragment.setParams(manId, pyIndex, dbIndex);
         fragmentCommit(fragment);
     }
 
     @Override
-    public void onCusManuItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex) {
-        onManufacturerItemSelected(manuId, manuInfo, pyIndex, dbIndex);
+    public void onCusManSelected(String manId, String manInfo, String pyIndex, int dbIndex) {
+        onManufacturerSelected(manId, manInfo, pyIndex, dbIndex);
     }
 
     @Override
-    public void onVehicleID(String vehicleID, String year) {
+    public void onVehicleSelected(String vehicleID, String year) {
         VehicleInfoShow fragment = new VehicleInfoShow();
         fragment.setVehicleId(vehicleID);
         fragmentCommit(fragment);
     }
 
     @Override
-    public void vehicleInfoNext() {
+    public void onVehicleInfoNext() {
 
     }
 }

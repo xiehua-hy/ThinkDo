@@ -13,9 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by xh on 15/5/8.
- */
 public class CustomDbUtil {
 
     public SQLiteDatabase getWriteDb() {
@@ -42,22 +39,23 @@ public class CustomDbUtil {
      * 当pinyin == null 查询某制造厂的所有车型 <br>
      * 当pinyin != null 根据拼音索引查询某一款车型
      *
-     * @param manuId 制造商ID
+     * @param manId  制造商ID
      * @param pinyin 拼音索引
      */
-    public List<String> queryAllCar(String manuId, String pinyin) {
+    public List<String> queryAllCar(String manId, String pinyin) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
-        List<String> data = new ArrayList<>();
         String sqlWhere;
         if (pinyin == null) {
-            sqlWhere = String.format("OftenTotal1=%s", manuId);
+            sqlWhere = String.format("OftenTotal1=%s", manId);
         } else {
             String field = CommonUtil.isChinese(pinyin) ? "OftenTotal3" : "Pyindex";
-            sqlWhere = String.format("OftenTotal1=%s and %s like '%%%s%%'", manuId, field, pinyin);
+            sqlWhere = String.format("OftenTotal1=%s and %s like '%%%s%%'", manId, field, pinyin);
         }
         Cursor cur = db.query("OperOftenDataTotal", null, sqlWhere, null, null, null, null);
+
+        List<String> data = new ArrayList<>();
         while (cur.moveToNext()) {
             String id = cur.getString(cur.getColumnIndex("OftenTotal23"));
             int startY = cur.getInt(cur.getColumnIndex("OftenTotal4"));
@@ -77,11 +75,12 @@ public class CustomDbUtil {
 
     public List<Map<String, String>> queryAllManufacturer() {
         SQLiteDatabase db = getReadDb();
-        if (db == null) return null;
 
-        List<Map<String, String>> data = new ArrayList<>();
         //each row is unique
         Cursor cur = db.query(true, "OperOftenDataTotal", new String[]{"OftenTotal1", "OftenTotal2"}, null, null, null, null, null, null);
+
+        if (cur.getCount() == 0) return null;
+        List<Map<String, String>> data = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
         while (cur.moveToNext()) {
             map.clear();

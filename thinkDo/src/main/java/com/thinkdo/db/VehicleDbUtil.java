@@ -6,16 +6,15 @@ import android.database.sqlite.SQLiteException;
 
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
+import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.entity.ValuesPair;
+import com.thinkdo.entity.WeightData;
 import com.thinkdo.util.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by xh on 15/5/8.
- */
 public class VehicleDbUtil {
     public SQLiteDatabase getWriteDb() {
 
@@ -41,14 +40,14 @@ public class VehicleDbUtil {
     /**
      * 查询汽车制造商名称
      *
-     * @param manfacturerId 制造商ID
+     * @param manId 制造商ID
      */
-    public String queryManufacturerInfo(int manfacturerId) {
+    public String queryManufacturerInfo(int manId) {
         String info = null;
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
-        String sqlwhere = String.format("Manufact1 = %s", manfacturerId);
-        Cursor cur = db.query("StandVehmanfacturers", null, sqlwhere, null, null, null, null);
+        String sqlWhere = String.format("Manufact1 = %s", manId);
+        Cursor cur = db.query("StandVehmanfacturers", null, sqlWhere, null, null, null, null);
         if (cur.moveToNext()) {
             info = cur.getString(cur.getColumnIndex("Manufact4"));
         }
@@ -61,20 +60,20 @@ public class VehicleDbUtil {
      * 当pinyin == null 查询某制造厂的所有车型 <br>
      * 当pinyin != null 根据拼音索引查询某一款车型
      *
-     * @param manuId 制造商ID
+     * @param manId  制造商ID
      * @param pinyin 拼音索引
      */
-    public List<String> queryAllCar(String manuId, String pinyin) {
+    public List<String> queryAllCar(String manId, String pinyin) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
         List<String> data = new ArrayList<>();
         String sqlWhere;
         if (pinyin == null) {
-            sqlWhere = String.format("Model4 = %s", manuId);
+            sqlWhere = String.format("Model4 = %s", manId);
         } else {
             String field = (CommonUtil.isChinese(pinyin)) ? "Model5" : "PyIndex";
-            sqlWhere = String.format("Model4 = %s And %s like \'%%%s%%\'", manuId, field, pinyin);
+            sqlWhere = String.format("Model4 = %s And %s like \'%%%s%%\'", manId, field, pinyin);
         }
 
         Cursor cur = db.query("StandTypelevel", null, sqlWhere, null, null, null, null);
@@ -96,20 +95,20 @@ public class VehicleDbUtil {
         return data;
     }
 
-    public ReferData queryReferData(String modelId) {
+    public ReferData queryReferData(String vehicleId) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
         ReferData data = new ReferData();
 
-        Cursor cur = db.query("StandTypelevel", new String[]{"Model2", "Model3", "Model5"}, "Model1=" + modelId, null, null, null, null);
+        Cursor cur = db.query("StandTypelevel", new String[]{"Model2", "Model3", "Model5"}, "Model1=" + vehicleId, null, null, null, null);
         if (cur.moveToFirst()) {
             data.setStartYear(cur.getString(cur.getColumnIndex("Model2")));
             data.setEndYear(cur.getString(cur.getColumnIndex("Model3")));
             data.setVehicleInfo(cur.getString(cur.getColumnIndex("Model5")));
         }
 
-        String sqlWhere = String.format("Specs1 = (select Model15 from StandTypelevel where Model1= %s )", modelId);
+        String sqlWhere = String.format("Specs1 = (select Model15 from StandTypelevel where Model1= %s )", vehicleId);
 
         cur = db.query("Standdeterment", null, sqlWhere, null, null, null, null);
         if (cur.moveToNext()) {
@@ -179,7 +178,7 @@ public class VehicleDbUtil {
             data.setMaxThrust(CommonUtil.format(thrustAngleMax, 2));
         }
 
-        sqlWhere = String.format("Dimension1 = (select Model21 from StandTypelevel where Model1= %s)", modelId);
+        sqlWhere = String.format("Dimension1 = (select Model21 from StandTypelevel where Model1= %s)", vehicleId);
 
         cur = db.query("StandDimensiontype", null, sqlWhere, null, null, null, null);
         if (cur.moveToFirst()) {
@@ -195,6 +194,65 @@ public class VehicleDbUtil {
         db.close();
         return data;
     }
+
+    public SpecialParams querySpecParam(String vehicleId) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        Cursor cur = db.query("Standtypelevel", null, "Model1=" + vehicleId, null, null, null, null);
+        SpecialParams data = new SpecialParams();
+        if (cur.moveToFirst()) {
+            data.setWeightId(cur.getString(cur.getColumnIndex("Model19")));
+            data.setHeightFlag(cur.getString(cur.getColumnIndex("Model22")));
+            data.setHeightPicPath(cur.getString(cur.getColumnIndex("Model23")));
+            data.setLevelFlag(cur.getString(cur.getColumnIndex("Model26")));
+            data.setReferDataId(cur.getString(cur.getColumnIndex("Model15")));
+        }
+
+        cur.close();
+        db.close();
+
+        return data;
+    }
+
+
+    /**
+     *  @return 当配重值不为0时 返回值; 否则返回null
+     * */
+    public WeightData queryWeight(String vehicleId) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        String sqlWhere = String.format("Load1 = (select Model19 from StandTypelevel where Model1 = %s)", vehicleId);
+        WeightData data = null;
+        String zero = "0";
+        Cursor cur = db.query("StandProcessinfo", null, sqlWhere, null, null, null, null);
+        if (cur.moveToFirst()) {
+            String load2 = cur.getString(cur.getColumnIndex("Load2"));
+            String load3 = cur.getString(cur.getColumnIndex("Load3"));
+            String load4 = cur.getString(cur.getColumnIndex("Load4"));
+            String load5 = cur.getString(cur.getColumnIndex("Load5"));
+            String load6 = cur.getString(cur.getColumnIndex("Load6"));
+            String load7 = cur.getString(cur.getColumnIndex("Load7"));
+
+            if (!load2.equals(zero) || !load3.equals(zero) || !load4.equals(zero) || !load5.equals(zero)
+                    || !load6.equals(zero) || !load7.equals(zero)) {
+                data = new WeightData();
+
+                data.setLeftFront(load2);
+                data.setRightFront(load3);
+                data.setRearSeat(load4);
+                data.setLeftRear(load5);
+                data.setRightRear(load6);
+                data.setTrunk(load7);
+            }
+        }
+
+        cur.close();
+        db.close();
+        return data;
+    }
+
 
     public String dataInitHandle(float value, int num) {
         if (CommonUtil.format(value, 2).equals(GloVariable.initValue)) return GloVariable.initValue;

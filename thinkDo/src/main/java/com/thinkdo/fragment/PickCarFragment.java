@@ -26,19 +26,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by xh on 15/5/9.
- */
 public class PickCarFragment extends Fragment {
-    private String manuID, pyIndex;
+    private String manId, pyIndex;
     private ExpandableListView expand;
-    private VehicleIDCallbacks callback;
+    private VehicleCallbacks callback;
     private List<String> data;
     private int dbIndex = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (manuID == null) return null;
+        if (manId == null) return null;
         View rootView = inflater.inflate(R.layout.fragment_pick_car, container, false);
         expand = (ExpandableListView) rootView.findViewById(R.id.expandableListView);
 
@@ -46,8 +43,8 @@ public class PickCarFragment extends Fragment {
             @Override
             public void run() {
                 data = dbIndex == 0 ?
-                        new VehicleDbUtil().queryAllCar(manuID, pyIndex)
-                        : new CustomDbUtil().queryAllCar(manuID, pyIndex);
+                        new VehicleDbUtil().queryAllCar(manId, pyIndex)
+                        : new CustomDbUtil().queryAllCar(manId, pyIndex);
                 getActivity().runOnUiThread(
                         new Runnable() {
                             @Override
@@ -64,27 +61,27 @@ public class PickCarFragment extends Fragment {
     }
 
     public void initView() {
-        expand.setAdapter(new MyAdpter());
+        expand.setAdapter(new MyAdapter());
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            callback = (VehicleIDCallbacks) getActivity();
+            callback = (VehicleCallbacks) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement VehicleIDCallbacks.");
         }
     }
 
-    public void setParams(String manuID, String pyIndex, int dbIndex) {
-        this.manuID = manuID;
-        this.pyIndex = pyIndex;
-        this.dbIndex = dbIndex;
+    public void setParams(String manID, String pyIndex, int dbIndex) {
+        setManID(manID);
+        setPyIndex(pyIndex);
+        setDbIndex(dbIndex);
     }
 
-    public void setManuID(String manuID) {
-        this.manuID = manuID;
+    public void setManID(String manId) {
+        this.manId = manId;
     }
 
     public void setPyIndex(String pyIndex) {
@@ -95,17 +92,17 @@ public class PickCarFragment extends Fragment {
         this.dbIndex = dbIndex;
     }
 
-    public interface VehicleIDCallbacks {
+    public interface VehicleCallbacks {
         /**
          * 选中车辆
          *
          * @param vehicleID 车型ID
          * @param year      年份
          */
-        void onVehicleID(String vehicleID, String year);
+        void onVehicleSelected(String vehicleID, String year);
     }
 
-    class MyAdpter extends BaseExpandableListAdapter {
+    class MyAdapter extends BaseExpandableListAdapter {
         private final String idKey = "id";
         private final String carKey = "car";
         private List<String> groupData;
@@ -114,7 +111,7 @@ public class PickCarFragment extends Fragment {
         private SparseArray<List<String>> childData;
         private SparseArray<SparseIntArray> childPos;
 
-        public MyAdpter() {
+        public MyAdapter() {
             handleGroupData();
             childData = new SparseArray<>();
             childPos = new SparseArray<>();
@@ -253,7 +250,7 @@ public class PickCarFragment extends Fragment {
                                 String year = tv.getText().toString();
                                 String vehicleID = textView2.getText().toString();
                                 if (callback != null) {
-                                    callback.onVehicleID(vehicleID, year);
+                                    callback.onVehicleSelected(vehicleID, year);
                                 }
                             }
                         });

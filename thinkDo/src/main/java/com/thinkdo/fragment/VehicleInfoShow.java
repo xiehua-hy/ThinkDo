@@ -85,7 +85,7 @@ public class VehicleInfoShow extends Fragment {
     }
 
     public interface VehicleInfoCallback {
-        void vehicleInfoNext();
+        void onVehicleInfoNext();
     }
 
     class DataLoadThread extends Thread {

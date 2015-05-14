@@ -17,9 +17,6 @@ import com.thinkdo.db.CustomDbUtil;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by xh on 15/5/9.
- */
 public class PickCusCarFragment extends Fragment {
     public static final String colInfo = "info";
     public static final String colID = "ID";
@@ -46,7 +43,7 @@ public class PickCusCarFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 if (callback != null) {
                                     Map<String, String> map = data.get(i);
-                                    callback.onCusManuItemSelected(map.get(colID), map.get(colInfo), null, 1);
+                                    callback.onCusManSelected(map.get(colID), map.get(colInfo), null, 1);
                                 }
                             }
                         });
@@ -69,7 +66,7 @@ public class PickCusCarFragment extends Fragment {
     }
 
     public interface CusManufacturerCallback {
-        void onCusManuItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex);
+        void onCusManSelected(String manId, String manInfo, String pyIndex, int dbIndex);
     }
 
     class MyAdapter extends BaseAdapter {

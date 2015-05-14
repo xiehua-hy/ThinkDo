@@ -29,7 +29,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     private ManufacturerCallback callback;
     private GestureDetector gesture;
 
-    private int[] manuID_CN = {50000, 50072, 50099, 50001, 50002, 50037,
+    private int[] manId_CN = {50000, 50072, 50099, 50001, 50002, 50037,
             50005, 50119, 50003, 50028, 50017, 50030, 50007, 50018, 50110,
             50008, 50032, 50015, 50016, 50058, 50073, 50108, 50019, 50114,
             50024, 50051, 50115, 50026, 50033, 50067, 50074, 50113, 50027,
@@ -46,7 +46,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             51009, 51010, 51011, 51012, 51013, 51014, 51015, 51016, 51017,
             51018, 51019};
 
-    private int[] manuID_EUP = {10000, 10001, 10002, 10003, 10004, 10005,
+    private int[] manId_EUP = {10000, 10001, 10002, 10003, 10004, 10005,
             10006, 10007, 10008, 10009, 10010, 10011, 10012, 10013, 10014,
             10015, 10016, 10017, 10018, 10019, 10020, 10021, 10022, 10023,
             10024, 10025, 10026, 10027, 10028, 10029, 10030, 10031, 10032,
@@ -55,7 +55,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             10051, 10052, 10053, 10054, 10055, 10056, 10057, 10058, 10059,
             10060, 10061, 10062, 10063};
 
-    private int[] manuID_NA = {30000, 30001, 30002, 30003, 30004, 30005,
+    private int[] manId_NA = {30000, 30001, 30002, 30003, 30004, 30005,
             30006, 30007, 30008, 30009, 30010, 30011, 30012, 30013, 30014,
             30015, 30016, 30017, 30018, 30019, 30020, 30021, 30022, 30023,
             30024, 30025, 30026, 30027, 30028, 30029, 30030, 30031, 30032,
@@ -230,11 +230,11 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     public int[] getManuID() {
         switch (count % countryCount) {
             case 0:
-                return manuID_CN;
+                return manId_CN;
             case 1:
-                return manuID_NA;
+                return manId_NA;
             default:
-                return manuID_EUP;
+                return manId_EUP;
         }
     }
 
@@ -260,11 +260,11 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
         }
 
         int dbIndex = 0;
-        int manuId = getManuID()[position - 1];
-        String info = new VehicleDbUtil().queryManufacturerInfo(manuId);
+        int manId = getManuID()[position - 1];
+        String info = new VehicleDbUtil().queryManufacturerInfo(manId);
 
         if (callback != null) {
-            callback.onManufacturerItemSelected(String.valueOf(manuId), info, null, dbIndex);
+            callback.onManufacturerSelected(String.valueOf(manId), info, null, dbIndex);
         }
 
     }
@@ -332,7 +332,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     }
 
     public interface ManufacturerCallback {
-        void onManufacturerItemSelected(String manuId, String manuInfo, String pyIndex, int dbIndex);
+        void onManufacturerSelected(String manId, String manInfo, String pyIndex, int dbIndex);
     }
 
 
