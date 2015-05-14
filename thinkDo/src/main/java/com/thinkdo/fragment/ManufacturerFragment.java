@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.db.VehicleDbUtil;
+import com.thinkdo.entity.DataEnum;
 import com.thinkdo.entity.GloVariable;
 
 
@@ -259,7 +260,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             return;
         }
 
-        int dbIndex = 0;
+        DataEnum dbIndex = DataEnum.standard;
         int manId = getManuID()[position - 1];
         String info = new VehicleDbUtil().queryManufacturerInfo(manId);
 
@@ -332,7 +333,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     }
 
     public interface ManufacturerCallback {
-        void onManufacturerSelected(String manId, String manInfo, String pyIndex, int dbIndex);
+        void onManufacturerSelected(String manId, String manInfo, String pyIndex,DataEnum dataEnum);
     }
 
 

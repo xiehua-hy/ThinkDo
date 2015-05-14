@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.thinkdo.activity.R;
 import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.db.VehicleDbUtil;
+import com.thinkdo.entity.DataEnum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +32,7 @@ public class PickCarFragment extends Fragment {
     private ExpandableListView expand;
     private VehicleCallbacks callback;
     private List<String> data;
-    private int dbIndex = 0;
+    private DataEnum dbIndex = DataEnum.standard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class PickCarFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                data = dbIndex == 0 ?
+                data = dbIndex == DataEnum.standard ?
                         new VehicleDbUtil().queryAllCar(manId, pyIndex)
                         : new CustomDbUtil().queryAllCar(manId, pyIndex);
                 getActivity().runOnUiThread(
@@ -74,7 +75,7 @@ public class PickCarFragment extends Fragment {
         }
     }
 
-    public void setParams(String manID, String pyIndex, int dbIndex) {
+    public void setParams(String manID, String pyIndex, DataEnum dbIndex) {
         setManID(manID);
         setPyIndex(pyIndex);
         setDbIndex(dbIndex);
@@ -88,7 +89,7 @@ public class PickCarFragment extends Fragment {
         this.pyIndex = pyIndex;
     }
 
-    public void setDbIndex(int dbIndex) {
+    public void setDbIndex(DataEnum dbIndex) {
         this.dbIndex = dbIndex;
     }
 

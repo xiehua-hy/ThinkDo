@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.entity.DataEnum;
 import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
@@ -118,8 +119,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onManufacturerSelected(String manId, String manInfo, String pyIndex, int dbIndex) {
-        if (manId.equals("0")) {
+    public void onManufacturerSelected(String manId, String manInfo, String pyIndex, DataEnum dbIndex) {
+        if (dbIndex == DataEnum.custom) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
@@ -130,7 +131,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onCusManSelected(String manId, String manInfo, String pyIndex, int dbIndex) {
+    public void onCusManSelected(String manId, String manInfo, String pyIndex, DataEnum dbIndex) {
         onManufacturerSelected(manId, manInfo, pyIndex, dbIndex);
     }
 

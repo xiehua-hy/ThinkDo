@@ -3,51 +3,42 @@ package com.thinkdo.entity;
 import java.io.Serializable;
 
 public class SpecialParams implements Serializable {
+    private ReferData referData;
 
-    private String weightId;       // 沙袋油箱Id
-    private String heightFlag;     // 测高标志
-    private String heightPicPath;  //测高图片的路径
-    private String levelFlag;      //奔驰水平标志
-    private String referDataId;    //标准数据ID
+    private WeightParam weightParam;
+    private HeightParam heightParam;
+    private LevelParam levelParam;
 
-    public String getWeightId() {
-        return weightId;
+    public ReferData getReferData() {
+        return referData;
     }
 
-    public void setWeightId(String weightId) {
-        this.weightId = weightId;
+    public void setReferData(ReferData referData) {
+        this.referData = referData;
     }
 
-    public String getReferDataId() {
-        return referDataId;
+    public WeightParam getWeightParam() {
+        return weightParam;
     }
 
-    public void setReferDataId(String referDataId) {
-        this.referDataId = referDataId;
+    public void setWeightParam(WeightParam weightParam) {
+        this.weightParam = weightParam;
     }
 
-    public String getLevelFlag() {
-        return levelFlag;
+    public HeightParam getHeightParam() {
+        return heightParam;
     }
 
-    public void setLevelFlag(String levelFlag) {
-        this.levelFlag = levelFlag;
+    public void setHeightParam(HeightParam heightParam) {
+        this.heightParam = heightParam;
     }
 
-    public String getHeightPicPath() {
-        return heightPicPath;
+    public LevelParam getLevelParam() {
+        return levelParam;
     }
 
-    public void setHeightPicPath(String heightPicPath) {
-        this.heightPicPath = heightPicPath;
-    }
-
-    public String getHeightFlag() {
-        return heightFlag;
-    }
-
-    public void setHeightFlag(String heightFlag) {
-        this.heightFlag = heightFlag;
+    public void setLevelParam(LevelParam levelParam) {
+        this.levelParam = levelParam;
     }
 
 }

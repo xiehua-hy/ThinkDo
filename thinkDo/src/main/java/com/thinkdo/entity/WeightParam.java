@@ -2,7 +2,7 @@ package com.thinkdo.entity;
 
 import java.io.Serializable;
 
-public class WeightData implements Serializable {
+public class WeightParam implements Serializable {
     private String LeftFront;
     private String RightFront;
     private String RearSeat;

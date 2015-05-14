@@ -8,7 +8,7 @@ import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.entity.ValuesPair;
-import com.thinkdo.entity.WeightData;
+import com.thinkdo.entity.WeightParam;
 import com.thinkdo.util.CommonUtil;
 
 import java.util.ArrayList;
@@ -202,11 +202,21 @@ public class VehicleDbUtil {
         Cursor cur = db.query("Standtypelevel", null, "Model1=" + vehicleId, null, null, null, null);
         SpecialParams data = new SpecialParams();
         if (cur.moveToFirst()) {
-            data.setWeightId(cur.getString(cur.getColumnIndex("Model19")));
-            data.setHeightFlag(cur.getString(cur.getColumnIndex("Model22")));
-            data.setHeightPicPath(cur.getString(cur.getColumnIndex("Model23")));
-            data.setLevelFlag(cur.getString(cur.getColumnIndex("Model26")));
-            data.setReferDataId(cur.getString(cur.getColumnIndex("Model15")));
+//            data.setVehicleId(vehicleId);
+//            data.setWeightId(cur.getString(cur.getColumnIndex("Model19")));
+//            data.setHeightFlag(cur.getString(cur.getColumnIndex("Model22")));
+//            data.setHeightPicPath(cur.getString(cur.getColumnIndex("Model23")));
+//            data.setLevelFlag(cur.getString(cur.getColumnIndex("Model26")));
+//            data.setReferDataId(cur.getString(cur.getColumnIndex("Model15")));
+//
+//            data.setWeightData(queryWeight(data.getWeightId()));
+//            if(!data.getHeightFlag().equals("0")){
+//
+//            }
+//
+//            if(!data.getLevelFlag().equals("0")){
+//
+//            }
         }
 
         cur.close();
@@ -219,14 +229,13 @@ public class VehicleDbUtil {
     /**
      *  @return 当配重值不为0时 返回值; 否则返回null
      * */
-    public WeightData queryWeight(String vehicleId) {
+    public WeightParam queryWeight(String loadId) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
-        String sqlWhere = String.format("Load1 = (select Model19 from StandTypelevel where Model1 = %s)", vehicleId);
-        WeightData data = null;
+        WeightParam data = null;
         String zero = "0";
-        Cursor cur = db.query("StandProcessinfo", null, sqlWhere, null, null, null, null);
+        Cursor cur = db.query("StandProcessinfo", null, "Load1="+loadId, null, null, null, null);
         if (cur.moveToFirst()) {
             String load2 = cur.getString(cur.getColumnIndex("Load2"));
             String load3 = cur.getString(cur.getColumnIndex("Load3"));
@@ -237,7 +246,7 @@ public class VehicleDbUtil {
 
             if (!load2.equals(zero) || !load3.equals(zero) || !load4.equals(zero) || !load5.equals(zero)
                     || !load6.equals(zero) || !load7.equals(zero)) {
-                data = new WeightData();
+                data = new WeightParam();
 
                 data.setLeftFront(load2);
                 data.setRightFront(load3);

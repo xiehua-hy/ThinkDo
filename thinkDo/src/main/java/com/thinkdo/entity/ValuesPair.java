@@ -3,40 +3,83 @@ package com.thinkdo.entity;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-/**
- * Created by xh on 15/5/10.
- */
 public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol {
     private String min;
     private String mid;
     private String max;
 
+    private String preReal;
     private String real;
+
+    private String explain;
 
     public ValuesPair() {
         init();
     }
 
     public ValuesPair(String min, String mid, String max) {
-        this.min = min;
-        this.mid = mid;
-        this.max = max;
+        setMin(min);
+        setMid(mid);
+        setMax(max);
     }
 
     /**
-     * @param nTol 下偏差
-     * @param fMid 标准值
-     * @param pTol 上偏差
+     * 标准值为最大值与最小值的平均值
+     *
+     * @param min 最小值
+     * @param max 最大值
      */
-    public ValuesPair(float nTol, float fMid, float pTol) {
-        this(nTol, fMid, nTol, false);
+    public ValuesPair(float min, float max) {
+        this(min, max, null);
+    }
+
+    /**
+     * 标准值为最大值与最小值的平均值
+     *
+     * @param min     最小值
+     * @param max     最大值
+     * @param explain 说明
+     */
+    public ValuesPair(float min, float max, String explain) {
+        setMid(format((min + max) / 2));
+        setMin(format(min));
+        setMax(format(max));
+
+        setExplain(explain);
+    }
+
+    /**
+     * @param min 下偏差
+     * @param mid 标准值
+     * @param max 上偏差
+     */
+    public ValuesPair(float min, float mid, float max) {
+        this(min, mid, max, null);
+    }
+
+    /**
+     * @param min     下偏差
+     * @param mid     标准值
+     * @param max     上偏差
+     * @param explain 说明
+     */
+    public ValuesPair(float min, float mid, float max, String explain) {
+        this(min, mid, max, false, explain);
+    }
+
+    /**
+     * @param flag 当flag为true时, min,max表示最小值,最大值;
+     *             否则min,max表示下偏差,上偏差
+     */
+    public ValuesPair(float min, float mid, float max, boolean flag) {
+        this(min, mid, max, flag, null);
     }
 
     /**
      * @param flag 当flag为true时, fMin,fMax表示最小值,最大值;
      *             否则fMin,fMax表示下偏差,上偏差
      */
-    public ValuesPair(float fMin, float fMid, float fMax, boolean flag) {
+    public ValuesPair(float fMin, float fMid, float fMax, boolean flag, String explain) {
         String sMid = format(fMid);
         if (isInitValue(sMid)) {
             init();
@@ -57,7 +100,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             min = format(fMid - fMin);
             max = format(fMid + fMax);
         }
-
+        setExplain(explain);
     }
 
     /**
@@ -115,17 +158,38 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         this.max = max;
     }
 
+    public String getPreReal() {
+        return preReal;
+    }
+
+    public void setPreReal(String preReal) {
+        this.preReal = preReal;
+    }
+
     public String getReal() {
         return real;
     }
 
     public void setReal(String real) {
+        if (preReal == null) setPreReal(real);
         this.real = real;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
     }
 
     @Override
     public ValuesPair copy() {
-        return new ValuesPair(min, mid, max);
+        ValuesPair valuesPair = new ValuesPair(min, mid, max);
+        valuesPair.setPreReal(preReal);
+        valuesPair.setReal(real);
+        valuesPair.setExplain(explain);
+        return valuesPair;
     }
 
     @Override
@@ -133,6 +197,9 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         min = unitConvert(min, unit);
         mid = unitConvert(mid, unit);
         max = unitConvert(max, unit);
+
+        preReal = unitConvert(preReal, unit);
+        real = unitConvert(real, unit);
     }
 
     public boolean isInitValue(String value) {
@@ -151,7 +218,9 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @return String
      */
     private String unitConvert(String angle, UnitEnum unit) {
+        if (angle == null) return null;
         if (angle.equals(GloVariable.initValue)) return angle;
+
         float val = Float.parseFloat(angle);
 
         switch (unit) {
