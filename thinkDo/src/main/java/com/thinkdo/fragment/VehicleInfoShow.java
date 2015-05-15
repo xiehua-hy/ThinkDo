@@ -91,7 +91,8 @@ public class VehicleInfoShow extends Fragment {
     class DataLoadThread extends Thread {
         @Override
         public void run() {
-            data = new VehicleDbUtil().queryReferData(vehicleId);
+
+//            data = new VehicleDbUtil().queryReferData(vehicleId);
 
             getActivity().runOnUiThread(
                     new Runnable() {

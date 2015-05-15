@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.HeightParam;
+import com.thinkdo.entity.LevelParam;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.entity.ValuesPair;
@@ -95,11 +97,9 @@ public class VehicleDbUtil {
         return data;
     }
 
-    public ReferData queryReferData(String vehicleId) {
+    public void queryReferData(String vehicleId, ReferData data) {
         SQLiteDatabase db = getReadDb();
-        if (db == null) return null;
-
-        ReferData data = new ReferData();
+        if (db == null) return;
 
         Cursor cur = db.query("StandTypelevel", new String[]{"Model2", "Model3", "Model5"}, "Model1=" + vehicleId, null, null, null, null);
         if (cur.moveToFirst()) {
@@ -192,7 +192,6 @@ public class VehicleDbUtil {
         }
         cur.close();
         db.close();
-        return data;
     }
 
     public SpecialParams querySpecParam(String vehicleId) {
@@ -200,23 +199,30 @@ public class VehicleDbUtil {
         if (db == null) return null;
 
         Cursor cur = db.query("Standtypelevel", null, "Model1=" + vehicleId, null, null, null, null);
-        SpecialParams data = new SpecialParams();
+        SpecialParams data = null;
         if (cur.moveToFirst()) {
-//            data.setVehicleId(vehicleId);
-//            data.setWeightId(cur.getString(cur.getColumnIndex("Model19")));
-//            data.setHeightFlag(cur.getString(cur.getColumnIndex("Model22")));
-//            data.setHeightPicPath(cur.getString(cur.getColumnIndex("Model23")));
-//            data.setLevelFlag(cur.getString(cur.getColumnIndex("Model26")));
-//            data.setReferDataId(cur.getString(cur.getColumnIndex("Model15")));
-//
-//            data.setWeightData(queryWeight(data.getWeightId()));
-//            if(!data.getHeightFlag().equals("0")){
-//
-//            }
-//
-//            if(!data.getLevelFlag().equals("0")){
-//
-//            }
+            String weightId = cur.getString(cur.getColumnIndex("Model19"));
+            String heightFlag = cur.getString(cur.getColumnIndex("Model22"));
+            String heightPicPath = cur.getString(cur.getColumnIndex("Model23"));
+
+            String levelFlag = cur.getString(cur.getColumnIndex("Model26"));
+
+            data = new SpecialParams();
+            data.setWeightParam(queryWeight(weightId));
+
+            if (!heightFlag.equals("0")) {
+                data.setHeightParam(queryHeightParam(vehicleId, heightFlag));
+                if (data.getHeightParam() != null) {
+                    data.getHeightParam().setHeightFlag(heightFlag);
+                    data.getHeightParam().setHeightPicPath(heightPicPath);
+                    data.getHeightParam().setVehicleId(vehicleId);
+                }
+            }
+
+            if (!levelFlag.equals("0")) {
+                data.setLevelParam(queryLevelParam(vehicleId));
+                data.getLevelParam().setVehicleId(vehicleId);
+            }
         }
 
         cur.close();
@@ -227,15 +233,15 @@ public class VehicleDbUtil {
 
 
     /**
-     *  @return 当配重值不为0时 返回值; 否则返回null
-     * */
+     * @return 当配重值不为0时 返回值; 否则返回null
+     */
     public WeightParam queryWeight(String loadId) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
         WeightParam data = null;
         String zero = "0";
-        Cursor cur = db.query("StandProcessinfo", null, "Load1="+loadId, null, null, null, null);
+        Cursor cur = db.query("StandProcessinfo", null, "Load1=" + loadId, null, null, null, null);
         if (cur.moveToFirst()) {
             String load2 = cur.getString(cur.getColumnIndex("Load2"));
             String load3 = cur.getString(cur.getColumnIndex("Load3"));
@@ -255,6 +261,102 @@ public class VehicleDbUtil {
                 data.setRightRear(load6);
                 data.setTrunk(load7);
             }
+        }
+
+        cur.close();
+        db.close();
+        return data;
+    }
+
+    public HeightParam queryHeightParam(String vehicleId, String flag) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+        HeightParam data = null;
+        if (flag.equals("1")) {
+            Cursor cur = db.query("Standdeterment", null, "Specs1=" + vehicleId, null, null, null, null);
+            if (cur.moveToNext()) {
+                data = new HeightParam();
+                float frontMid = cur.getFloat(cur.getColumnIndex("Specs70"));
+                float frontMax = cur.getFloat(cur.getColumnIndex("Specs71"));
+                float frontMin = cur.getFloat(cur.getColumnIndex("Specs72"));
+
+                float rearMid = cur.getFloat(cur.getColumnIndex("Specs73"));
+                float rearMax = cur.getFloat(cur.getColumnIndex("Specs74"));
+                float rearMin = cur.getFloat(cur.getColumnIndex("Specs75"));
+
+                String frontString = cur.getString(cur.getColumnIndex("Specs86"));
+                String rearString = cur.getString(cur.getColumnIndex("Specs87"));
+
+                data.setFrontHeight(new ValuesPair(frontMin, frontMid, frontMax, frontString));
+                data.setRearHeight(new ValuesPair(rearMin, rearMid, rearMax, rearString));
+            }
+            cur.close();
+        } else {
+            Float frontHeighMin = null, rearHeighMin = null;
+
+            String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-99.9899978637695)>0.001", vehicleId);
+            Cursor cur = db.query("RideHeightData", new String[]{"min(FrontHeighMin) FrontHeighMin"}, sqlWhere, null, null, null, null);
+
+            if (cur.moveToNext()) {
+                frontHeighMin = cur.getFloat(cur.getColumnIndex("FrontHeighMin"));
+            }
+
+            sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-99.9899978637695)>0.001", vehicleId);
+            cur = db.query("RideHeightData", new String[]{"max(FrontHeighMax) FrontHeighMax", "FrontHeighString"}, sqlWhere, null, null, null, null);
+
+            if (cur.moveToNext() && frontHeighMin != null) {
+                Float frontHeightMax = cur.getFloat(cur.getColumnIndex("FrontHeighMax"));
+                String frontHeightString = cur.getString(cur.getColumnIndex("FrontHeighString"));
+
+                //取前值
+                data = new HeightParam();
+                data.setFrontHeight(new ValuesPair(frontHeighMin, frontHeightMax, frontHeightString));
+            }
+
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-99.9899978637695)>0.001", vehicleId);
+            cur = db.query("RideHeightData", new String[]{"min(RearHeighMin) RearHeighMin"}, sqlWhere, null, null, null, null);
+
+            if (cur.moveToNext()) {
+                rearHeighMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
+            }
+
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.9899978637695)>0.001", sqlWhere);
+            cur = db.query("RideHeightData", new String[]{"max(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
+            if (cur.moveToNext() && rearHeighMin != null) {
+                float rearHeightMax = cur.getFloat(cur.getColumnIndex("RearHeighMax"));
+                String rearHeightString = cur.getString(cur.getColumnIndex("RearHeighString"));
+
+                //取后值
+                if (data == null) data = new HeightParam();
+                data.setRearHeight(new ValuesPair(rearHeighMin, rearHeightMax, rearHeightString));
+
+            }
+
+            cur.close();
+        }
+
+        db.close();
+        return data;
+    }
+
+    public LevelParam queryLevelParam(String vehicleId) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        Cursor cur = db.query("SPEClevelstandard", null, "ModelId=" + vehicleId, null, null, null, null);
+        LevelParam data = null;
+        if (cur.moveToNext()) {
+            float frontMid = cur.getFloat(cur.getColumnIndex("LevelFrontSpec"));
+            float frontMin = cur.getFloat(cur.getColumnIndex("LevelFrontMinToSpec"));
+            float frontMax = cur.getFloat(cur.getColumnIndex("LevelFrontMaxToSpec"));
+
+            float rearMid = cur.getFloat(cur.getColumnIndex("LevelRearSpec"));
+            float rearMin = cur.getFloat(cur.getColumnIndex("LevelRearMinToSpec"));
+            float rearMax = cur.getFloat(cur.getColumnIndex("LevelRearMaxToSpec"));
+
+            data = new LevelParam();
+            data.setFrontLevel(new ValuesPair(-frontMin, frontMid, frontMax));
+            data.setRearLevel(new ValuesPair(-rearMin, rearMid, rearMax));
         }
 
         cur.close();
