@@ -13,6 +13,7 @@ import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.entity.WeightParam;
 import com.thinkdo.util.CommonUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -97,10 +98,10 @@ public class VehicleDbUtil {
         return data;
     }
 
-    public void queryReferData(String vehicleId, ReferData data) {
+    public ReferData queryReferData(String vehicleId) {
         SQLiteDatabase db = getReadDb();
-        if (db == null) return;
-
+        if (db == null) return null;
+        ReferData data = new ReferData();
         Cursor cur = db.query("StandTypelevel", new String[]{"Model2", "Model3", "Model5"}, "Model1=" + vehicleId, null, null, null, null);
         if (cur.moveToFirst()) {
             data.setStartYear(cur.getString(cur.getColumnIndex("Model2")));
@@ -192,6 +193,7 @@ public class VehicleDbUtil {
         }
         cur.close();
         db.close();
+        return data;
     }
 
     public SpecialParams querySpecParam(String vehicleId) {
@@ -199,7 +201,7 @@ public class VehicleDbUtil {
         if (db == null) return null;
 
         Cursor cur = db.query("Standtypelevel", null, "Model1=" + vehicleId, null, null, null, null);
-        SpecialParams data = null;
+        SpecialParams data = new SpecialParams();
         if (cur.moveToFirst()) {
             String weightId = cur.getString(cur.getColumnIndex("Model19"));
             String heightFlag = cur.getString(cur.getColumnIndex("Model22"));
@@ -207,27 +209,41 @@ public class VehicleDbUtil {
 
             String levelFlag = cur.getString(cur.getColumnIndex("Model26"));
 
-            data = new SpecialParams();
-            data.setWeightParam(queryWeight(weightId));
+            WeightParam weightParam = queryWeight(weightId);
+
+            if (weightParam != null) {
+                data.setWeightParam(weightParam);
+            }
 
             if (!heightFlag.equals("0")) {
-                data.setHeightParam(queryHeightParam(vehicleId, heightFlag));
-                if (data.getHeightParam() != null) {
-                    data.getHeightParam().setHeightFlag(heightFlag);
-                    data.getHeightParam().setHeightPicPath(heightPicPath);
-                    data.getHeightParam().setVehicleId(vehicleId);
+                HeightParam heightParam = queryHeightParam(vehicleId, heightFlag);
+                if (heightParam != null) {
+                    heightParam.setVehicleId(vehicleId);
+                    heightParam.setHeightFlag(heightFlag);
+
+                    //获取图片路径
+                    String where = String.format("Manufact1 = (select Model4 from StandTypelevel where Model1 = %s)", vehicleId);
+                    cur = db.query("StandVehmanfacturers", new String[]{"Manufact4"}, where, null, null, null, null);
+                    if (cur.moveToFirst()) {
+                        String manInfo = cur.getString(cur.getColumnIndex("Manufact4"));
+                        heightParam.setHeightPicPath(getPicPath(manInfo, heightPicPath));
+                    }
+
+                    data.setHeightParam(heightParam);
                 }
             }
 
             if (!levelFlag.equals("0")) {
-                data.setLevelParam(queryLevelParam(vehicleId));
-                data.getLevelParam().setVehicleId(vehicleId);
+                LevelParam levelParam = queryLevelParam(vehicleId);
+
+                if (levelParam != null) {
+                    levelParam.setVehicleId(vehicleId);
+                    data.setLevelParam(levelParam);
+                }
             }
         }
-
         cur.close();
         db.close();
-
         return data;
     }
 
@@ -271,11 +287,11 @@ public class VehicleDbUtil {
     public HeightParam queryHeightParam(String vehicleId, String flag) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
-        HeightParam data = null;
+        HeightParam data = new HeightParam();
         if (flag.equals("1")) {
             Cursor cur = db.query("Standdeterment", null, "Specs1=" + vehicleId, null, null, null, null);
             if (cur.moveToNext()) {
-                data = new HeightParam();
+
                 float frontMid = cur.getFloat(cur.getColumnIndex("Specs70"));
                 float frontMax = cur.getFloat(cur.getColumnIndex("Specs71"));
                 float frontMin = cur.getFloat(cur.getColumnIndex("Specs72"));
@@ -292,49 +308,44 @@ public class VehicleDbUtil {
             }
             cur.close();
         } else {
-            Float frontHeighMin = null, rearHeighMin = null;
+            Float frontHeightMin = null, rearHeightMin = null;
 
             String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-99.9899978637695)>0.001", vehicleId);
             Cursor cur = db.query("RideHeightData", new String[]{"min(FrontHeighMin) FrontHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
-                frontHeighMin = cur.getFloat(cur.getColumnIndex("FrontHeighMin"));
+                frontHeightMin = cur.getFloat(cur.getColumnIndex("FrontHeighMin"));
             }
 
             sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-99.9899978637695)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"max(FrontHeighMax) FrontHeighMax", "FrontHeighString"}, sqlWhere, null, null, null, null);
 
-            if (cur.moveToNext() && frontHeighMin != null) {
+            if (cur.moveToNext() && frontHeightMin != null) {
                 Float frontHeightMax = cur.getFloat(cur.getColumnIndex("FrontHeighMax"));
                 String frontHeightString = cur.getString(cur.getColumnIndex("FrontHeighString"));
 
                 //取前值
-                data = new HeightParam();
-                data.setFrontHeight(new ValuesPair(frontHeighMin, frontHeightMax, frontHeightString));
+                data.setFrontHeight(new ValuesPair(frontHeightMin, frontHeightMax, frontHeightString));
             }
 
             sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-99.9899978637695)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"min(RearHeighMin) RearHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
-                rearHeighMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
+                rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
             }
 
             sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.9899978637695)>0.001", sqlWhere);
             cur = db.query("RideHeightData", new String[]{"max(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
-            if (cur.moveToNext() && rearHeighMin != null) {
+            if (cur.moveToNext() && rearHeightMin != null) {
                 float rearHeightMax = cur.getFloat(cur.getColumnIndex("RearHeighMax"));
                 String rearHeightString = cur.getString(cur.getColumnIndex("RearHeighString"));
 
                 //取后值
-                if (data == null) data = new HeightParam();
-                data.setRearHeight(new ValuesPair(rearHeighMin, rearHeightMax, rearHeightString));
-
+                data.setRearHeight(new ValuesPair(rearHeightMin, rearHeightMax, rearHeightString));
             }
-
             cur.close();
         }
-
         db.close();
         return data;
     }
@@ -344,7 +355,7 @@ public class VehicleDbUtil {
         if (db == null) return null;
 
         Cursor cur = db.query("SPEClevelstandard", null, "ModelId=" + vehicleId, null, null, null, null);
-        LevelParam data = null;
+        LevelParam data = new LevelParam();
         if (cur.moveToNext()) {
             float frontMid = cur.getFloat(cur.getColumnIndex("LevelFrontSpec"));
             float frontMin = cur.getFloat(cur.getColumnIndex("LevelFrontMinToSpec"));
@@ -354,7 +365,6 @@ public class VehicleDbUtil {
             float rearMin = cur.getFloat(cur.getColumnIndex("LevelRearMinToSpec"));
             float rearMax = cur.getFloat(cur.getColumnIndex("LevelRearMaxToSpec"));
 
-            data = new LevelParam();
             data.setFrontLevel(new ValuesPair(-frontMin, frontMid, frontMax));
             data.setRearLevel(new ValuesPair(-rearMin, rearMid, rearMax));
         }
@@ -362,6 +372,248 @@ public class VehicleDbUtil {
         cur.close();
         db.close();
         return data;
+    }
+
+
+    public ReferData queryLevelData(String vehicleId, String frontLevel, String rearLevel) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        ReferData data = new ReferData();
+        String where = String.format("ModelId = %s "
+                + "And LevelFrontMin <= %s "
+                + "And LevelFrontMax > %s", vehicleId, frontLevel, frontLevel);
+        Cursor cur = db.query("SPECCamberFront", null, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            float frontCamber = cur.getFloat(cur.getColumnIndex("CamberFrontSpec"));
+            float frontCamberMin = cur.getFloat(cur.getColumnIndex("CamberFrontMinToSpec"));
+            float frontCamberMax = cur.getFloat(cur.getColumnIndex("CamberFrontMaxToSpec"));
+
+            if (isValid(frontCamber)) {
+                data.setLeftFrontCamber(new ValuesPair(-frontCamberMin, frontCamber, frontCamberMax));
+                data.setRightFrontCamber(data.getLeftFrontCamber().copy());
+            }
+
+        }
+
+        where = String.format("ModelId = %s " +
+                "And LevelRearMin<= %s " +
+                "And LevelRearMax > %s", vehicleId, rearLevel, rearLevel);
+        cur = db.query("SPECCamberRear", null, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            float rearCamber = cur.getFloat(cur.getColumnIndex("CamberRearSpec"));
+            float rearCamberMin = cur.getFloat(cur.getColumnIndex("CamberRearMinToSpec"));
+            float rearCamberMax = cur.getFloat(cur.getColumnIndex("CamberRearMaxToSpec"));
+
+            if (isValid(rearCamber)) {
+                data.setLeftRearCamber(new ValuesPair(-rearCamberMin, rearCamber, rearCamberMax));
+                data.setRightRearCamber(data.getLeftRearCamber().copy());
+            }
+        }
+
+        where = String.format("ModelId = %s "
+                + "And LevelFrontMin <= %s "
+                + "And LevelFrontMax > %s "
+                + "And LevelRearMin <= %s "
+                + "And LevelRearMax > %s", vehicleId, frontLevel, frontLevel, rearLevel, rearLevel);
+        cur = db.query("SPECcaster", null, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            float caster = cur.getFloat(cur.getColumnIndex("CasterSpec"));
+            float casterMin = cur.getFloat(cur.getColumnIndex("CasterMinToSpec"));
+            float casterMax = cur.getFloat(cur.getColumnIndex("CasterMaxToSpec"));
+
+            if (isValid(caster)) {
+                data.setLeftCaster(new ValuesPair(-casterMin, caster, casterMax));
+                data.setRightCaster(data.getLeftCaster().copy());
+            }
+        }
+
+        where = String.format("ModelId = %s "
+                + "And LevelFrontMin <= %s "
+                + "And LevelFrontMax > %s", vehicleId, frontLevel, frontLevel);
+        cur = db.query("SPECToeInFront", null, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            float frontTotalToe = cur.getFloat(cur.getColumnIndex("ToeInFrontSpec"));
+            float frontTotalToeMin = cur.getFloat(cur.getColumnIndex("ToeInFrontMinToSpec"));
+            float frontTotalToeMax = cur.getFloat(cur.getColumnIndex("ToeInFrontMaxToSpec"));
+
+            if (isValid(frontTotalToe)) {
+                data.setFrontTotalToe(new ValuesPair(-frontTotalToeMin, frontTotalToe, frontTotalToeMax));
+                data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
+                data.setRightFrontToe(data.getLeftFrontToe().copy());
+            }
+        }
+
+        where = String.format("ModelId = %s "
+                + "And LevelRearMin <= %s "
+                + "And LevelRearMax > %s", vehicleId, rearLevel, rearLevel);
+        cur = db.query("SPECToeInRear", null, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            float rearTotalToe = cur.getFloat(cur.getColumnIndex("ToeInRearSpec"));
+            float rearTotalToeMin = cur.getFloat(cur.getColumnIndex("ToeInRearMinToSpec"));
+            float rearTotalToeMax = cur.getFloat(cur.getColumnIndex("ToeInRearMaxToSpec"));
+
+            if (isValid(rearTotalToe)) {
+                data.setRearTotalToe(new ValuesPair(-rearTotalToeMin, rearTotalToe, rearTotalToeMax));
+                data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
+                data.setRightRearToe(data.getLeftRearToe().copy());
+            }
+        }
+
+        cur.close();
+        db.close();
+        return data;
+    }
+
+    public ReferData queryHeightData(String vehicleId, String leftFront, String rightFront, String leftRear, String rightRear, String flag) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+        Cursor cur = null;
+        ReferData data = new ReferData();
+        switch (Integer.parseInt(flag)) {
+            case 2:
+                String where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s", vehicleId, leftFront, leftFront);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, true);
+
+                where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s", vehicleId, rightFront, rightFront);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, false);
+                break;
+            case 3:
+                where = String.format("ModelId=%s And RearHeighMin<=%s And RearHeighMax>%s", vehicleId, leftRear, leftRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, true);
+
+                where = String.format("ModelId=%s And RearHeighMin<=%s And RearHeighMax>%s", vehicleId, rightRear, rightRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, false);
+                break;
+            case 4:
+                where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s", vehicleId, leftFront, leftFront);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, true);
+
+                where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s", vehicleId, rightFront, rightFront);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, false);
+
+                where = String.format("ModelId=%s And RearHeighMin<=%s And RearHeighMax>%s", vehicleId, leftRear, leftRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, true);
+
+                where = String.format("ModelId=%s And RearHeighMin<=%s And RearHeighMax>%s", vehicleId, rightRear, rightRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, false);
+                break;
+            case 5:
+                where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s And RearHeighMin<=%s And RearHeighMax>%s",
+                        vehicleId, leftFront, leftFront, leftRear, leftRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, true);
+
+                where = String.format("ModelId=%s And FrontHeighMin<=%s And FrontHeighMax>%s And RearHeighMin<=%s And RearHeighMax>%s",
+                        vehicleId, rightFront, rightFront, rightRear, rightRear);
+                cur = db.query("RideHeightData", null, where, null, null, null, null);
+                getSpecsAngles(data, cur, false);
+                break;
+        }
+        if (cur != null) cur.close();
+        db.close();
+        return data;
+    }
+
+    private void getSpecsAngles(ReferData data, Cursor cursor, boolean isLeft) {
+        if (cursor != null && cursor.moveToNext()) {
+            boolean frontToeFlag = false;
+            boolean rearToeFlag = false;
+
+            float frontTotalToe = cursor.getFloat(cursor.getColumnIndex("FrontTotalToe"));
+            float frontTotalToeMin = cursor.getFloat(cursor.getColumnIndex("FrontTotalToeMin"));
+            float frontTotalToeMax = cursor.getFloat(cursor.getColumnIndex("FrontTotalToeMax"));
+
+            float frontCamber = cursor.getFloat(cursor.getColumnIndex("FrontCamber"));
+            float frontCamberMin = cursor.getFloat(cursor.getColumnIndex("FrontCamberMin"));
+            float frontCamberMax = cursor.getFloat(cursor.getColumnIndex("FrontCamberMax"));
+
+            float kpi = cursor.getFloat(cursor.getColumnIndex("KPI"));
+            float kpiMin = cursor.getFloat(cursor.getColumnIndex("KPIMin"));
+            float kpiMax = cursor.getFloat(cursor.getColumnIndex("KPIMax"));
+
+            float rearTotalToe = cursor.getFloat(cursor.getColumnIndex("RearTotalToe"));
+            float rearTotalToeMin = cursor.getFloat(cursor.getColumnIndex("RearTotalToeMIn"));
+            float rearTotalToeMax = cursor.getFloat(cursor.getColumnIndex("RearTotalToeMax"));
+
+            float rearCamber = cursor.getFloat(cursor.getColumnIndex("RearCamber"));
+            float rearCamberMin = cursor.getFloat(cursor.getColumnIndex("RearCamberMin"));
+            float rearCamberMax = cursor.getFloat(cursor.getColumnIndex("RearCamberMax"));
+
+            float caster = cursor.getFloat(cursor.getColumnIndex("Caster"));
+            float casterMin = cursor.getFloat(cursor.getColumnIndex("CasterMin"));
+            float casterMax = cursor.getFloat(cursor.getColumnIndex("CasterMax"));
+
+            if (isLeft) {
+                if (isValid(frontTotalToe))
+                    data.setLeftFrontToe(new ValuesPair(frontTotalToeMin, frontTotalToe, frontTotalToeMax));
+                if (isValid(frontCamber))
+                    data.setLeftFrontCamber(new ValuesPair(frontCamberMin, frontCamber, frontCamberMax));
+                if (isValid(kpi))
+                    data.setLeftKpi(new ValuesPair(kpiMin, kpi, kpiMax));
+                if (isValid(rearTotalToe))
+                    data.setLeftRearToe(new ValuesPair(rearTotalToeMin, rearTotalToe, rearTotalToeMax));
+                if (isValid(rearCamber))
+                    data.setLeftRearCamber(new ValuesPair(rearCamberMin, rearCamber, rearCamberMax));
+                if (isValid(caster))
+                    data.setLeftCaster(new ValuesPair(casterMin, caster, casterMax));
+            } else {
+                if (isValid(frontTotalToe))
+                    frontToeFlag = true;
+                if (isValid(frontCamber))
+                    data.setRightFrontCamber(new ValuesPair(frontCamberMin, frontCamber, frontCamberMax));
+                if (isValid(kpi))
+                    data.setRightKpi(new ValuesPair(kpiMin, kpi, kpiMax));
+                if (isValid(rearTotalToe))
+                    rearToeFlag = true;
+                if (isValid(rearCamber))
+                    data.setRightRearCamber(new ValuesPair(rearCamberMin, rearCamber, rearCamberMax));
+                if (isValid(caster))
+                    data.setRightCaster(new ValuesPair(casterMin, caster, casterMax));
+            }
+
+            if (frontToeFlag) {
+                float min = (Float.parseFloat(data.getLeftFrontToe().getMin()) + frontTotalToeMin) / 2;
+                float mid = (Float.parseFloat(data.getLeftFrontToe().getMid()) + frontTotalToe) / 2;
+                float max = (Float.parseFloat(data.getLeftFrontToe().getMax()) + frontTotalToeMax) / 2;
+
+                data.setFrontTotalToe(new ValuesPair(min, mid, max));
+                data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
+                data.setRightFrontToe(data.getLeftFrontToe().copy());
+            }
+
+            if (rearToeFlag) {
+                float min = (Float.parseFloat(data.getLeftRearToe().getMin()) + rearTotalToeMin) / 2;
+                float mid = (Float.parseFloat(data.getLeftRearToe().getMid()) + rearTotalToe) / 2;
+                float max = (Float.parseFloat(data.getLeftRearToe().getMax()) + rearTotalToeMax) / 2;
+
+                data.setRearTotalToe(new ValuesPair(min, mid, max));
+                data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
+                data.setRightRearToe(data.getLeftRearToe().copy());
+            }
+        }
+    }
+
+    private boolean isValid(float value) {
+        return !GloVariable.initValue.equals(new DecimalFormat("0.00").format(value));
+    }
+
+    private String getPicPath(String manuInfo, String path) {
+
+        int index = manuInfo.indexOf("(");
+        if (index >= 0) {
+            manuInfo = manuInfo.subSequence(0, index).toString();
+        }
+
+        return String.format("RideHeight/%s %s.PNG", manuInfo.toUpperCase(), path);
     }
 
 

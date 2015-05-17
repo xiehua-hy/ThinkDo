@@ -1,6 +1,8 @@
 package com.thinkdo.entity;
 
-public class HeightParam {
+import java.io.Serializable;
+
+public class HeightParam implements Serializable {
     private String vehicleId;
 
     private String heightFlag;     //测高标志

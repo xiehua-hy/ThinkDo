@@ -1,9 +1,11 @@
 package com.thinkdo.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by xh on 15/5/14.
  */
-public class LevelParam {
+public class LevelParam implements Serializable {
     private String vehicleId;
 
     private ValuesPair frontLevel;

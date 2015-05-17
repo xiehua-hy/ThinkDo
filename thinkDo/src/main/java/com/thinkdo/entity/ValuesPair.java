@@ -1,9 +1,10 @@
 package com.thinkdo.entity;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
-public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol {
+public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol, Serializable {
     private String min;
     private String mid;
     private String max;
@@ -116,17 +117,17 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         }
     }
 
-    /**
-     * 与 valuesPair 合并
-     * 如果valuesPair的值不为初始值的话,则将值替换成valuesPair的值;
-     */
-    public void combine(ValuesPair valuesPair) {
-        if (valuesPair.getMid().equals(GloVariable.initValue)) return;
-
-        min = valuesPair.getMin();
-        mid = valuesPair.getMid();
-        max = valuesPair.getMax();
-    }
+//    /**
+//     * 与 valuesPair 合并
+//     * 如果valuesPair的值不为初始值的话,则将值替换成valuesPair的值;
+//     */
+//    public void combine(ValuesPair valuesPair) {
+//        if (valuesPair.getMid().equals(GloVariable.initValue)) return;
+//
+//        min = valuesPair.getMin();
+//        mid = valuesPair.getMid();
+//        max = valuesPair.getMax();
+//    }
 
     private void init() {
         this.min = GloVariable.initValue;

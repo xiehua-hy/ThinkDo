@@ -75,12 +75,12 @@ public class CustomDbUtil {
 
     public List<Map<String, String>> queryAllManufacturer() {
         SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
 
+        List<Map<String, String>> data = new ArrayList<>();
         //each row is unique
         Cursor cur = db.query(true, "OperOftenDataTotal", new String[]{"OftenTotal1", "OftenTotal2"}, null, null, null, null, null, null);
 
-        if (cur.getCount() == 0) return null;
-        List<Map<String, String>> data = new ArrayList<>();
         Map<String, String> map = new HashMap<>();
         while (cur.moveToNext()) {
             map.clear();

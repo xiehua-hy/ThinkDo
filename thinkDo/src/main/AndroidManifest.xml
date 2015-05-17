@@ -51,6 +51,12 @@
         <activity
             android:name=".MPreferenceActivity"
             android:screenOrientation="sensorLandscape" />
+        <activity android:name=".HeightActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".WeightActivity"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".LevelActivity"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>

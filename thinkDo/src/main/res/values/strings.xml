@@ -113,4 +113,8 @@
     <string name="right_front_level_value">Right Front Level Value</string>
     <string name="left_rear_level_value">Left Rear Level Value</string>
     <string name="right_rear_level_value">Right Rear Level Value</string>
+    <string name="weight_test">weight_test</string>
+    <string name="height_test">Height Test</string>
+    <string name="level_test">Level Test</string>
+    <string name="tip_data_error">Error Data</string>
 </resources>

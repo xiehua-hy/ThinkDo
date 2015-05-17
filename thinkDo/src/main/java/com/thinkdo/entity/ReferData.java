@@ -13,11 +13,10 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
     //车辆信息
     private String manId;
     private String manInfo;
-
     private String vehicleId;
-    private String vehicleInfo;
-
     private String realYear;
+
+    private String vehicleInfo;
     private String startYear;
     private String endYear;
 
@@ -312,6 +311,42 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
 
     public void setMaxThrust(String maxThrust) {
         this.maxThrust = maxThrust;
+    }
+
+    public void combine(ReferData other) {
+        if (other == null) return;
+
+        if (other.getFrontTotalToe() != null) {
+            this.frontTotalToe = other.getFrontTotalToe();
+            this.leftFrontToe = other.getLeftFrontToe();
+            this.rightFrontToe = other.getRightFrontToe();
+        }
+
+        if (other.getLeftFrontCamber() != null) {
+            this.leftFrontCamber = other.getLeftFrontCamber();
+            this.rightFrontCamber = other.getRightFrontCamber();
+        }
+
+        if (other.getRearTotalToe() != null) {
+            this.rearTotalToe = other.getRearTotalToe();
+            this.leftRearToe = other.getLeftRearToe();
+            this.rightRearToe = other.getRightRearToe();
+        }
+
+        if (other.getLeftRearCamber() != null) {
+            this.leftRearCamber = other.getLeftRearCamber();
+            this.rightRearCamber = other.getRightRearCamber();
+        }
+
+        if (other.getLeftKpi() != null) {
+            this.leftKpi = other.getLeftKpi();
+            this.rightKpi = other.getRightKpi();
+        }
+
+        if (other.getRightCaster() != null) {
+            this.leftCaster = other.getLeftCaster();
+            this.rightCaster = other.getRightCaster();
+        }
     }
 
 }

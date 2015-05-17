@@ -2,14 +2,19 @@ package com.thinkdo.activity;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.DataEnum;
+import com.thinkdo.entity.ReferData;
+import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
@@ -27,10 +32,18 @@ import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
 
 public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback {
     private int preCheckedRadio = R.id.radio_pick;
+    private ReferData referData;
+    private int weightHeightLevelFlag;
+
+    public final int WeightFlag = 0x01;
+    public final int HeightFlag = 0x02;
+    public final int LevelFlag = 0x04;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         init();
     }
@@ -61,6 +74,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         rb.setOnClickListener(this);
 
         fragmentCommit(new ManufacturerFragment());
+
     }
 
     @Override
@@ -119,31 +133,113 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onManufacturerSelected(String manId, String manInfo, String pyIndex, DataEnum dbIndex) {
+    public void onManufacturerSelected(String manId, String manInfo, DataEnum dbIndex) {
         if (dbIndex == DataEnum.custom) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
         }
+        referData = new ReferData();
+        referData.setManId(manId);
+        referData.setManInfo(manInfo);
+
         PickCarFragment fragment = new PickCarFragment();
-        fragment.setParams(manId, pyIndex, dbIndex);
+        fragment.setParams(manId, manInfo, null, dbIndex);
         fragmentCommit(fragment);
     }
 
     @Override
-    public void onCusManSelected(String manId, String manInfo, String pyIndex, DataEnum dbIndex) {
-        onManufacturerSelected(manId, manInfo, pyIndex, dbIndex);
+    public void onCusManSelected(String manId, String manInfo, DataEnum dbIndex) {
+        onManufacturerSelected(manId, manInfo, dbIndex);
     }
 
     @Override
-    public void onVehicleSelected(String vehicleID, String year) {
-        VehicleInfoShow fragment = new VehicleInfoShow();
-        fragment.setVehicleId(vehicleID);
-        fragmentCommit(fragment);
+    public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final DataEnum dbIndex) {
+
+        weightHeightLevelFlag = 0;
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                //还有自定义的数据没有考虑
+                if (dbIndex == DataEnum.custom) return;
+
+                VehicleDbUtil util = new VehicleDbUtil();
+                referData = util.queryReferData(vehicleID);
+                if (referData != null) {
+                    referData.setManId(manId);
+                    referData.setManInfo(manInfo);
+                    referData.setVehicleId(vehicleID);
+                    referData.setRealYear(year);
+                }
+
+                SpecialParams specialParams = util.querySpecParam(vehicleID);
+
+                if (specialParams != null) {
+                    if (specialParams.getWeightParam() != null)
+                        weightHeightLevelFlag = weightHeightLevelFlag | WeightFlag;
+                    if (specialParams.getHeightParam() != null)
+                        weightHeightLevelFlag = weightHeightLevelFlag | HeightFlag;
+                    if (specialParams.getLevelParam() != null)
+                        weightHeightLevelFlag = weightHeightLevelFlag | LevelFlag;
+                }
+
+                startWeightHeightLevel(specialParams);
+            }
+        };
+
+        new Thread(runnable, "specialThread").start();
     }
 
     @Override
     public void onVehicleInfoNext() {
 
+    }
+
+    private void startWeightHeightLevel(SpecialParams specialParams) {
+        if (weightHeightLevelFlag == 0) {
+            VehicleInfoShow fragment = new VehicleInfoShow();
+            fragment.setReferData(referData.copy());
+            fragmentCommit(fragment);
+            return;
+        }
+
+        Intent intent = null;
+        int questCode = 0;
+        if ((weightHeightLevelFlag & WeightFlag) != 0) {
+            intent = new Intent(this, WeightActivity.class);
+            intent.putExtra("SpecialParams", specialParams);
+            questCode = weightHeightLevelFlag;
+        } else if ((weightHeightLevelFlag & HeightFlag) != 0) {
+            intent = new Intent(this, HeightActivity.class);
+            intent.putExtra("SpecialParams", specialParams);
+            questCode = HeightFlag;
+        } else if ((weightHeightLevelFlag & LevelFlag) != 0) {
+            intent = new Intent(this, LevelActivity.class);
+            intent.putExtra("SpecialParams", specialParams);
+            questCode = LevelFlag;
+        }
+
+        if (intent != null)
+            startActivityForResult(intent, questCode);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == WeightFlag && resultCode == RESULT_OK && data != null) {
+            SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
+            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - WeightFlag);
+            startWeightHeightLevel(specialParams);
+        } else if (requestCode == HeightFlag && resultCode == RESULT_OK && data != null) {
+            SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
+            referData.combine((ReferData) data.getSerializableExtra("ReferData"));
+            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - HeightFlag);
+            startWeightHeightLevel(specialParams);
+        } else if (requestCode == LevelFlag && resultCode == RESULT_OK && data != null) {
+            SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
+            referData.combine((ReferData) data.getSerializableExtra("ReferData"));
+            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - LevelFlag);
+            startWeightHeightLevel(specialParams);
+        }
     }
 }

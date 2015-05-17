@@ -111,4 +111,8 @@
     <string name="right_front_level_value">右前轮水平值</string>
     <string name="left_rear_level_value">左后轮水平值</string>
     <string name="right_rear_level_value">右后轮水平值</string>
+    <string name="weight_test">测重</string>
+    <string name="height_test">测高</string>
+    <string name="level_test">奔驰水平测量</string>
+    <string name="tip_data_error">数据错误</string>
 </resources>

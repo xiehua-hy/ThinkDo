@@ -265,7 +265,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
         String info = new VehicleDbUtil().queryManufacturerInfo(manId);
 
         if (callback != null) {
-            callback.onManufacturerSelected(String.valueOf(manId), info, null, dbIndex);
+            callback.onManufacturerSelected(String.valueOf(manId), info, dbIndex);
         }
 
     }
@@ -333,7 +333,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     }
 
     public interface ManufacturerCallback {
-        void onManufacturerSelected(String manId, String manInfo, String pyIndex,DataEnum dataEnum);
+        void onManufacturerSelected(String manId, String manInfo, DataEnum dataEnum);
     }
 
 

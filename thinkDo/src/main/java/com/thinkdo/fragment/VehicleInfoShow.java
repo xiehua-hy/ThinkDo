@@ -14,64 +14,60 @@ import com.thinkdo.view.BarReferData;
 
 public class VehicleInfoShow extends Fragment {
     private VehicleInfoCallback callback;
-    public static ReferData data;
-    private String vehicleId;
-    private View view;
+    private ReferData data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_vehicle_info_show, container, false);
-        new DataLoadThread().start();
+        View view = inflater.inflate(R.layout.fragment_vehicle_info_show, container, false);
+        initView(view);
         return view;
     }
 
-    private void initView() {
+    private void initView(View view) {
         if (data == null) return;
 
-        ReferData copy = data.copy();
-        copy.unitConvert();
-
+        data.unitConvert();
         BarReferData bar;
         bar = (BarReferData) view.findViewById(R.id.bar_frontTotalToe);
-        bar.setAllValues(copy.getFrontTotalToe(), null);
+        bar.setAllValues(data.getFrontTotalToe(), null);
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontSingleToe);
-        bar.setAllValues(copy.getLeftFrontToe(), copy.getRightFrontToe());
+        bar.setAllValues(data.getLeftFrontToe(), data.getRightFrontToe());
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontCamber);
-        bar.setAllValues(copy.getLeftFrontCamber(), copy.getRightFrontCamber());
+        bar.setAllValues(data.getLeftFrontCamber(), data.getRightFrontCamber());
 
         bar = (BarReferData) view.findViewById(R.id.bar_caster);
-        bar.setAllValues(copy.getLeftCaster(), copy.getRightCaster());
+        bar.setAllValues(data.getLeftCaster(), data.getRightCaster());
 
         bar = (BarReferData) view.findViewById(R.id.bar_kpi);
-        bar.setAllValues(copy.getLeftKpi(), copy.getRightKpi());
+        bar.setAllValues(data.getLeftKpi(), data.getRightKpi());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearTotalToe);
-        bar.setAllValues(copy.getRearTotalToe(), null);
+        bar.setAllValues(data.getRearTotalToe(), null);
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearSingleToe);
-        bar.setAllValues(copy.getLeftRearToe(), copy.getRightRearToe());
+        bar.setAllValues(data.getLeftRearToe(), data.getRightRearToe());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearCamber);
-        bar.setAllValues(copy.getLeftRearCamber(), copy.getRightRearCamber());
+        bar.setAllValues(data.getLeftRearCamber(), data.getRightRearCamber());
 
         bar = (BarReferData) view.findViewById(R.id.bar_maxThrust);
-        bar.setLeftMinText(copy.getMaxThrust());
+        bar.setLeftMinText(data.getMaxThrust());
 
         bar = (BarReferData) view.findViewById(R.id.bar_wheelbase);
-        bar.setLeftMinText(copy.getWheelbase());
+        bar.setLeftMinText(data.getWheelbase());
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontWheel);
-        bar.setLeftMinText(copy.getFrontWheel());
+        bar.setLeftMinText(data.getFrontWheel());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearWheel);
-        bar.setLeftMinText(copy.getRearWheel());
+        bar.setLeftMinText(data.getRearWheel());
 
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setReferData(ReferData referData) {
+        data = referData;
     }
 
     @Override
@@ -86,22 +82,5 @@ public class VehicleInfoShow extends Fragment {
 
     public interface VehicleInfoCallback {
         void onVehicleInfoNext();
-    }
-
-    class DataLoadThread extends Thread {
-        @Override
-        public void run() {
-
-//            data = new VehicleDbUtil().queryReferData(vehicleId);
-
-            getActivity().runOnUiThread(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            initView();
-                        }
-                    }
-            );
-        }
     }
 }

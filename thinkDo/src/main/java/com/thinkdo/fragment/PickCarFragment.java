@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PickCarFragment extends Fragment {
-    private String manId, pyIndex;
+    private String manId, manInfo, pyIndex;
     private ExpandableListView expand;
     private VehicleCallbacks callback;
     private List<String> data;
@@ -75,14 +75,19 @@ public class PickCarFragment extends Fragment {
         }
     }
 
-    public void setParams(String manID, String pyIndex, DataEnum dbIndex) {
+    public void setParams(String manID, String manInfo, String pyIndex, DataEnum dbIndex) {
         setManID(manID);
+        setManInfo(manInfo);
         setPyIndex(pyIndex);
         setDbIndex(dbIndex);
     }
 
     public void setManID(String manId) {
         this.manId = manId;
+    }
+
+    public void setManInfo(String manInfo) {
+        this.manInfo = manInfo;
     }
 
     public void setPyIndex(String pyIndex) {
@@ -100,7 +105,7 @@ public class PickCarFragment extends Fragment {
          * @param vehicleID 车型ID
          * @param year      年份
          */
-        void onVehicleSelected(String vehicleID, String year);
+        void onVehicleSelected(String manId, String manInfo, String vehicleID, String year, DataEnum dbIndex);
     }
 
     class MyAdapter extends BaseExpandableListAdapter {
@@ -251,7 +256,7 @@ public class PickCarFragment extends Fragment {
                                 String year = tv.getText().toString();
                                 String vehicleID = textView2.getText().toString();
                                 if (callback != null) {
-                                    callback.onVehicleSelected(vehicleID, year);
+                                    callback.onVehicleSelected(manId, manInfo, vehicleID, year, dbIndex);
                                 }
                             }
                         });
