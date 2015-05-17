@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.entity.HeightParam;
+import com.thinkdo.util.CommonUtil;
 
 import java.io.IOException;
 

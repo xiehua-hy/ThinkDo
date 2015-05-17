@@ -5,23 +5,28 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol, Serializable {
-    private String min;
-    private String mid;
-    private String max;
+    protected String min;
+    protected String mid;
+    protected String max;
 
-    private String preReal;
-    private String real;
+    protected String preReal;
+    protected String real;
 
-    private String explain;
+    protected String explain;
 
     public ValuesPair() {
         init();
     }
 
     public ValuesPair(String min, String mid, String max) {
+        this(min, mid, max, null);
+    }
+
+    public ValuesPair(String min, String mid, String max, String explain) {
         setMin(min);
         setMid(mid);
         setMax(max);
+        setExplain(explain);
     }
 
     /**
@@ -207,8 +212,38 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         return value.equals(GloVariable.initValue);
     }
 
-    private String format(float value) {
+    /**
+     * 将valuePair的值格式化
+     * 如果值为初始值99.99,则此值不进行格式化操作
+     *
+     * @param num 值保留小数点的位数
+     */
+    public void format(int num) {
+        if (mid != null && !GloVariable.initValue.equals(mid)) {
+            min = format(Float.parseFloat(min), num);
+            mid = format(Float.parseFloat(mid), num);
+            max = format(Float.parseFloat(max), num);
+        }
+        if (real != null && !GloVariable.initValue.equals(real)) {
+            real = format(Float.parseFloat(real), num);
+            preReal = format(Float.parseFloat(preReal), num);
+        }
+    }
+
+    protected String format(float value) {
         return new DecimalFormat("0.00").format(value);
+    }
+
+    protected String format(float f, int num) {
+        StringBuilder style = new StringBuilder("0");
+
+        if (num > 0)
+            style.append(".");
+
+        for (int i = num; i > 0; i--) {
+            style.append("0");
+        }
+        return new DecimalFormat(style.toString()).format(f);
     }
 
     /**
@@ -218,7 +253,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param unit  转换的目标单位
      * @return String
      */
-    private String unitConvert(String angle, UnitEnum unit) {
+    protected String unitConvert(String angle, UnitEnum unit) {
         if (angle == null) return null;
         if (angle.equals(GloVariable.initValue)) return angle;
 
@@ -245,11 +280,11 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param fWheelDiameter 转换因子
      * @return mm or inch
      */
-    private float toeDegreeToWidth(float angle, float fWheelDiameter) {
+    protected float toeDegreeToWidth(float angle, float fWheelDiameter) {
         return (float) (fWheelDiameter * Math.sin(degreeToRadian(angle)));
     }
 
-    private float degreeToRadian(float angle) {
+    protected float degreeToRadian(float angle) {
         return (float) ((Math.PI * angle) / 180);
     }
 
@@ -259,16 +294,17 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param angle 百分度的数值
      * @return 度分的数值
      */
-    private String degreeToMinu(float angle) {
+    protected String degreeToMinu(float angle) {
         StringBuilder str = new StringBuilder(10);
         if (angle < 0) str.append("-");
 
         angle = 60 * Math.abs(angle);
         int i = (int) (angle / 60);
-        str.append(i + "°");
+        str.append(String.format("%d°", i));
         i = Math.round(angle - 60 * i);
         if (i < 10) str.append("0");
-
-        return str.append(i + "'").toString();
+        return str.append(String.format("%d'", i)).toString();
     }
+
+
 }

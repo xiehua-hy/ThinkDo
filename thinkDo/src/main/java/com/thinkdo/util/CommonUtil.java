@@ -15,10 +15,7 @@ public class CommonUtil {
         String regEx = "[\\u4e00-\\u9fa5]";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
-        while (m.find()) {
-            return true;
-        }
-        return false;
+        return m.find();
     }
 
     public static String findSpecialChar(String msg) {
@@ -42,23 +39,21 @@ public class CommonUtil {
     }
 
     /**
-     *  四舍五入格式化数值
+     * 四舍五入格式化数值
      *
-     *  @param num 小位点位数 1表示带一位; 2表示表两位小数; 其他值表示取整,即0位小数
-     * */
-    public static String format(float f, int num){
-        String style;
-        switch(num){
-            case 2:
-                style="0.00";
-                break;
-            case 1:
-                style="0.0";
-                break;
-            default:
-                style="0";
+     * @param num 小位点位数
+     */
+    public static String format(float f, int num) {
+        StringBuilder style = new StringBuilder("0");
+
+        if (num > 0)
+            style.append(".");
+
+        for (int i = num; i > 0; i--) {
+            style.append("0");
         }
-        return new DecimalFormat(style).format(f);
+
+        return new DecimalFormat(style.toString()).format(f);
     }
 
 

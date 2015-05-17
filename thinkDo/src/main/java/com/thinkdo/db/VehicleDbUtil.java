@@ -305,6 +305,10 @@ public class VehicleDbUtil {
 
                 data.setFrontHeight(new ValuesPair(frontMin, frontMid, frontMax, frontString));
                 data.setRearHeight(new ValuesPair(rearMin, rearMid, rearMax, rearString));
+
+                data.getFrontHeight().format(1);
+                data.getRearHeight().format(1);
+
             }
             cur.close();
         } else {
@@ -321,11 +325,12 @@ public class VehicleDbUtil {
             cur = db.query("RideHeightData", new String[]{"max(FrontHeighMax) FrontHeighMax", "FrontHeighString"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext() && frontHeightMin != null) {
-                Float frontHeightMax = cur.getFloat(cur.getColumnIndex("FrontHeighMax"));
+                float frontHeightMax = cur.getFloat(cur.getColumnIndex("FrontHeighMax"));
                 String frontHeightString = cur.getString(cur.getColumnIndex("FrontHeighString"));
 
                 //取前值
                 data.setFrontHeight(new ValuesPair(frontHeightMin, frontHeightMax, frontHeightString));
+                data.getFrontHeight().format(1);
             }
 
             sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-99.9899978637695)>0.001", vehicleId);
@@ -335,7 +340,7 @@ public class VehicleDbUtil {
                 rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.9899978637695)>0.001", sqlWhere);
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.9899978637695)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"max(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
             if (cur.moveToNext() && rearHeightMin != null) {
                 float rearHeightMax = cur.getFloat(cur.getColumnIndex("RearHeighMax"));
@@ -343,6 +348,7 @@ public class VehicleDbUtil {
 
                 //取后值
                 data.setRearHeight(new ValuesPair(rearHeightMin, rearHeightMax, rearHeightString));
+                data.getRearHeight().format(1);
             }
             cur.close();
         }
@@ -367,6 +373,9 @@ public class VehicleDbUtil {
 
             data.setFrontLevel(new ValuesPair(-frontMin, frontMid, frontMax));
             data.setRearLevel(new ValuesPair(-rearMin, rearMid, rearMax));
+
+            data.getFrontLevel().format(1);
+            data.getRearLevel().format(1);
         }
 
         cur.close();
@@ -606,14 +615,14 @@ public class VehicleDbUtil {
         return !GloVariable.initValue.equals(new DecimalFormat("0.00").format(value));
     }
 
-    private String getPicPath(String manuInfo, String path) {
+    private String getPicPath(String manInfo, String path) {
 
-        int index = manuInfo.indexOf("(");
+        int index = manInfo.indexOf("(");
         if (index >= 0) {
-            manuInfo = manuInfo.subSequence(0, index).toString();
+            manInfo = manInfo.subSequence(0, index).toString();
         }
 
-        return String.format("RideHeight/%s %s.PNG", manuInfo.toUpperCase(), path);
+        return String.format("RideHeight/%s %s.PNG", manInfo.toUpperCase(), path);
     }
 
 
