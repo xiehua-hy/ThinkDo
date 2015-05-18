@@ -208,7 +208,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         if ((weightHeightLevelFlag & WeightFlag) != 0) {
             intent = new Intent(this, WeightActivity.class);
             intent.putExtra("SpecialParams", specialParams);
-            questCode = weightHeightLevelFlag;
+            questCode = WeightFlag;
         } else if ((weightHeightLevelFlag & HeightFlag) != 0) {
             intent = new Intent(this, HeightActivity.class);
             intent.putExtra("SpecialParams", specialParams);

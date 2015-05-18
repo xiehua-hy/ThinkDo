@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.UnitEnum;
 
@@ -23,7 +26,8 @@ public class InitActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
-        new InitThread().start();
+        new VehicleDbUtil().queryHeightParam("103368","2");
+//        new InitThread().start();
     }
 
     private void init() {
@@ -44,6 +48,7 @@ public class InitActivity extends Activity {
         if (!sqliteCar.exists()) {
             copy(GloVariable.carSqliteName, sqliteCar);
         }
+
     }
 
     private void copy(String assetsFileName, File des) {

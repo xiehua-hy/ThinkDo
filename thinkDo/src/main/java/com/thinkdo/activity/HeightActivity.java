@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
 import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.ReferData;
@@ -24,7 +25,8 @@ public class HeightActivity extends Activity implements Heightfrag1Callback, Hei
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.frame);
         init();
     }

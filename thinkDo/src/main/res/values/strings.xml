@@ -117,4 +117,6 @@
     <string name="height_test">Height Test</string>
     <string name="level_test">Level Test</string>
     <string name="tip_data_error">Error Data</string>
+    <string name="tip_weight_test">Unit: KG</string>
+    <string name="tip_height_test">Unit: MM</string>
 </resources>

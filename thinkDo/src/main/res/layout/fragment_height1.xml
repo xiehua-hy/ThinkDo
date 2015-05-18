@@ -25,13 +25,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:visibility="invisible">
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/front_height_values"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_frontString"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/front_height_values"
                 android:textSize="20sp" />
 
             <TextView
@@ -72,10 +77,15 @@
             android:visibility="invisible">
 
             <TextView
-                android:id="@+id/tv_rearString"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rear_height_values"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_rearString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="20sp" />
 
             <TextView
@@ -114,6 +124,14 @@
             android:layout_marginTop="16dp"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tip_height_test"
+            android:textColor="@color/font_black"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_next"

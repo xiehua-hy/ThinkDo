@@ -411,6 +411,14 @@
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/tip_height_test"
+            android:textColor="@color/font_black"
+            android:textSize="20sp" />
+
         <Button
             android:id="@+id/btn_next"
             android:layout_width="200dp"

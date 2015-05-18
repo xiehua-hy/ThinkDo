@@ -199,7 +199,6 @@ public class VehicleDbUtil {
     public SpecialParams querySpecParam(String vehicleId) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
-
         Cursor cur = db.query("Standtypelevel", null, "Model1=" + vehicleId, null, null, null, null);
         SpecialParams data = new SpecialParams();
         if (cur.moveToFirst()) {
@@ -287,6 +286,7 @@ public class VehicleDbUtil {
     public HeightParam queryHeightParam(String vehicleId, String flag) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
+
         HeightParam data = new HeightParam();
         if (flag.equals("1")) {
             Cursor cur = db.query("Standdeterment", null, "Specs1=" + vehicleId, null, null, null, null);
@@ -314,14 +314,14 @@ public class VehicleDbUtil {
         } else {
             Float frontHeightMin = null, rearHeightMin = null;
 
-            String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-99.9899978637695)>0.001", vehicleId);
+            String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-100)>1", vehicleId);
             Cursor cur = db.query("RideHeightData", new String[]{"min(FrontHeighMin) FrontHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
                 frontHeightMin = cur.getFloat(cur.getColumnIndex("FrontHeighMin"));
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-99.9899978637695)>0.001", vehicleId);
+            sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-100)>1", vehicleId);
             cur = db.query("RideHeightData", new String[]{"max(FrontHeighMax) FrontHeighMax", "FrontHeighString"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext() && frontHeightMin != null) {
@@ -333,15 +333,21 @@ public class VehicleDbUtil {
                 data.getFrontHeight().format(1);
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-99.9899978637695)>0.001", vehicleId);
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-100)>1", vehicleId);
             cur = db.query("RideHeightData", new String[]{"min(RearHeighMin) RearHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
-                rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
+                try {
+                    rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
+                } catch (Exception e) {
+
+                    rearHeightMin = null;
+                }
+
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.9899978637695)>0.001", vehicleId);
-            cur = db.query("RideHeightData", new String[]{"max(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-100)>1", vehicleId);
+            cur = db.query("RideHeightData", new String[]{"MAX(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
             if (cur.moveToNext() && rearHeightMin != null) {
                 float rearHeightMax = cur.getFloat(cur.getColumnIndex("RearHeighMax"));
                 String rearHeightString = cur.getString(cur.getColumnIndex("RearHeighString"));

@@ -951,19 +951,21 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int tip_data_error=0x7f090064;
         public static final int tip_data_success_save=0x7f090065;
         public static final int tip_european_vehicle=0x7f090066;
-        public static final int toe=0x7f090067;
-        public static final int toe_unit=0x7f090068;
-        public static final int totalToe=0x7f090069;
-        public static final int unit=0x7f09006a;
-        public static final int unit1=0x7f09006b;
-        public static final int unit2=0x7f09006c;
-        public static final int unit_set=0x7f09006d;
-        public static final int user_data=0x7f09006e;
-        public static final int vehicles_choice=0x7f09006f;
-        public static final int weight_test=0x7f090070;
-        public static final int wheel_diff=0x7f090071;
-        public static final int wheelbase=0x7f090072;
-        public static final int wheelbase_diff=0x7f090073;
+        public static final int tip_height_test=0x7f090067;
+        public static final int tip_weight_test=0x7f090068;
+        public static final int toe=0x7f090069;
+        public static final int toe_unit=0x7f09006a;
+        public static final int totalToe=0x7f09006b;
+        public static final int unit=0x7f09006c;
+        public static final int unit1=0x7f09006d;
+        public static final int unit2=0x7f09006e;
+        public static final int unit_set=0x7f09006f;
+        public static final int user_data=0x7f090070;
+        public static final int vehicles_choice=0x7f090071;
+        public static final int weight_test=0x7f090072;
+        public static final int wheel_diff=0x7f090073;
+        public static final int wheelbase=0x7f090074;
+        public static final int wheelbase_diff=0x7f090075;
     }
     public static final class style {
         /** 
