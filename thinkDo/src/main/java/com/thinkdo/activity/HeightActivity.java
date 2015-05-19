@@ -27,6 +27,8 @@ public class HeightActivity extends Activity implements Heightfrag1Callback, Hei
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.frame);
         init();
     }
@@ -39,7 +41,7 @@ public class HeightActivity extends Activity implements Heightfrag1Callback, Hei
         }
 
         data = (SpecialParams) getIntent().getSerializableExtra("SpecialParams");
-        if (data == null && data.getHeightParam() == null) return;
+        if (data == null || data.getHeightParam() == null) return;
 
         if (data.getHeightParam().getHeightFlag().equals("1")) {
             getFragmentManager().beginTransaction().replace(R.id.frameLayout, Height1Fragment.newInstance(data.getHeightParam())).commit();

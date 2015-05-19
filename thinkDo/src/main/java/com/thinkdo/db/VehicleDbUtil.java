@@ -86,7 +86,7 @@ public class VehicleDbUtil {
             int startY = cur.getInt(cur.getColumnIndex("Model2"));
             int endY = cur.getInt(cur.getColumnIndex("Model3"));
             String type = cur.getString(cur.getColumnIndex("Model5"));
-
+            if (endY == 0) endY = startY;
             for (int i = startY; i <= endY; i++) {
                 String brand = type.split(CommonUtil.findSpecialChar(type))[0];
                 data.add(String.format("%s;%s;%s;%s", brand, String.valueOf(i), type, id));
@@ -314,14 +314,14 @@ public class VehicleDbUtil {
         } else {
             Float frontHeightMin = null, rearHeightMin = null;
 
-            String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-100)>1", vehicleId);
+            String sqlWhere = String.format("ModelId =%s And abs(FrontHeighMin-99.98999)>0.001", vehicleId);
             Cursor cur = db.query("RideHeightData", new String[]{"min(FrontHeighMin) FrontHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
                 frontHeightMin = cur.getFloat(cur.getColumnIndex("FrontHeighMin"));
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-100)>1", vehicleId);
+            sqlWhere = String.format("ModelId = %s And abs(FrontHeighMax-99.98999)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"max(FrontHeighMax) FrontHeighMax", "FrontHeighString"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext() && frontHeightMin != null) {
@@ -329,32 +329,30 @@ public class VehicleDbUtil {
                 String frontHeightString = cur.getString(cur.getColumnIndex("FrontHeighString"));
 
                 //取前值
-                data.setFrontHeight(new ValuesPair(frontHeightMin, frontHeightMax, frontHeightString));
-                data.getFrontHeight().format(1);
+                if (frontHeightMax != 0 || frontHeightMin != 0) {
+                    data.setFrontHeight(new ValuesPair(frontHeightMin, frontHeightMax, frontHeightString));
+                    data.getFrontHeight().format(1);
+                }
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-100)>1", vehicleId);
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMin-99.98999)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"min(RearHeighMin) RearHeighMin"}, sqlWhere, null, null, null, null);
 
             if (cur.moveToNext()) {
-                try {
-                    rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
-                } catch (Exception e) {
-
-                    rearHeightMin = null;
-                }
-
+                rearHeightMin = cur.getFloat(cur.getColumnIndex("RearHeighMin"));
             }
 
-            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-100)>1", vehicleId);
+            sqlWhere = String.format("ModelId = %s And abs(RearHeighMax-99.98999)>0.001", vehicleId);
             cur = db.query("RideHeightData", new String[]{"MAX(RearHeighMax) RearHeighMax", "RearHeighString"}, sqlWhere, null, null, null, null);
             if (cur.moveToNext() && rearHeightMin != null) {
                 float rearHeightMax = cur.getFloat(cur.getColumnIndex("RearHeighMax"));
                 String rearHeightString = cur.getString(cur.getColumnIndex("RearHeighString"));
 
                 //取后值
-                data.setRearHeight(new ValuesPair(rearHeightMin, rearHeightMax, rearHeightString));
-                data.getRearHeight().format(1);
+                if (rearHeightMin != 0 || rearHeightMax != 0) {
+                    data.setRearHeight(new ValuesPair(rearHeightMin, rearHeightMax, rearHeightString));
+                    data.getRearHeight().format(1);
+                }
             }
             cur.close();
         }
@@ -395,6 +393,8 @@ public class VehicleDbUtil {
         if (db == null) return null;
 
         ReferData data = new ReferData();
+
+        //LevelRear全为99.99
         String where = String.format("ModelId = %s "
                 + "And LevelFrontMin <= %s "
                 + "And LevelFrontMax > %s", vehicleId, frontLevel, frontLevel);
@@ -411,6 +411,7 @@ public class VehicleDbUtil {
 
         }
 
+        //LevelFront全为99.99
         where = String.format("ModelId = %s " +
                 "And LevelRearMin<= %s " +
                 "And LevelRearMax > %s", vehicleId, rearLevel, rearLevel);
@@ -425,6 +426,7 @@ public class VehicleDbUtil {
                 data.setRightRearCamber(data.getLeftRearCamber().copy());
             }
         }
+
 
         where = String.format("ModelId = %s "
                 + "And LevelFrontMin <= %s "
@@ -448,14 +450,14 @@ public class VehicleDbUtil {
                 + "And LevelFrontMax > %s", vehicleId, frontLevel, frontLevel);
         cur = db.query("SPECToeInFront", null, where, null, null, null, null);
         if (cur.moveToNext()) {
-            float frontTotalToe = cur.getFloat(cur.getColumnIndex("ToeInFrontSpec"));
-            float frontTotalToeMin = cur.getFloat(cur.getColumnIndex("ToeInFrontMinToSpec"));
-            float frontTotalToeMax = cur.getFloat(cur.getColumnIndex("ToeInFrontMaxToSpec"));
+            float frontToe = cur.getFloat(cur.getColumnIndex("ToeInFrontSpec"));
+            float frontToeMin = cur.getFloat(cur.getColumnIndex("ToeInFrontMinToSpec"));
+            float frontToeMax = cur.getFloat(cur.getColumnIndex("ToeInFrontMaxToSpec"));
 
-            if (isValid(frontTotalToe)) {
-                data.setFrontTotalToe(new ValuesPair(-frontTotalToeMin, frontTotalToe, frontTotalToeMax));
-                data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
+            if (isValid(frontToe)) {
+                data.setLeftFrontToe(new ValuesPair(-frontToeMin, frontToe, frontToeMax));
                 data.setRightFrontToe(data.getLeftFrontToe().copy());
+                data.setFrontTotalToe(data.getLeftFrontToe().generateTotalToe());
             }
         }
 
@@ -469,9 +471,9 @@ public class VehicleDbUtil {
             float rearTotalToeMax = cur.getFloat(cur.getColumnIndex("ToeInRearMaxToSpec"));
 
             if (isValid(rearTotalToe)) {
-                data.setRearTotalToe(new ValuesPair(-rearTotalToeMin, rearTotalToe, rearTotalToeMax));
-                data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
+                data.setLeftRearToe(new ValuesPair(-rearTotalToeMin, rearTotalToe, rearTotalToeMax));
                 data.setRightRearToe(data.getLeftRearToe().copy());
+                data.setRearTotalToe(data.getLeftRearToe().generateTotalToe());
             }
         }
 
@@ -596,21 +598,21 @@ public class VehicleDbUtil {
             }
 
             if (frontToeFlag) {
-                float min = (Float.parseFloat(data.getLeftFrontToe().getMin()) + frontTotalToeMin) / 2;
+                float min = (Float.parseFloat(data.getLeftFrontToe().getMin()) + frontTotalToe - frontTotalToeMin) / 2;
                 float mid = (Float.parseFloat(data.getLeftFrontToe().getMid()) + frontTotalToe) / 2;
-                float max = (Float.parseFloat(data.getLeftFrontToe().getMax()) + frontTotalToeMax) / 2;
+                float max = (Float.parseFloat(data.getLeftFrontToe().getMax()) + frontTotalToe + frontTotalToeMax) / 2;
 
-                data.setFrontTotalToe(new ValuesPair(min, mid, max));
+                data.setFrontTotalToe(new ValuesPair(CommonUtil.format(min, 2), CommonUtil.format(mid, 2), CommonUtil.format(max, 2)));
                 data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
                 data.setRightFrontToe(data.getLeftFrontToe().copy());
             }
 
             if (rearToeFlag) {
-                float min = (Float.parseFloat(data.getLeftRearToe().getMin()) + rearTotalToeMin) / 2;
+                float min = (Float.parseFloat(data.getLeftRearToe().getMin()) + rearTotalToe - rearTotalToeMin) / 2;
                 float mid = (Float.parseFloat(data.getLeftRearToe().getMid()) + rearTotalToe) / 2;
-                float max = (Float.parseFloat(data.getLeftRearToe().getMax()) + rearTotalToeMax) / 2;
+                float max = (Float.parseFloat(data.getLeftRearToe().getMax()) + rearTotalToe + rearTotalToeMax) / 2;
 
-                data.setRearTotalToe(new ValuesPair(min, mid, max));
+                data.setRearTotalToe(new ValuesPair(CommonUtil.format(min, 2), CommonUtil.format(mid, 2), CommonUtil.format(max, 2)));
                 data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
                 data.setRightRearToe(data.getLeftRearToe().copy());
             }

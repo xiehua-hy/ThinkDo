@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.db.VehicleDbUtil;
@@ -28,6 +29,9 @@ public class VehicleInfoShow extends Fragment {
 
         data.unitConvert();
         BarReferData bar;
+        TextView tv = (TextView) view.findViewById(R.id.tv_title);
+        tv.setText(String.format("%s-%s-%s", data.getManInfo(), data.getRealYear(), data.getVehicleInfo()));
+
         bar = (BarReferData) view.findViewById(R.id.bar_frontTotalToe);
         bar.setAllValues(data.getFrontTotalToe(), null);
 

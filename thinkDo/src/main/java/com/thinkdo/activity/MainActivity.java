@@ -44,6 +44,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         init();
     }
@@ -134,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onManufacturerSelected(String manId, String manInfo, DataEnum dbIndex) {
-        if (dbIndex == DataEnum.custom) {
+        if (manId.equals("0") && dbIndex == DataEnum.custom) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
@@ -228,17 +230,17 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WeightFlag && resultCode == RESULT_OK && data != null) {
             SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
-            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - WeightFlag);
+            weightHeightLevelFlag &= 0xFF - WeightFlag;
             startWeightHeightLevel(specialParams);
         } else if (requestCode == HeightFlag && resultCode == RESULT_OK && data != null) {
             SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
             referData.combine((ReferData) data.getSerializableExtra("ReferData"));
-            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - HeightFlag);
+            weightHeightLevelFlag &= 0xFF - HeightFlag;
             startWeightHeightLevel(specialParams);
         } else if (requestCode == LevelFlag && resultCode == RESULT_OK && data != null) {
             SpecialParams specialParams = (SpecialParams) data.getSerializableExtra("SpecialParams");
             referData.combine((ReferData) data.getSerializableExtra("ReferData"));
-            weightHeightLevelFlag = weightHeightLevelFlag & (0xFF - LevelFlag);
+            weightHeightLevelFlag &= 0xFF - LevelFlag;
             startWeightHeightLevel(specialParams);
         }
     }

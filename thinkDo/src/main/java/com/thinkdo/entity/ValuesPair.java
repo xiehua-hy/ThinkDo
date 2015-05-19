@@ -103,6 +103,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             min = format(fMin);
             max = format(fMax);
         } else {
+            fMin = fMin >= 0 ? fMin : -fMin;
             min = format(fMid - fMin);
             max = format(fMid + fMax);
         }
@@ -119,6 +120,16 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             return new ValuesPair(format(Float.parseFloat(min) / 2),
                     format(Float.parseFloat(mid) / 2),
                     format(Float.parseFloat(max) / 2));
+        }
+    }
+
+    public ValuesPair generateTotalToe() {
+        if (mid.equals(GloVariable.initValue)) {
+            return new ValuesPair();
+        } else {
+            return new ValuesPair(format(Float.parseFloat(min) * 2),
+                    format(Float.parseFloat(mid) * 2),
+                    format(Float.parseFloat(max) * 2));
         }
     }
 

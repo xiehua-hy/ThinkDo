@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -66,7 +67,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             30060, 30061};
 
     private int[] ImageId_CN = {
-            R.drawable.manu_search,
+            R.drawable.manu_search, R.drawable.manu_def,
             R.drawable.manu_1, R.drawable.manu_2,
             R.drawable.manu_3, R.drawable.manu_4, R.drawable.manu_5,
             R.drawable.manu_6, R.drawable.manu_7, R.drawable.manu_8,
@@ -114,7 +115,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.manu_133, R.drawable.manu_134, R.drawable.manu_135};
 
     private int[] ImageId_EUP = {
-            R.drawable.manu_search,
+            R.drawable.manu_search, R.drawable.manu_def,
             R.drawable.eur_manu_1, R.drawable.eur_manu_2,
             R.drawable.eur_manu_3, R.drawable.eur_manu_4,
             R.drawable.eur_manu_5, R.drawable.eur_manu_6,
@@ -149,7 +150,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.eur_manu_63, R.drawable.eur_manu_64};
 
     private int[] ImageId_NA = {
-            R.drawable.manu_search,
+            R.drawable.manu_search, R.drawable.manu_def,
             R.drawable.na_manu_1, R.drawable.na_manu_2,
             R.drawable.na_manu_3, R.drawable.na_manu_4,
             R.drawable.na_manu_5, R.drawable.na_manu_6,
@@ -260,9 +261,18 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             return;
         }
 
-        DataEnum dbIndex = DataEnum.standard;
-        int manId = getManuID()[position - 1];
-        String info = new VehicleDbUtil().queryManufacturerInfo(manId);
+        int manId = 0;
+        String info = null;
+        DataEnum dbIndex;
+        if (position > 1) {
+            //标准数据
+            dbIndex = DataEnum.standard;
+            manId = getManuID()[position - 2];
+            info = new VehicleDbUtil().queryManufacturerInfo(manId);
+        } else {
+            //自定义数据
+            dbIndex = DataEnum.custom;
+        }
 
         if (callback != null) {
             callback.onManufacturerSelected(String.valueOf(manId), info, dbIndex);
