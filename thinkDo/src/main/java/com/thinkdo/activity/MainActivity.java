@@ -194,7 +194,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onVehicleInfoNext() {
-
+        RadioButton bt = (RadioButton) findViewById(R.id.radio_pull);
+        bt.performClick();
     }
 
     private void startWeightHeightLevel(SpecialParams specialParams) {

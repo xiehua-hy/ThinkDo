@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
@@ -68,6 +69,16 @@ public class VehicleInfoShow extends Fragment {
         bar = (BarReferData) view.findViewById(R.id.bar_rearWheel);
         bar.setLeftMinText(data.getRearWheel());
 
+        Button btn = (Button) view.findViewById(R.id.btn_next);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (callback != null) {
+                    callback.onVehicleInfoNext();
+                }
+
+            }
+        });
     }
 
     public void setReferData(ReferData referData) {
