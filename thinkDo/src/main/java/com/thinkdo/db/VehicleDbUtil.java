@@ -16,7 +16,9 @@ import com.thinkdo.util.CommonUtil;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VehicleDbUtil {
     public SQLiteDatabase getWriteDb() {
@@ -617,6 +619,31 @@ public class VehicleDbUtil {
                 data.setRightRearToe(data.getLeftRearToe().copy());
             }
         }
+    }
+
+    public List<Map<String, String>> getManufactures(String pyIndex) {
+        List<Map<String, String>> data = new ArrayList<>();
+        if (pyIndex == null || pyIndex.equals(""))
+            return data;
+
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        String field = CommonUtil.isChinese(pyIndex) ? "Model5" : "PyIndex";
+        String where = String.format("S2.%s like '%%%s%%' ", field, pyIndex);
+        Cursor cur = db.query("StandVehmanfacturers S1 INNER JOIN StandTypelevel S2 ON S1.Manufact1=S2.Model4", new String[]{
+                "S1.Manufact1", "S1.Manufact2", "S2.Model5"}, where, null, null, null, null);
+        while (cur.moveToNext()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", cur.getString(cur.getColumnIndex("Manufact2")));
+            map.put("id", cur.getString(cur.getColumnIndex("Manufact1")));
+            map.put("vehicle", cur.getString(cur.getColumnIndex("Model5")));
+            map.put("dbIndex", "0");
+            data.add(map);
+        }
+        cur.close();
+        db.close();
+        return data;
     }
 
     private boolean isValid(float value) {

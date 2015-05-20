@@ -12,7 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.thinkdo.db.VehicleDbUtil;
-import com.thinkdo.entity.DataEnum;
+import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
@@ -40,6 +40,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     public final int WeightFlag = 0x01;
     public final int HeightFlag = 0x02;
     public final int LevelFlag = 0x04;
+    public static final int searchFlag = 0x08;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +138,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onManufacturerSelected(String manId, String manInfo, DataEnum dbIndex) {
-        if (manId.equals("0") && dbIndex == DataEnum.custom) {
+    public void onManufacturerSelected(String manId, String manInfo, int dbIndex) {
+        if (manId.equals("0") && dbIndex == GloVariable.cusdb) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
@@ -153,19 +154,19 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     }
 
     @Override
-    public void onCusManSelected(String manId, String manInfo, DataEnum dbIndex) {
+    public void onCusManSelected(String manId, String manInfo, int dbIndex) {
         onManufacturerSelected(manId, manInfo, dbIndex);
     }
 
     @Override
-    public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final DataEnum dbIndex) {
+    public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final int dbIndex) {
 
         weightHeightLevelFlag = 0;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 //还有自定义的数据没有考虑
-                if (dbIndex == DataEnum.custom) return;
+                if (dbIndex == GloVariable.cusdb) return;
 
                 VehicleDbUtil util = new VehicleDbUtil();
                 referData = util.queryReferData(vehicleID);
@@ -251,6 +252,15 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             referData.combine((ReferData) data.getSerializableExtra("ReferData"));
             weightHeightLevelFlag &= 0xFF - LevelFlag;
             startWeightHeightLevel(specialParams);
+        } else if (requestCode == searchFlag && resultCode == RESULT_OK && data != null) {
+            String manId = data.getStringExtra(SearchActivity.manufacturerId);
+            String manInfo = data.getStringExtra(SearchActivity.manufacturerInfo);
+            String pyIndex = data.getStringExtra(SearchActivity.pyIndex);
+            int dbIndex = data.getIntExtra(SearchActivity.dbIndex, GloVariable.stadb);
+
+            PickCarFragment fragment = new PickCarFragment();
+            fragment.setParams(manId, manInfo, pyIndex, dbIndex);
+            fragmentCommit(fragment);
         }
     }
 }

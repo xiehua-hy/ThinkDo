@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@+id/imageView_back"
+        android:drawableLeft="@drawable/ic_action_search"
+        android:ems="15"
+        android:hint="@string/search_hint"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+        android:textSize="26sp" />
+
+    <ImageView
+        android:id="@+id/imageView_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/et_search"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/selector_search"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:paddingBottom="12dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="8dp"
+        android:paddingTop="12dp"
+        android:src="@drawable/ic_action_back" />
+
+    <ImageView
+        android:id="@+id/imageView_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/et_search"
+        android:layout_alignTop="@+id/imageView_back"
+        android:contentDescription="@string/app_name"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp"
+        android:src="@drawable/ic_action_remove"
+        android:visibility="invisible" />
+
+</RelativeLayout>

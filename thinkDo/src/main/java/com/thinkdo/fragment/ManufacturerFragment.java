@@ -2,9 +2,9 @@ package com.thinkdo.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.provider.ContactsContract;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -17,9 +17,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
+import com.thinkdo.activity.SearchActivity;
 import com.thinkdo.db.VehicleDbUtil;
-import com.thinkdo.entity.DataEnum;
 import com.thinkdo.entity.GloVariable;
 
 
@@ -258,20 +259,21 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position == 0) {
             //进入搜索栏
+            getActivity().startActivityForResult(new Intent(getActivity(), SearchActivity.class), MainActivity.searchFlag);
             return;
         }
 
         int manId = 0;
         String info = null;
-        DataEnum dbIndex;
+        int dbIndex;
         if (position > 1) {
             //标准数据
-            dbIndex = DataEnum.standard;
+            dbIndex = GloVariable.stadb;
             manId = getManuID()[position - 2];
             info = new VehicleDbUtil().queryManufacturerInfo(manId);
         } else {
             //自定义数据
-            dbIndex = DataEnum.custom;
+            dbIndex = GloVariable.cusdb;
         }
 
         if (callback != null) {
@@ -343,7 +345,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     }
 
     public interface ManufacturerCallback {
-        void onManufacturerSelected(String manId, String manInfo, DataEnum dataEnum);
+        void onManufacturerSelected(String manId, String manInfo, int dataEnum);
     }
 
 

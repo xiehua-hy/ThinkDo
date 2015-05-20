@@ -81,15 +81,39 @@ public class CustomDbUtil {
         //each row is unique
         Cursor cur = db.query(true, "OperOftenDataTotal", new String[]{"OftenTotal1", "OftenTotal2"}, null, null, null, null, null, null);
 
-        Map<String, String> map = new HashMap<>();
         while (cur.moveToNext()) {
-            map.clear();
+            Map<String, String> map = new HashMap<>();
             map.put(PickCusCarFragment.colID, cur.getString(cur.getColumnIndex("OftenTotal1")));
             map.put(PickCusCarFragment.colID, cur.getString(cur.getColumnIndex("OftenTotal2")));
             data.add(map);
         }
         cur.close();
         db.close();
+        return data;
+    }
+
+    public List<Map<String, String>> getManufactures(String pyIndex) {
+        List<Map<String, String>> data = new ArrayList<>();
+        if (pyIndex == null || pyIndex.equals("")) return data;
+
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        String field = CommonUtil.isChinese(pyIndex) ? "OftenTotal3" : "Pyindex";
+        String where = String.format("%s like \'%%%s%%\'", field, pyIndex);
+
+        Cursor cur = db.query("OperOftenDataTotal", new String[]{"OftenTotal1", "OftenTotal2", "OftenTotal3"}, where, null, null, null, null);
+        if (cur.moveToNext()) {
+            Map<String, String> map = new HashMap<>();
+            map.put("name", cur.getString(cur.getColumnIndex("OftenTotal2")));
+            map.put("id", cur.getString(cur.getColumnIndex("OftenTotal1")));
+            map.put("vehicle", cur.getString(cur.getColumnIndex("OftenTotal3")));
+            map.put("dbIndex", "1");
+            data.add(map);
+        }
+        cur.close();
+        db.close();
+
         return data;
     }
 

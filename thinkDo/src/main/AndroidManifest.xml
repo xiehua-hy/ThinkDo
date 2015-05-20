@@ -56,10 +56,14 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".WeightActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".LevelActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".SearchActivity"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
     </application>
 
 </manifest>

@@ -27,6 +27,9 @@ public class GloVariable {
     public static final String carSqliteName = "SKDDATA.db";
     public static final String customSqliteName = "SKDSELFDATA.db";
 
+    public static final int stadb = 0;
+    public static final int cusdb = 1;
+
     public static Context context;
     public static final String emptyString = "";
     public static final String initValue = "99.99";

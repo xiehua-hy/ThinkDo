@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.thinkdo.activity.R;
 import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.db.VehicleDbUtil;
-import com.thinkdo.entity.DataEnum;
+import com.thinkdo.entity.GloVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class PickCarFragment extends Fragment {
     private ExpandableListView expand;
     private VehicleCallbacks callback;
     private List<String> data;
-    private DataEnum dbIndex = DataEnum.standard;
+    private int dbIndex = GloVariable.stadb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class PickCarFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                data = dbIndex == DataEnum.standard ?
+                data = dbIndex == GloVariable.stadb ?
                         new VehicleDbUtil().queryAllCar(manId, pyIndex)
                         : new CustomDbUtil().queryAllCar(manId, pyIndex);
                 getActivity().runOnUiThread(
@@ -75,7 +75,7 @@ public class PickCarFragment extends Fragment {
         }
     }
 
-    public void setParams(String manID, String manInfo, String pyIndex, DataEnum dbIndex) {
+    public void setParams(String manID, String manInfo, String pyIndex, int dbIndex) {
         setManID(manID);
         setManInfo(manInfo);
         setPyIndex(pyIndex);
@@ -94,7 +94,7 @@ public class PickCarFragment extends Fragment {
         this.pyIndex = pyIndex;
     }
 
-    public void setDbIndex(DataEnum dbIndex) {
+    public void setDbIndex(int dbIndex) {
         this.dbIndex = dbIndex;
     }
 
@@ -105,7 +105,7 @@ public class PickCarFragment extends Fragment {
          * @param vehicleID 车型ID
          * @param year      年份
          */
-        void onVehicleSelected(String manId, String manInfo, String vehicleID, String year, DataEnum dbIndex);
+        void onVehicleSelected(String manId, String manInfo, String vehicleID, String year, int dbIndex);
     }
 
     class MyAdapter extends BaseExpandableListAdapter {

@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.db.CustomDbUtil;
-import com.thinkdo.entity.DataEnum;
+import com.thinkdo.entity.GloVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class PickCusCarFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 if (callback != null) {
                                     Map<String, String> map = data.get(i);
-                                    callback.onCusManSelected(map.get(colID), map.get(colInfo), DataEnum.custom);
+                                    callback.onCusManSelected(map.get(colID), map.get(colInfo), GloVariable.cusdb);
                                 }
                             }
                         });
@@ -67,7 +67,7 @@ public class PickCusCarFragment extends Fragment {
     }
 
     public interface CusManufacturerCallback {
-        void onCusManSelected(String manId, String manInfo, DataEnum dbIndex);
+        void onCusManSelected(String manId, String manInfo, int dbIndex);
     }
 
     class MyAdapter extends BaseAdapter {

@@ -117,4 +117,6 @@
     <string name="tip_data_error">数据错误</string>
     <string name="tip_weight_test">配重单位: 公斤(KG)</string>
     <string name="tip_height_test">车身测量单位: 毫米(MM)</string>
+    <string name="search_hint">搜索车型</string>
+    <string name="search_no_result">对不起，搜索无结果</string>
 </resources>

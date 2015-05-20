@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main_blue"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_toggle_bg"
+        android:drawableLeft="@drawable/ic_drawer_am"
+        android:drawableStart="@drawable/ic_drawer_am"
+        android:gravity="center"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="@string/menu"
+        android:textColor="@color/font_black"
+        android:textSize="@dimen/menu_font_size" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/menu_radio_margin"
+        android:layout_marginStart="@dimen/menu_radio_margin"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="12dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="12dp"
+        android:paddingStart="1dp">
+
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_menu_bg"
+            android:button="@null"
+            android:checked="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingBottom="@dimen/menu_radio_padding"
+            android:paddingTop="@dimen/menu_radio_padding"
+            android:singleLine="true"
+            android:text="@string/alignment"
+            android:textColor="@color/font_red_holo"
+            android:textSize="@dimen/menu_font_size" />
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/menu_radio_margin"
+            android:layout_marginStart="@dimen/menu_radio_margin"
+            android:layout_weight="1"
+            android:background="@drawable/selector_menu_bg"
+            android:button="@null"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingBottom="@dimen/menu_radio_padding"
+            android:paddingTop="@dimen/menu_radio_padding"
+            android:singleLine="true"
+            android:text="@string/preferences"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/menu_font_size" />
+
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/menu_radio_margin"
+            android:layout_marginStart="@dimen/menu_radio_margin"
+            android:layout_weight="1"
+            android:background="@drawable/selector_menu_bg"
+            android:button="@null"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:paddingBottom="@dimen/menu_radio_padding"
+            android:paddingTop="@dimen/menu_radio_padding"
+            android:singleLine="true"
+            android:text="@string/maintenance"
+            android:textColor="@color/font_black"
+            android:textSize="@dimen/menu_font_size" />
+    </RadioGroup>
+
+</LinearLayout>
