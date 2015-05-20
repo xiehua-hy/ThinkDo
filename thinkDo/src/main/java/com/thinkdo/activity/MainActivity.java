@@ -18,6 +18,7 @@ import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxletShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
+import com.thinkdo.fragment.KingpinFragment.KinPingCallback;
 import com.thinkdo.fragment.ManufacturerFragment;
 import com.thinkdo.fragment.ManufacturerFragment.ManufacturerCallback;
 import com.thinkdo.fragment.PickCarFragment;
@@ -30,7 +31,8 @@ import com.thinkdo.fragment.TestResultFragment;
 import com.thinkdo.fragment.VehicleInfoShow;
 import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
 
-public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback {
+public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback,
+        KinPingCallback {
     private int preCheckedRadio = R.id.radio_pick;
     private ReferData referData;
     private int weightHeightLevelFlag;
@@ -194,8 +196,14 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onVehicleInfoNext() {
-        RadioButton bt = (RadioButton) findViewById(R.id.radio_pull);
-        bt.performClick();
+        RadioButton rb = (RadioButton) findViewById(R.id.radio_pull);
+        rb.performClick();
+    }
+
+    @Override
+    public void kinPingNext() {
+        RadioButton rb = (RadioButton) findViewById(R.id.radio_fast);
+        rb.performClick();
     }
 
     private void startWeightHeightLevel(SpecialParams specialParams) {

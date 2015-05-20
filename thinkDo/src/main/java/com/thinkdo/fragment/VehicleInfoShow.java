@@ -72,11 +72,9 @@ public class VehicleInfoShow extends Fragment {
         Button btn = (Button) view.findViewById(R.id.btn_next);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (callback != null) {
+            public void onClick(View view) {
+                if (callback != null)
                     callback.onVehicleInfoNext();
-                }
-
             }
         });
     }
