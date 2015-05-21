@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_form_refer"
+    android:orientation="vertical">
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/parameters" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_frontTotalToe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/front_total_toe" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_leftFrontCamber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/left_front_camber" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rightFrontCamber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/right_front_camber" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rearTotalToe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/rear_total_toe" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_leftRearCamber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/left_rear_camber" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rightRearCamber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/right_rear_camber" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_leftCaster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/left_caster" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rightCaster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/right_caster" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_leftKpi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/left_kpi" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rightKpi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/right_kpi" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_wheelbase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/wheelbase" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_front_wheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/front_wheel" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCC" />
+
+    <com.thinkdo.view.BarDefAdd
+        android:id="@+id/barDefAdd_rearWheel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:DBarTitle="@string/rearWheel" />
+
+</LinearLayout>

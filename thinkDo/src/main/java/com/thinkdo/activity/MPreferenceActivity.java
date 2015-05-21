@@ -6,15 +6,18 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.thinkdo.entity.OperOftenDataTotalModel;
+import com.thinkdo.fragment.DefCarInfoFragment;
 import com.thinkdo.fragment.GarageFragment;
 import com.thinkdo.fragment.PrintSetFragment;
 import com.thinkdo.fragment.SettingFragment;
 import com.thinkdo.fragment.UnitFragment;
+import com.thinkdo.fragment.DefCarInfoFragment.DefCarInfoCallback;
 
 /**
  * Created by Administrator on 2015/5/7.
  */
-public class MPreferenceActivity extends Activity {
+public class MPreferenceActivity extends Activity implements DefCarInfoCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +31,6 @@ public class MPreferenceActivity extends Activity {
             return;
         }
         actionBar.setDisplayHomeAsUpEnabled(true);
-
 
         int flag = getIntent().getIntExtra(SettingFragment.extraIntKey, 1);
         switch (flag) {
@@ -46,6 +48,7 @@ public class MPreferenceActivity extends Activity {
                 break;
             case 4:
                 actionBar.setTitle(R.string.add_car);
+                fragmentCommit(new DefCarInfoFragment());
                 break;
         }
     }
@@ -61,5 +64,10 @@ public class MPreferenceActivity extends Activity {
 
     public void fragmentCommit(Fragment fragment) {
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+    }
+
+    @Override
+    public void onDefineInfoNext(OperOftenDataTotalModel dataTotal, int unit, int toeUnit) {
+
     }
 }

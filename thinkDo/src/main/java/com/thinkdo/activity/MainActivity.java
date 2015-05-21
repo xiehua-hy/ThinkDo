@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
@@ -161,15 +162,26 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final int dbIndex) {
 
-        weightHeightLevelFlag = 0;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //还有自定义的数据没有考虑
-                if (dbIndex == GloVariable.cusdb) return;
+                //自定义数据
+                if (dbIndex == GloVariable.cusdb) {
+                    CustomDbUtil util = new CustomDbUtil();
+                    referData = util.queryReferData(vehicleID);
+                    if (referData != null) {
+                        referData.setManId(manId);
+                        referData.setManInfo(manInfo);
+                        referData.setVehicleId(vehicleID);
+                        referData.setRealYear(year);
+                    }
+                    startWeightHeightLevel(null);
+                    return;
+                }
 
                 VehicleDbUtil util = new VehicleDbUtil();
                 referData = util.queryReferData(vehicleID);
+
                 if (referData != null) {
                     referData.setManId(manId);
                     referData.setManInfo(manInfo);
@@ -178,14 +190,14 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 }
 
                 SpecialParams specialParams = util.querySpecParam(vehicleID);
-
+                weightHeightLevelFlag = 0;
                 if (specialParams != null) {
                     if (specialParams.getWeightParam() != null)
-                        weightHeightLevelFlag = weightHeightLevelFlag | WeightFlag;
+                        weightHeightLevelFlag |= WeightFlag;
                     if (specialParams.getHeightParam() != null)
-                        weightHeightLevelFlag = weightHeightLevelFlag | HeightFlag;
+                        weightHeightLevelFlag |= HeightFlag;
                     if (specialParams.getLevelParam() != null)
-                        weightHeightLevelFlag = weightHeightLevelFlag | LevelFlag;
+                        weightHeightLevelFlag |= LevelFlag;
                 }
 
                 startWeightHeightLevel(specialParams);

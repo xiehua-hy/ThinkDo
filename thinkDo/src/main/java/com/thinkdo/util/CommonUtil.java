@@ -2,7 +2,11 @@ package com.thinkdo.util;
 
 import com.thinkdo.entity.GloVariable;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,5 +60,25 @@ public class CommonUtil {
         return new DecimalFormat(style.toString()).format(f);
     }
 
+
+    public static String getCurTime(){
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm",Locale.getDefault());
+        String date = sDateFormat.format(new Date());
+        return date;
+    }
+
+    public static String getPinYinHeadChar(String str){
+        StringBuilder builder = new StringBuilder();
+        for(int i=0;i< str.length(); i++){
+            char word = str.charAt(i);
+            String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
+            if(pinyinArray !=null){
+                builder.append(pinyinArray[0].charAt(0));
+            }else{
+                builder.append(word);
+            }
+        }
+        return builder.toString().toUpperCase();
+    }
 
 }

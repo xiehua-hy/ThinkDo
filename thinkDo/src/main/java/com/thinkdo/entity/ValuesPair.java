@@ -110,6 +110,34 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         setExplain(explain);
     }
 
+    public ValuesPair(String min, String max, UnitEnum unit) {
+        if (GloVariable.initValue.equals(min) || GloVariable.initValue.equals(max)) {
+            init();
+        } else {
+            min = reverseUnitConvert(min, unit);
+            max = reverseUnitConvert(max, unit);
+            mid = format((Float.parseFloat(min) + Float.parseFloat(max)) / 2, 2);
+        }
+    }
+
+    /**
+     * 将值由 其他单位 转成 度
+     */
+    public String reverseUnitConvert(String str, UnitEnum unit) {
+        switch (unit) {
+            case degree:
+                return format(Float.parseFloat(str), 2);
+            case degreeSecond:
+                return format(minuToDegree(str), 2);
+            case inch:
+                return format(toeWidthToDegree(str, "500.26"), 2);
+            case mm:
+                return format(toeWidthToDegree(str, "19.70"), 2);
+            default:
+                return format(Float.parseFloat(str), 2);
+        }
+    }
+
     /**
      * 把自己当成总前束 产生一个 单前束
      */
@@ -132,18 +160,6 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
                     format(Float.parseFloat(max) * 2));
         }
     }
-
-//    /**
-//     * 与 valuesPair 合并
-//     * 如果valuesPair的值不为初始值的话,则将值替换成valuesPair的值;
-//     */
-//    public void combine(ValuesPair valuesPair) {
-//        if (valuesPair.getMid().equals(GloVariable.initValue)) return;
-//
-//        min = valuesPair.getMin();
-//        mid = valuesPair.getMid();
-//        max = valuesPair.getMax();
-//    }
 
     private void init() {
         this.min = GloVariable.initValue;
@@ -209,6 +225,9 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         return valuesPair;
     }
 
+    /**
+     * 将值由百分度转换成其他度量单位
+     */
     @Override
     public void unitConvert(UnitEnum unit) {
         min = unitConvert(min, unit);
@@ -317,5 +336,39 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         return str.append(String.format("%d'", i)).toString();
     }
 
+    /**
+     * 度分 转 度 的单位转换
+     *
+     * @param str 单位的为度的数
+     */
+    private float minuToDegree(String str) {
+        boolean negative = false;
+        float flo = Float.parseFloat(str);
+        if (flo < 0) negative = true;
+        flo = Math.abs(flo);
 
+        int integer = (int) flo;
+        float point = flo - integer;
+
+        flo = 100 * point / 60f;
+        integer += (int) flo;
+
+        point = integer + flo - (int) flo;
+
+        if (negative) point = -point;
+        return point;
+    }
+
+    /**
+     * 长度转换为 度 的单位转换
+     *
+     * @param str      要转换的数
+     * @param diameter 轮胎的直径  默认值为500.26（mm） 或 19.70 inch
+     */
+
+    private float toeWidthToDegree(String str, String diameter) {
+        double flo = Math.asin(Float.parseFloat(str) / Float.parseFloat(diameter));
+        flo = 180 * flo / Math.PI;
+        return (float) flo;
+    }
 }

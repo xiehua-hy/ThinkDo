@@ -120,4 +120,19 @@
     <string name="tip_height_test">Unit: MM</string>
     <string name="search_hint">search</string>
     <string name="search_no_result">No Record</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="model">Model</string>
+    <string name="start_year">Start Year</string>
+    <string name="hint_start_year" translatable="false">1990</string>
+    <string name="end_year">End Year</string>
+    <string name="hint_end_year" translatable="false">2030</string>
+    <string name="unit3">Millimeter</string>
+    <string name="unit4">Inch</string>
+    <string name="tire_type">Tire Type</string>
+    <string name="diameter_mm">Diameter(MM)</string>
+    <string name="diameter_inch">Diameter(Inch)</string>
+    <string name="vehicle_infor">Vehicle Information</string>
+    <string name="multiplication" translatable="false">*</string>
+    <string name="division" translatable="false">/</string>
+    <string name="vehicle_data">Vehicle Data</string>
 </resources>
