@@ -119,4 +119,15 @@
     <string name="tip_height_test">车身测量单位: 毫米(MM)</string>
     <string name="search_hint">搜索车型</string>
     <string name="search_no_result">对不起，搜索无结果</string>
+    <string name="manufacturer">汽车厂商</string>
+    <string name="model">型号</string>
+    <string name="start_year">起始年</string>
+    <string name="end_year">终止年</string>
+    <string name="unit3">毫米(MM)</string>
+    <string name="unit4">英寸(In)</string>
+    <string name="tire_type">轮胎型号</string>
+    <string name="diameter_mm">直径(MM)</string>
+    <string name="diameter_inch">直径(Inch)</string>
+    <string name="vehicle_infor">车辆信息</string>
+    <string name="vehicle_data">车辆参数</string>
 </resources>

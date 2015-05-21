@@ -5,9 +5,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.ReferData;
+import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.fragment.PickCusCarFragment;
 import com.thinkdo.util.CommonUtil;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,6 +118,122 @@ public class CustomDbUtil {
         db.close();
 
         return data;
+    }
+
+    public ReferData queryReferData(String vehicleId) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        ReferData data = new ReferData();
+        Cursor cur = db.query("OperOftenDataTotal", new String[]{"OftenTotal3", "OftenTotal4", "OftenTotal5"},
+                "OftenTotal23=" + vehicleId, null, null, null, null);
+
+        if (cur.moveToNext()) {
+            data.setVehicleInfo(cur.getString(cur.getColumnIndex("OftenTotal3")));
+            data.setStartYear(cur.getString(cur.getColumnIndex("OftenTotal4")));
+            data.setEndYear(cur.getString(cur.getColumnIndex("OftenTotal5")));
+        }
+
+        cur = db.query("OperOftenDataDetail", null, "OftenTotal23=" + vehicleId, null, null, null, "id");
+
+        if (cur.getCount() == 17) {
+            //前束
+            cur.moveToPosition(0);
+            data.setFrontTotalToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(1);
+            data.setLeftFrontToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(2);
+            data.setRightFrontToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            //前束
+            cur.moveToPosition(3);
+            data.setLeftFrontCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(4);
+            data.setRightFrontCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            //后倾
+            cur.moveToPosition(5);
+            data.setLeftCaster(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(6);
+            data.setRightCaster(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            //内倾
+            cur.moveToPosition(7);
+            data.setLeftKpi(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(8);
+            data.setRightKpi(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            //前束
+            cur.moveToPosition(9);
+            data.setRearTotalToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(10);
+            data.setLeftRearToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(11);
+            data.setRightRearToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            //前束
+            cur.moveToPosition(12);
+            data.setLeftRearCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            cur.moveToPosition(13);
+            data.setRightRearCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+
+            cur.moveToPosition(14);
+            data.setWheelbase(cur.getString(cur.getColumnIndex("OftenDetail2")));
+            cur.moveToPosition(15);
+            data.setFrontWheel(cur.getString(cur.getColumnIndex("OftenDetail2")));
+            cur.moveToPosition(16);
+            data.setRearWheel(cur.getString(cur.getColumnIndex("OftenDetail2")));
+        }
+
+        cur.close();
+        db.close();
+        return data;
+    }
+
+
+    /**
+     * 根据vehicleId 获取 厂商Id
+     */
+    public String getManId(String vehicleId) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        String OftenTotal1 = null;
+        String where = String.format("OftenTotal2='%s'", vehicleId);
+        Cursor cur = db.query("OperOftenDataTotal", new String[]{"OftenTotal1"}, where, null, null, null, null);
+
+        if (cur.moveToNext()) {
+            OftenTotal1 = cur.getString(cur.getColumnIndex("OftenTotal1"));
+
+        } else {
+            cur = db.query("OperOftenDataTotal", new String[]{"Max(cast (OftenTotal1 as int)) max"}, null, null, null, null, null);
+            if (cur.moveToNext()) {
+                OftenTotal1 = String.valueOf(cur.getInt(cur.getColumnIndex("max")) + 1);
+            } else {
+                OftenTotal1 = "1";
+            }
+        }
+        cur.close();
+        db.close();
+        return OftenTotal1;
+    }
+
+    public String getVehicleId() {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+
+        String OftenTotal23 = null;
+        Cursor cur = db.query("OperOftenDataTotal", new String[]{"Max(cast (OftenTotal23 as int)) max"}, null, null, null, null, null);
+
+        if (cur.moveToNext()) {
+            OftenTotal23 = String.valueOf(cur.getInt(cur.getColumnIndex("max")) + 1);
+        } else {
+            OftenTotal23 = "1";
+        }
+
+        cur.close();
+        db.close();
+        return OftenTotal23;
     }
 
 }

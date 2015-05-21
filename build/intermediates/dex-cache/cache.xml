@@ -2,18 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/xh/AndroidStudioProjects/ThinkDo/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/classes.jar"
+        jar="E:\Android Studio\Project\ThinkDo\thinkDo\src\main\libs\pinyin4j-2.5.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="4387f750b909d514ffd83f3f186b8eb44ed19189">
-        <dex dex="/Users/xh/AndroidStudioProjects/ThinkDo/thinkDo/build/intermediates/pre-dexed/debug/classes-0f91463f9eec71b9792f2c152406c383e34f1225.jar" />
-    </item>
-    <item
-        jar="/Users/xh/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
-        <dex dex="/Users/xh/AndroidStudioProjects/ThinkDo/thinkDo/build/intermediates/pre-dexed/debug/support-v4-19.1.0-7c3a874e6885081307e8f8ae6dc78f6c7077fca6.jar" />
+        sha1="ae353005f973da1cd8545b54354504c2503f6865">
+        <dex dex="E:\Android Studio\Project\ThinkDo\thinkDo\build\intermediates\pre-dexed\debug\pinyin4j-2.5.0-5207422202614714b222a9496fddf4181bd61b0b.jar" />
     </item>
 
 </items>
