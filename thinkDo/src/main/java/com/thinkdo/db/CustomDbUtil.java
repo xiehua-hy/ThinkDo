@@ -1,16 +1,17 @@
 package com.thinkdo.db;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.OperOftenDataTotalModel;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.fragment.PickCusCarFragment;
 import com.thinkdo.util.CommonUtil;
 
-import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,9 +88,10 @@ public class CustomDbUtil {
         while (cur.moveToNext()) {
             Map<String, String> map = new HashMap<>();
             map.put(PickCusCarFragment.colID, cur.getString(cur.getColumnIndex("OftenTotal1")));
-            map.put(PickCusCarFragment.colID, cur.getString(cur.getColumnIndex("OftenTotal2")));
+            map.put(PickCusCarFragment.colInfo, cur.getString(cur.getColumnIndex("OftenTotal2")));
             data.add(map);
         }
+
         cur.close();
         db.close();
         return data;
@@ -139,43 +141,43 @@ public class CustomDbUtil {
         if (cur.getCount() == 17) {
             //前束
             cur.moveToPosition(0);
-            data.setFrontTotalToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setFrontTotalToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(1);
-            data.setLeftFrontToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftFrontToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(2);
-            data.setRightFrontToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightFrontToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             //前束
             cur.moveToPosition(3);
-            data.setLeftFrontCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftFrontCamber(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(4);
-            data.setRightFrontCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightFrontCamber(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             //后倾
             cur.moveToPosition(5);
-            data.setLeftCaster(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftCaster(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(6);
-            data.setRightCaster(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightCaster(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             //内倾
             cur.moveToPosition(7);
-            data.setLeftKpi(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftKpi(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(8);
-            data.setRightKpi(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightKpi(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             //前束
             cur.moveToPosition(9);
-            data.setRearTotalToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRearTotalToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(10);
-            data.setLeftRearToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftRearToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(11);
-            data.setRightRearToe(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightRearToe(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             //前束
             cur.moveToPosition(12);
-            data.setLeftRearCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setLeftRearCamber(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
             cur.moveToPosition(13);
-            data.setRightRearCamber(new ValuesPair(cur.getColumnIndex("OftenDetail1"), cur.getColumnIndex("OftenDetail2"), cur.getFloat(cur.getColumnIndex("OftenDetail3"))));
+            data.setRightRearCamber(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             cur.moveToPosition(14);
             data.setWheelbase(cur.getString(cur.getColumnIndex("OftenDetail2")));
@@ -198,7 +200,7 @@ public class CustomDbUtil {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
-        String OftenTotal1 = null;
+        String OftenTotal1;
         String where = String.format("OftenTotal2='%s'", vehicleId);
         Cursor cur = db.query("OperOftenDataTotal", new String[]{"OftenTotal1"}, where, null, null, null, null);
 
@@ -222,7 +224,7 @@ public class CustomDbUtil {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
 
-        String OftenTotal23 = null;
+        String OftenTotal23;
         Cursor cur = db.query("OperOftenDataTotal", new String[]{"Max(cast (OftenTotal23 as int)) max"}, null, null, null, null, null);
 
         if (cur.moveToNext()) {
@@ -234,6 +236,190 @@ public class CustomDbUtil {
         cur.close();
         db.close();
         return OftenTotal23;
+    }
+
+    public void insertVehicleInfo(OperOftenDataTotalModel data) {
+        SQLiteDatabase db = getWriteDb();
+        if (db == null) return;
+
+        ContentValues content = new ContentValues();
+        content.put("OftenTotal1", data.getManId());
+        content.put("OftenTotal2", data.getManInfo());
+        content.put("OftenTotal23", data.getVehicleId());
+        content.put("OftenTotal3", data.getVehicleInfo());
+        content.put("OftenTotal4", data.getStartYear());
+        content.put("OftenTotal5", data.getEndYear());
+        content.put("OftenTotal6", data.getOftenTotal6());
+        content.put("OftenTotal7", data.getDate());
+        content.put("languageid", data.getLanguage());
+        content.put("TyreModel", data.getWheelType());
+        content.put("InchValue", data.getDiameterInch());
+        content.put("mmValue", data.getDiameterMM());
+        content.put("Pyindex", data.getPyIndex());
+        content.put("RefCount", data.getRefCount());
+        content.put("LevelFlag", data.getLevelFlag());
+
+        db.insert("OperOftenDataTotal", null, content);
+        db.close();
+    }
+
+    public void insertVehicleData(ReferData data) {
+        SQLiteDatabase db = getWriteDb();
+        if (db == null) return;
+
+        ContentValues content = new ContentValues();
+        int id = 1;
+        int OftenDetail4 = 0;
+        Cursor cur = db.query("OperOftenDataDetail", new String[]{"Max(id) max"}, null, null, null, null, null);
+
+        if (cur.moveToNext()) {
+            id = cur.getInt(cur.getColumnIndex("max")) + 1;
+        }
+
+        content.put("OftenTotal1", data.getManId());
+        content.put("OftenTotal23", data.getVehicleId());
+        content.put("OftenTotal4", data.getStartYear());
+        content.put("OftenTotal5", data.getEndYear());
+        content.put("languageid", 1);
+
+        //row1
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getFrontTotalToe().getMin());
+        content.put("OftenDetail2", data.getFrontTotalToe().getMid());
+        content.put("OftenDetail3", data.getFrontTotalToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row2
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftFrontToe().getMin());
+        content.put("OftenDetail2", data.getLeftFrontToe().getMid());
+        content.put("OftenDetail3", data.getLeftFrontToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row3
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightFrontToe().getMin());
+        content.put("OftenDetail2", data.getRightFrontToe().getMid());
+        content.put("OftenDetail3", data.getRightFrontToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row4
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftFrontCamber().getMin());
+        content.put("OftenDetail2", data.getLeftFrontCamber().getMid());
+        content.put("OftenDetail3", data.getLeftFrontCamber().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row5
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightFrontCamber().getMin());
+        content.put("OftenDetail2", data.getRightFrontCamber().getMid());
+        content.put("OftenDetail3", data.getRightFrontCamber().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row6
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftCaster().getMin());
+        content.put("OftenDetail2", data.getLeftCaster().getMid());
+        content.put("OftenDetail3", data.getLeftCaster().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row7
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightCaster().getMin());
+        content.put("OftenDetail2", data.getRightCaster().getMid());
+        content.put("OftenDetail3", data.getRightCaster().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row8
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftKpi().getMin());
+        content.put("OftenDetail2", data.getLeftKpi().getMid());
+        content.put("OftenDetail3", data.getLeftKpi().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row9
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightKpi().getMin());
+        content.put("OftenDetail2", data.getRightKpi().getMid());
+        content.put("OftenDetail3", data.getRightKpi().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row10
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRearTotalToe().getMin());
+        content.put("OftenDetail2", data.getRearTotalToe().getMid());
+        content.put("OftenDetail3", data.getRearTotalToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row11
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftRearToe().getMin());
+        content.put("OftenDetail2", data.getLeftRearToe().getMid());
+        content.put("OftenDetail3", data.getLeftRearToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row12
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightRearToe().getMin());
+        content.put("OftenDetail2", data.getRightRearToe().getMid());
+        content.put("OftenDetail3", data.getRightRearToe().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row13
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getLeftRearCamber().getMin());
+        content.put("OftenDetail2", data.getLeftRearCamber().getMid());
+        content.put("OftenDetail3", data.getLeftRearCamber().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row14
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getRightRearCamber().getMin());
+        content.put("OftenDetail2", data.getRightRearCamber().getMid());
+        content.put("OftenDetail3", data.getRightRearCamber().getMax());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row15
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getWheelbase());
+        content.put("OftenDetail2", data.getWheelbase());
+        content.put("OftenDetail3", data.getWheelbase());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row16
+        content.put("id", id++);
+        content.put("OftenDetail1", data.getFrontWheel());
+        content.put("OftenDetail2", data.getFrontWheel());
+        content.put("OftenDetail3", data.getFrontWheel());
+        content.put("OftenDetail4", OftenDetail4++);
+        db.insert("OperOftenDataDetail", null, content);
+
+        //row17
+        content.put("id", id);
+        content.put("OftenDetail1", data.getRearWheel());
+        content.put("OftenDetail2", data.getRearWheel());
+        content.put("OftenDetail3", data.getRearWheel());
+        content.put("OftenDetail4", OftenDetail4);
+        db.insert("OperOftenDataDetail", null, content);
+
+        cur.close();
+        db.close();
     }
 
 }

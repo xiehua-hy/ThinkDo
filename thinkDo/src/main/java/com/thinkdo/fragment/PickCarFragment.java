@@ -18,8 +18,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.db.CustomDbUtil;
-import com.thinkdo.db.VehicleDbUtil;
+import com.thinkdo.db.DBUtil;
 import com.thinkdo.entity.GloVariable;
 
 import java.util.ArrayList;
@@ -43,9 +42,7 @@ public class PickCarFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                data = dbIndex == GloVariable.stadb ?
-                        new VehicleDbUtil().queryAllCar(manId, pyIndex)
-                        : new CustomDbUtil().queryAllCar(manId, pyIndex);
+                data = new DBUtil().queryAllCar(manId, pyIndex, dbIndex);
                 getActivity().runOnUiThread(
                         new Runnable() {
                             @Override

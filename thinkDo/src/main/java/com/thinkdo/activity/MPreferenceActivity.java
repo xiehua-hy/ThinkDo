@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.thinkdo.entity.OperOftenDataTotalModel;
+import com.thinkdo.fragment.DefCarDataFragment;
 import com.thinkdo.fragment.DefCarInfoFragment;
 import com.thinkdo.fragment.GarageFragment;
 import com.thinkdo.fragment.PrintSetFragment;
@@ -68,6 +69,8 @@ public class MPreferenceActivity extends Activity implements DefCarInfoCallback 
 
     @Override
     public void onDefineInfoNext(OperOftenDataTotalModel dataTotal, int unit, int toeUnit) {
-
+        DefCarDataFragment fragment = new DefCarDataFragment();
+        fragment.setAllParam(dataTotal, unit, toeUnit);
+        fragmentCommit(fragment);
     }
 }

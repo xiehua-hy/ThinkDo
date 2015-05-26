@@ -77,8 +77,7 @@ public class DefCarInfoFragment extends Fragment {
         diameterMM.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
@@ -106,14 +105,12 @@ public class DefCarInfoFragment extends Fragment {
         diameterInch.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 lockIn = true;
             }
 
@@ -134,14 +131,12 @@ public class DefCarInfoFragment extends Fragment {
         manInfo.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
@@ -158,14 +153,12 @@ public class DefCarInfoFragment extends Fragment {
         vehicle.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
@@ -330,8 +323,7 @@ public class DefCarInfoFragment extends Fragment {
                     f3 = Integer.parseInt(s.toString());
                 }
 
-                diameterMM.setText(CommonUtil.format(f1 * f2 * 2 / 100 + f3
-                        * 25.4f, 0));
+                diameterMM.setText(CommonUtil.format(f1 * f2 * 2 / 100 + f3 * 25.4f, 0));
             }
         });
 

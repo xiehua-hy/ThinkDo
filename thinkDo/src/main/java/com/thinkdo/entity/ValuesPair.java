@@ -1,5 +1,7 @@
 package com.thinkdo.entity;
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -14,8 +16,23 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     protected String explain;
 
+    protected float percent;
+
+    protected int color = Color.BLUE;
+
     public ValuesPair() {
         init();
+    }
+
+    public ValuesPair(String min, String max) {
+        mid = originalAverage(min, max);
+        if (GloVariable.initValue.equals(mid)) {
+            init();
+        } else {
+            this.min = min;
+            this.max = max;
+        }
+
     }
 
     public ValuesPair(String min, String mid, String max) {
@@ -92,20 +109,20 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             return;
         }
 
-        mid = sMid;
+        this.mid = sMid;
         if (isInitValue(format(fMin))) {
-            min = mid;
-            max = mid;
+            this.min = this.mid;
+            this.max = this.mid;
             return;
         }
 
         if (flag) {
-            min = format(fMin);
-            max = format(fMax);
+            this.min = format(fMin);
+            this.max = format(fMax);
         } else {
             fMin = fMin >= 0 ? fMin : -fMin;
-            min = format(fMid - fMin);
-            max = format(fMid + fMax);
+            this.min = format(fMid - fMin);
+            this.max = format(fMid + fMax);
         }
         setExplain(explain);
     }
@@ -114,9 +131,9 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         if (GloVariable.initValue.equals(min) || GloVariable.initValue.equals(max)) {
             init();
         } else {
-            min = reverseUnitConvert(min, unit);
-            max = reverseUnitConvert(max, unit);
-            mid = format((Float.parseFloat(min) + Float.parseFloat(max)) / 2, 2);
+            this.min = reverseUnitConvert(min, unit);
+            this.max = reverseUnitConvert(max, unit);
+            this.mid = format((Float.parseFloat(min) + Float.parseFloat(max)) / 2, 2);
         }
     }
 
@@ -161,7 +178,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         }
     }
 
-    private void init() {
+    protected void init() {
         this.min = GloVariable.initValue;
         this.mid = GloVariable.initValue;
         this.max = GloVariable.initValue;
@@ -214,6 +231,48 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     public void setExplain(String explain) {
         this.explain = explain;
+    }
+
+    public float getPercent() {
+        return percent;
+    }
+
+    /**
+     * @param ascent ascent true 则表示左边小，右边大; 否则反之
+     */
+    public void generatePercentAndcolor(boolean ascent) {
+        if (mid == null || real == null) return;
+
+        percent = calculatePercent(ascent);
+
+        if(percent>1){
+            color = Color.RED;
+        }else if(percent>0){
+            color = Color.GREEN;
+        }else if(percent > -1){
+            color = Color.RED;
+        }else{
+            color = Color.BLUE;
+        }
+    }
+
+    protected float calculatePercent(boolean ascent) {
+        if (GloVariable.initValue.equals(max)) return -1.0f;
+
+        float ma = Float.parseFloat(max);
+        float t = Float.parseFloat(real);
+        float mi = Float.parseFloat(min);
+        if (ascent) {
+            if (t >= ma) return 1.21f;
+            if (t <= mi) return -0.21f;
+            if (max.equals(min)) return 0.5f;
+            return (t - mi) / (ma - mi);
+        } else {
+            if (t >= ma) return -0.21f;
+            if (t <= mi) return 1.21f;
+            if (max.equals(min)) return 0.5f;
+            return (ma - t) / (ma - mi);
+        }
     }
 
     @Override
@@ -341,7 +400,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      *
      * @param str 单位的为度的数
      */
-    private float minuToDegree(String str) {
+    protected float minuToDegree(String str) {
         boolean negative = false;
         float flo = Float.parseFloat(str);
         if (flo < 0) negative = true;
@@ -366,9 +425,24 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param diameter 轮胎的直径  默认值为500.26（mm） 或 19.70 inch
      */
 
-    private float toeWidthToDegree(String str, String diameter) {
+    protected float toeWidthToDegree(String str, String diameter) {
         double flo = Math.asin(Float.parseFloat(str) / Float.parseFloat(diameter));
         flo = 180 * flo / Math.PI;
         return (float) flo;
     }
+
+    /**
+     * 如果 sMin、sMax当中有一个乱码，则需要最大值，最小值，标准值全置于初始值
+     */
+    public String originalAverage(String sMin, String sMax) {
+        float min, max;
+        try {
+            min = Float.parseFloat(sMin);
+            max = Float.parseFloat(sMax);
+            return format((min + max) / 2, 2);
+        } catch (NumberFormatException e) {
+            return GloVariable.initValue;
+        }
+    }
+
 }

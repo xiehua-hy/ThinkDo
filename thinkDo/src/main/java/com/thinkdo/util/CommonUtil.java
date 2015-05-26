@@ -61,24 +61,34 @@ public class CommonUtil {
     }
 
 
-    public static String getCurTime(){
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm",Locale.getDefault());
-        String date = sDateFormat.format(new Date());
-        return date;
+    public static String getCurTime() {
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm", Locale.getDefault());
+        return sDateFormat.format(new Date());
     }
 
-    public static String getPinYinHeadChar(String str){
+    public static String getPinYinHeadChar(String str) {
         StringBuilder builder = new StringBuilder();
-        for(int i=0;i< str.length(); i++){
+        for (int i = 0; i < str.length(); i++) {
             char word = str.charAt(i);
             String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
-            if(pinyinArray !=null){
+            if (pinyinArray != null) {
                 builder.append(pinyinArray[0].charAt(0));
-            }else{
+            } else {
                 builder.append(word);
             }
         }
         return builder.toString().toUpperCase();
+    }
+
+    public static String getIp(String hostName) {
+        if (isIP(hostName)) return hostName;
+        return new NetworkTool().hostToIpfromLpLink(hostName);
+    }
+
+    public static boolean isIP(String str) {
+        String pattern = "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}";
+        Pattern pat = Pattern.compile(pattern);
+        return pat.matcher(str).matches();
     }
 
 }

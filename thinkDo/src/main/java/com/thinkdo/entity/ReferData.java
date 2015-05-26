@@ -1,52 +1,161 @@
 package com.thinkdo.entity;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import com.thinkdo.util.CommonUtil;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
  * Created by xh on 15/5/10.
  */
 public class ReferData implements Serializable, CopyProtocol<ReferData> {
+    //状态标志位
+    protected boolean save;
+    protected boolean flush;
+
+    protected boolean raiseStatus;
+
     //车辆信息
-    private String manId;
-    private String manInfo;
-    private String vehicleId;
-    private String realYear;
+    protected String manId;
 
-    private String vehicleInfo;
-    private String startYear;
-    private String endYear;
+    protected String manInfo;
+    protected String vehicleId;
+    protected String realYear;
+    protected String vehicleInfo;
 
+    protected String startYear;
+    protected String endYear;
     //参数
-    private ValuesPair frontTotalToe;
-    private ValuesPair leftFrontToe;
-    private ValuesPair rightFrontToe;
+    protected ValuesPair frontTotalToe;
 
-    private ValuesPair leftFrontCamber;
-    private ValuesPair rightFrontCamber;
+    protected ValuesPair leftFrontToe;
+    protected ValuesPair rightFrontToe;
+    protected ValuesPair leftFrontCamber;
 
-    private ValuesPair leftCaster;
-    private ValuesPair rightCaster;
+    protected ValuesPair rightFrontCamber;
+    protected ValuesPair leftCaster;
 
-    private ValuesPair leftKpi;
-    private ValuesPair rightKpi;
+    protected ValuesPair rightCaster;
+    protected ValuesPair leftKpi;
 
-    private ValuesPair rearTotalToe;
-    private ValuesPair leftRearToe;
-    private ValuesPair rightRearToe;
+    protected ValuesPair rightKpi;
+    protected ValuesPair rearTotalToe;
 
-    private ValuesPair leftRearCamber;
-    private ValuesPair rightRearCamber;
+    protected ValuesPair leftRearToe;
+    protected ValuesPair rightRearToe;
+    protected ValuesPair leftRearCamber;
 
+    protected ValuesPair rightRearCamber;
     //特殊参数
-    private String maxThrust;
+    protected String maxThrust;
 
-    private String wheelbase;
-    private String frontWheel;
-    private String rearWheel;
+    protected String wheelbase;
+
+    protected String frontWheel;
+    protected String rearWheel;
+    protected String wheelbaseDiff; //轴距差
+
+
+    protected String wheelDiff;    //轮距差
+    //包容角
+    protected String leftIncludeAngle;
+    protected String rightIncludeAngle;
+
+    //20度前张角
+    protected String leftTurnAngle;
+    protected String rightTurnAngle;
+
+    //最大转向角
+    protected String leftMaxTurnAngle;
+    protected String rightMaxTurnAngle;
+
+
+    public boolean isSaved() {
+        return save;
+    }
+
+    public void setSaved(boolean save) {
+        this.save = save;
+    }
+
+    public boolean isFlush() {
+        return flush;
+    }
+
+    public void setFlush(boolean flush) {
+        this.flush = flush;
+    }
+
+    public boolean isRaiseStatus() {
+        return raiseStatus;
+    }
+
+    public void setRaiseStatus(boolean raiseStatus) {
+        this.raiseStatus = raiseStatus;
+    }
+
+    public String getWheelbaseDiff() {
+        return wheelbaseDiff;
+    }
+
+    public void setWheelbaseDiff(String wheelbaseDiff) {
+        this.wheelbaseDiff = wheelbaseDiff;
+    }
+
+    public String getWheelDiff() {
+        return wheelDiff;
+    }
+
+    public void setWheelDiff(String wheelDiff) {
+        this.wheelDiff = wheelDiff;
+    }
+
+    public String getLeftIncludeAngle() {
+        return leftIncludeAngle;
+    }
+
+    public void setLeftIncludeAngle(String leftIncludeAngle) {
+        this.leftIncludeAngle = leftIncludeAngle;
+    }
+
+    public String getRightIncludeAngle() {
+        return rightIncludeAngle;
+    }
+
+    public void setRightIncludeAngle(String rightIncludeAngle) {
+        this.rightIncludeAngle = rightIncludeAngle;
+    }
+
+    public String getLeftTurnAngle() {
+        return leftTurnAngle;
+    }
+
+    public void setLeftTurnAngle(String leftTurnAngle) {
+        this.leftTurnAngle = leftTurnAngle;
+    }
+
+    public String getRightTurnAngle() {
+        return rightTurnAngle;
+    }
+
+    public void setRightTurnAngle(String rightTurnAngle) {
+        this.rightTurnAngle = rightTurnAngle;
+    }
+
+    public String getLeftMaxTurnAngle() {
+        return leftMaxTurnAngle;
+    }
+
+    public void setLeftMaxTurnAngle(String leftMaxTurnAngle) {
+        this.leftMaxTurnAngle = leftMaxTurnAngle;
+    }
+
+    public String getRightMaxTurnAngle() {
+        return rightMaxTurnAngle;
+    }
+
+    public void setRightMaxTurnAngle(String rightMaxTurnAngle) {
+        this.rightMaxTurnAngle = rightMaxTurnAngle;
+    }
 
     public String getWheelbase() {
         return wheelbase;
@@ -348,5 +457,133 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
             this.rightCaster = other.getRightCaster();
         }
     }
+
+    public void addRealData(String test) {
+        if (test.contains("&&")) {
+            String[] array = test.split("&&");
+            String[] data = array[1].split("\\|");
+
+            if (data.length >= 18) {
+                setRaiseStatus(getUpStatus(array[0]));
+
+                frontTotalToe.setReal(originalDeal(data[1], 2));
+                leftFrontToe.setReal(originalDeal(data[2], 2));
+                rightFrontToe.setReal(originalDeal(data[3], 2));
+
+
+                leftFrontCamber.setReal(originalDeal(data[4], 2));
+                rightFrontCamber.setReal(originalDeal(data[5], 2));
+
+                rearTotalToe.setReal(originalDeal(data[6], 2));
+                leftRearToe.setReal(originalDeal(data[7], 2));
+                rightRearToe.setReal(originalDeal(data[8], 2));
+
+                leftRearCamber.setReal(originalDeal(data[9], 2));
+                rightRearCamber.setReal(originalDeal(data[10], 2));
+
+                leftCaster.setReal(originalDeal(data[11], 2));
+                rightCaster.setReal(originalDeal(data[12], 2));
+
+                leftKpi.setReal(originalDeal(data[13], 2));
+                rightKpi.setReal(originalDeal(data[14], 2));
+
+                maxThrust = originalDeal(data[15], 2);
+
+                wheelbaseDiff = originalDeal(data[16], 0);
+                wheelDiff = originalDeal(data[17], 0);
+
+                frontTotalToe.generatePercentAndcolor(true);
+                leftFrontToe.generatePercentAndcolor(true);
+                rightFrontToe.generatePercentAndcolor(false);
+
+                leftFrontCamber.generatePercentAndcolor(true);
+                rightFrontCamber.generatePercentAndcolor(false);
+
+                rearTotalToe.generatePercentAndcolor(true);
+                leftRearToe.generatePercentAndcolor(true);
+                rightRearToe.generatePercentAndcolor(false);
+
+                leftRearCamber.generatePercentAndcolor(true);
+                rightRearCamber.generatePercentAndcolor(false);
+
+                leftCaster.generatePercentAndcolor(true);
+                rightCaster.generatePercentAndcolor(true);
+
+                leftKpi.generatePercentAndcolor(true);
+                rightKpi.generatePercentAndcolor(false);
+
+
+                if (data.length == 41) {
+                    int flag;
+                    try {
+                        //保证vehicleId没有乱码
+                        flag = Integer.parseInt(data[18]);
+                    } catch (NumberFormatException e) {
+                        flag = 0;
+                    }
+
+                    if (flag == 0 || (vehicleId != null && vehicleId.equals(String.valueOf(flag))))
+                        return;
+
+                    vehicleId = data[18];
+                    manId = data[19];
+                    manInfo = data[20];
+                    vehicleInfo = data[22];
+                    startYear = data[23];
+                    endYear = data[24];
+                    realYear = data[25];
+
+                    frontTotalToe = new ValuesPair(data[26], data[27]);
+                    leftFrontToe = frontTotalToe.generateSingleToe();
+                    rightFrontToe = leftFrontToe.copy();
+
+                    leftFrontCamber = new ValuesPair(data[28], data[29]);
+                    rightFrontCamber = leftFrontCamber.copy();
+
+                    leftCaster = new ValuesPair(data[30], data[31]);
+                    rightCaster = leftCaster.copy();
+
+                    leftKpi = new ValuesPair(data[32], data[33]);
+                    rightKpi = leftKpi.copy();
+
+                    rearTotalToe = new ValuesPair(data[34], data[35]);
+                    leftRearToe = rearTotalToe.generateSingleToe();
+                    rightRearToe = leftRearToe.copy();
+
+                    leftRearCamber = new ValuesPair(data[36], data[37]);
+                    rightRearCamber = leftRearCamber.copy();
+
+                    wheelbase = originalDeal(array[38], 0);
+                    frontWheel = originalDeal(array[39], 0);
+                    rearWheel = originalDeal(array[40], 0);
+
+                }
+            }
+        }
+
+    }
+
+    /**
+     * 数据处理
+     *
+     * @param str 要转换的数
+     * @param n   小数点的位数
+     */
+    protected String originalDeal(String str, int n) {
+        try {
+            float flo = Float.parseFloat(str);
+            String data = CommonUtil.format(flo, 2);
+
+            if (GloVariable.initValue.equals(data) || n == 2) return data;
+            return CommonUtil.format(flo, n);
+        } catch (NumberFormatException e) {
+            return GloVariable.initValue;
+        }
+    }
+
+    protected boolean getUpStatus(String str) {
+        return str.equals("1");
+    }
+
 
 }

@@ -621,7 +621,7 @@ public class VehicleDbUtil {
         }
     }
 
-    public List<Map<String, String>> getManufactures(String pyIndex) {
+    public List getManufactures(String pyIndex) {
         List<Map<String, String>> data = new ArrayList<>();
         if (pyIndex == null || pyIndex.equals(""))
             return data;

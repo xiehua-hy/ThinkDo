@@ -96,7 +96,7 @@
         skd:RealTimeTitle="@string/rear_total_toe" />
 
     <com.thinkdo.view.ButtonRaise
-        android:id="@+id/button_raise"
+        android:id="@+id/btn_raise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/window_rearTotalToe"

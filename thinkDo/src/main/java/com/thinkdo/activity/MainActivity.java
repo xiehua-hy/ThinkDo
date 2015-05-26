@@ -11,13 +11,12 @@ import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.thinkdo.db.CustomDbUtil;
-import com.thinkdo.db.VehicleDbUtil;
+import com.thinkdo.db.DBUtil;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
-import com.thinkdo.fragment.FrontAxletShowFragment;
+import com.thinkdo.fragment.FrontAxleShowFragment;
 import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.KingpinFragment.KinPingCallback;
 import com.thinkdo.fragment.ManufacturerFragment;
@@ -35,7 +34,7 @@ import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
 public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback,
         KinPingCallback {
     private int preCheckedRadio = R.id.radio_pick;
-    private ReferData referData;
+    public static ReferData referData;
     private int weightHeightLevelFlag;
 
     public final int WeightFlag = 0x01;
@@ -113,7 +112,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 fragmentCommit(new RearAxleShowFragment());
                 break;
             case R.id.radio_front:
-                fragmentCommit(new FrontAxletShowFragment());
+                fragmentCommit(new FrontAxleShowFragment());
                 break;
             case R.id.radio_print:
                 fragmentCommit(new DataPrintFragment());
@@ -165,22 +164,10 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                //自定义数据
-                if (dbIndex == GloVariable.cusdb) {
-                    CustomDbUtil util = new CustomDbUtil();
-                    referData = util.queryReferData(vehicleID);
-                    if (referData != null) {
-                        referData.setManId(manId);
-                        referData.setManInfo(manInfo);
-                        referData.setVehicleId(vehicleID);
-                        referData.setRealYear(year);
-                    }
-                    startWeightHeightLevel(null);
-                    return;
-                }
+                weightHeightLevelFlag = 0;
 
-                VehicleDbUtil util = new VehicleDbUtil();
-                referData = util.queryReferData(vehicleID);
+                DBUtil dbUtil = new DBUtil();
+                referData = dbUtil.queryReferData(vehicleID, dbIndex);
 
                 if (referData != null) {
                     referData.setManId(manId);
@@ -189,8 +176,12 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                     referData.setRealYear(year);
                 }
 
-                SpecialParams specialParams = util.querySpecParam(vehicleID);
-                weightHeightLevelFlag = 0;
+                if (dbIndex == GloVariable.cusdb) {
+                    startWeightHeightLevel(null);
+                    return;
+                }
+
+                SpecialParams specialParams = dbUtil.querySpecParam(vehicleID);
                 if (specialParams != null) {
                     if (specialParams.getWeightParam() != null)
                         weightHeightLevelFlag |= WeightFlag;

@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.ValuesPair;
 
 public class WindowRealTime extends LinearLayout {
     private TextView left, mid, right, title, result;
@@ -34,31 +36,39 @@ public class WindowRealTime extends LinearLayout {
     }
 
     public void setLeftText(String text) {
-        left.setText(text);
-    }
-
-    public void setLeftText(int resId) {
-        left.setText(resId);
+        if (text == null) return;
+        if (text.equals(GloVariable.initValue)) {
+            left.setText(R.string.default_signal);
+        } else {
+            left.setText(text);
+        }
     }
 
     public void setMiddleText(String text) {
-        mid.setText(text);
-    }
-
-    public void setMiddleText(int resId) {
-        mid.setText(resId);
+        if (text == null) return;
+        if (text.equals(GloVariable.initValue)) {
+            mid.setText(R.string.default_signal);
+        } else {
+            mid.setText(text);
+        }
     }
 
     public void setRightText(String text) {
-        right.setText(text);
-    }
-
-    public void setRightText(int resId) {
-        right.setText(resId);
+        if (text == null) return;
+        if (text.equals(GloVariable.initValue)) {
+            right.setText(R.string.default_signal);
+        } else {
+            right.setText(text);
+        }
     }
 
     public void setResultText(String text) {
-        result.setText(text);
+        if (text == null) return;
+        if (text.equals(GloVariable.initValue)) {
+            result.setText(R.string.default_signal);
+        } else {
+            result.setText(text);
+        }
     }
 
     public void setResultColor(int color) {
@@ -71,5 +81,26 @@ public class WindowRealTime extends LinearLayout {
 
     public LinearLayout getLinearLayout() {
         return linearLayout;
+    }
+
+
+    public void setAllValues(ValuesPair values) {
+        this.setAllValues(values, true);
+    }
+
+    /**
+     * @param ascent true 表示左边的值小,右边的值大;
+     *               false 左边的大,右边的值小
+     */
+    public void setAllValues(ValuesPair values, boolean ascent) {
+        if (values == null) return;
+        if (ascent) {
+            setLeftText(values.getMin());
+            setRightText(values.getMax());
+        } else {
+            setLeftText(values.getMax());
+            setRightText(values.getMin());
+        }
+        setMiddleText(values.getMid());
     }
 }

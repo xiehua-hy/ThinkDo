@@ -23,9 +23,12 @@ public class GloVariable {
     public static final String defaultIp = "192.168.100.4";
     public static final int defaultPort = 6000;
 
+
     //other
     public static final String carSqliteName = "SKDDATA.db";
     public static final String customSqliteName = "SKDSELFDATA.db";
+    public static final String head = "head";
+    public static final String simpleBitmap = "Bitmap";
 
     public static final int stadb = 0;
     public static final int cusdb = 1;

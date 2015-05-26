@@ -53,7 +53,7 @@
         skd:RealTimeTitle="@string/right_front_camber" />
 
     <com.thinkdo.view.ButtonRaise
-        android:id="@+id/button_raise"
+        android:id="@+id/btn_raise"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -63,7 +63,7 @@
         android:id="@+id/window_rearTotalToe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button_raise"
+        android:layout_above="@+id/btn_raise"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
         skd:RealTimeTitle="@string/rear_total_toe" />

@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.entity.OperOftenDataTotalModel;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.UnitEnum;
-import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.view.BarDefAdd;
 
 /**
@@ -24,7 +24,6 @@ import com.thinkdo.view.BarDefAdd;
  */
 public class DefCarDataFragment extends Fragment {
     private OperOftenDataTotalModel carInfo;
-    private ProgressDialog progressDialog;
     private int toeUnit = 1, unit = 1;
 
     @Override
@@ -70,10 +69,9 @@ public class DefCarDataFragment extends Fragment {
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                progressDialog = ProgressDialog.show(getActivity(), "", "Wait...");
                                 ReferData data = new ReferData();
 
-                                data.setManInfo(carInfo.getManInfo());
+                                data.setManId(carInfo.getManId());
                                 data.setVehicleId(carInfo.getVehicleId());
                                 data.setStartYear(carInfo.getStartYear());
                                 data.setEndYear(carInfo.getEndYear());
@@ -93,7 +91,7 @@ public class DefCarDataFragment extends Fragment {
 
                                 data.setRearTotalToe(rearTotalToe.getAllValues(UnitEnum.getUnitFromValue(toeUnit)));
                                 data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
-                                data.setRightRearToe(data.getLeftFrontToe().copy());
+                                data.setRightRearToe(data.getLeftRearToe().copy());
 
                                 data.setLeftRearCamber(leftRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
                                 data.setRightRearCamber(rightRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
@@ -102,14 +100,15 @@ public class DefCarDataFragment extends Fragment {
                                 data.setFrontWheel(frontWheel.getMinText());
                                 data.setRearWheel(rearWheel.getMinText());
 
-                                //¥Ê¥¢ ˝æ›µΩ ˝æ›ø‚÷–
-
+                                //ÔøΩ‰øùÂ≠òÂà∞Êï∞ÊçÆÂ∫ìÔøΩÔøΩ›µÔøΩÔøΩÔøΩÔøΩ›øÔøΩÔøΩÔøΩ
+                                CustomDbUtil dbUtil = new CustomDbUtil();
+                                dbUtil.insertVehicleInfo(carInfo);
+                                dbUtil.insertVehicleData(data);
 
                                 getActivity().runOnUiThread(new Runnable() {
 
                                     @Override
                                     public void run() {
-                                        if (progressDialog != null) progressDialog.cancel();
                                         Toast.makeText(getActivity(), R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
                                         getActivity().finish();
                                     }
@@ -118,5 +117,11 @@ public class DefCarDataFragment extends Fragment {
                         }).create().show();
             }
         });
+    }
+
+    public void setAllParam(OperOftenDataTotalModel carInfo, int unit, int toeUnit) {
+        this.carInfo = carInfo;
+        this.unit = unit;
+        this.toeUnit = toeUnit;
     }
 }

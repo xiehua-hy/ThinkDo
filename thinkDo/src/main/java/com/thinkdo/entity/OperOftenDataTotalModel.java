@@ -150,7 +150,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getLevelFlag() {
-        if (levelFlag == null) return GloVariable.emptyString;
+        if (levelFlag == null) return "1";
         return levelFlag;
     }
 

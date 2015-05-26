@@ -82,6 +82,8 @@ public class BarDefAdd extends LinearLayout {
     }
 
     public ValuesPair getAllValues(UnitEnum unit) {
-        return new ValuesPair(getMinText(), getMaxText(), unit);
+        String min = getMinText();
+        String max = getMaxText();
+        return new ValuesPair(min, max, unit);
     }
 }
