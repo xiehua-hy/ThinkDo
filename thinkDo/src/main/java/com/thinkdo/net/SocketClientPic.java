@@ -24,7 +24,7 @@ public class SocketClientPic extends SocketClient {
 
     @Override
     public void run() {
-        if (isClose()) return;
+        if (isClosed()) return;
         byte[] head = new byte[16];
         try {
             while (in.read(head) != -1) {

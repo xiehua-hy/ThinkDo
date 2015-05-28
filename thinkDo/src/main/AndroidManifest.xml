@@ -7,7 +7,9 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="19" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.thinkdo.application.MainApplication"
@@ -63,7 +65,7 @@
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="sensorLandscape"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
     </application>
 
 </manifest>

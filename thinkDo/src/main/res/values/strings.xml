@@ -135,4 +135,13 @@
     <string name="multiplication" translatable="false">*</string>
     <string name="division" translatable="false">/</string>
     <string name="vehicle_data">Vehicle Data</string>
+    <string name="error">Error</string>
+    <string name="tip_raiseBtn_down">please lay down the car</string>
+    <string name="tip_raiseBtn_up">Please lift up the car</string>
+    <string name="pushCar_tip_init">init……</string>
+    <string name="pushCar_tip_testing">testing</string>
+    <string name="pushCar_tip_forward">Push the car forward</string>
+    <string name="pushCar_tip_backward">Push the car backward</string>
+    <string name="pushCar_tip_stop">Stop push car</string>
+    <string name="pushCar_tip_data_handle">Data processing</string>
 </resources>

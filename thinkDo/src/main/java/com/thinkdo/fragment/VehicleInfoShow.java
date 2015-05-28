@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.db.VehicleDbUtil;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.view.BarReferData;
 
@@ -58,16 +57,16 @@ public class VehicleInfoShow extends Fragment {
         bar.setAllValues(data.getLeftRearCamber(), data.getRightRearCamber());
 
         bar = (BarReferData) view.findViewById(R.id.bar_maxThrust);
-        bar.setLeftMinText(data.getMaxThrust());
+        if (data.getMaxThrust() != null) bar.setLeftMinText(data.getMaxThrust().getMid());
 
         bar = (BarReferData) view.findViewById(R.id.bar_wheelbase);
-        bar.setLeftMinText(data.getWheelbase());
+        if (data.getWheelbase() != null) bar.setLeftMinText(data.getWheelbase().getMid());
 
         bar = (BarReferData) view.findViewById(R.id.bar_frontWheel);
-        bar.setLeftMinText(data.getFrontWheel());
+        if (data.getFrontWheel() != null) bar.setLeftMinText(data.getFrontWheel().getMid());
 
         bar = (BarReferData) view.findViewById(R.id.bar_rearWheel);
-        bar.setLeftMinText(data.getRearWheel());
+        if (data.getRearWheel() != null) bar.setLeftMinText(data.getRearWheel().getMid());
 
         Button btn = (Button) view.findViewById(R.id.btn_next);
         btn.setOnClickListener(new View.OnClickListener() {

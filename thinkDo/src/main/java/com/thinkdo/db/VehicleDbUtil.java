@@ -178,7 +178,7 @@ public class VehicleDbUtil {
             data.setLeftRearCamber(new ValuesPair(leftRearCamberMin, leftRearCamber, leftRearCamberMax));
             data.setRightRearCamber(new ValuesPair(rightRearCamberMin, rightRearCamber, rightRearCamberMax));
 
-            data.setMaxThrust(CommonUtil.format(thrustAngleMax, 2));
+            data.setMaxThrust(new ValuesPair(thrustAngleMax, 2));
         }
 
         sqlWhere = String.format("Dimension1 = (select Model21 from StandTypelevel where Model1= %s)", vehicleId);
@@ -189,9 +189,9 @@ public class VehicleDbUtil {
             float frontWheel = cur.getFloat(cur.getColumnIndex("Dimension14"));
             float rearWheel = cur.getFloat(cur.getColumnIndex("Dimension17"));
 
-            data.setWheelbase(dataInitHandle(wheelbase, 0));
-            data.setFrontWheel(dataInitHandle(frontWheel, 0));
-            data.setRearWheel(dataInitHandle(rearWheel, 0));
+            data.setWheelbase(new ValuesPair(wheelbase));
+            data.setFrontWheel(new ValuesPair(frontWheel));
+            data.setRearWheel(new ValuesPair(rearWheel));
         }
         cur.close();
         db.close();
@@ -660,10 +660,9 @@ public class VehicleDbUtil {
         return String.format("RideHeight/%s %s.PNG", manInfo.toUpperCase(), path);
     }
 
-
-    public String dataInitHandle(float value, int num) {
-        if (CommonUtil.format(value, 2).equals(GloVariable.initValue)) return GloVariable.initValue;
-
-        return CommonUtil.format(value, num);
-    }
+//    public String dataInitHandle(float value, int num) {
+//        if (CommonUtil.format(value, 2).equals(GloVariable.initValue)) return GloVariable.initValue;
+//
+//        return CommonUtil.format(value, num);
+//    }
 }

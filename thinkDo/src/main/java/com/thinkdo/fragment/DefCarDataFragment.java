@@ -2,7 +2,6 @@ package com.thinkdo.fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.entity.OperOftenDataTotalModel;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.UnitEnum;
+import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.view.BarDefAdd;
 
 /**
@@ -96,9 +96,9 @@ public class DefCarDataFragment extends Fragment {
                                 data.setLeftRearCamber(leftRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
                                 data.setRightRearCamber(rightRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
 
-                                data.setWheelbase(wheelbase.getMinText());
-                                data.setFrontWheel(frontWheel.getMinText());
-                                data.setRearWheel(rearWheel.getMinText());
+                                data.setWheelbase(new ValuesPair(wheelbase.getMinText(), wheelbase.getMinText(), wheelbase.getMinText()));
+                                data.setFrontWheel(new ValuesPair(frontWheel.getMinText(), frontWheel.getMinText(), frontWheel.getMinText()));
+                                data.setRearWheel(new ValuesPair(rearWheel.getMinText(), rearWheel.getMinText(), frontWheel.getMinText()));
 
                                 //�保存到数据库��ݵ����ݿ���
                                 CustomDbUtil dbUtil = new CustomDbUtil();

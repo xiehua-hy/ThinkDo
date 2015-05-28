@@ -91,4 +91,59 @@ public class CommonUtil {
         return pat.matcher(str).matches();
     }
 
+    public static int getQuestCode(String msg) {
+        String[] array = msg.split("&");
+        return Integer.parseInt(array[0]);
+    }
+
+    public static int getStatusCode(String msg) {
+        String[] array = msg.split("&");
+        return Integer.parseInt(array[1]);
+    }
+
+    public static String getErrorString(int status, String str) {
+        StringBuilder buff = new StringBuilder();
+        if (str.contains("&&")) {
+            String[] data = str.split("&&");
+            String[] array = data[1].split("\\|");
+            if (status < 16 && status > 0) {
+                if (bitCount(status, 0x01)) {
+                    //左前
+                    buff.append(GloVariable.getErrorInfo(18));
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[0]))));
+                }
+                if (bitCount(status, 0x02)) {
+                    //右前
+                    buff.append(GloVariable.getErrorInfo(19));
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[1]))));
+                }
+                if (bitCount(status, 0x04)) {
+                    //左后
+                    buff.append(GloVariable.getErrorInfo(20));
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[2]))));
+                }
+                if (bitCount(status, 0x08)) {
+                    //右后
+                    buff.append(GloVariable.getErrorInfo(21));
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[3]))));
+                }
+
+                if (bitCount(status, 0x100)) {
+                    buff.append(GloVariable.getErrorInfo(16));
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[3]))));
+                }
+
+                if (Integer.parseInt(array[3]) == -2) {
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(16)));
+                } else if (Integer.parseInt(array[3]) == -1) {
+                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(17)));
+                }
+            }
+        }
+        return buff.toString();
+    }
+
+    public static boolean bitCount(int count, int bit) {
+        return (count & bit) > 0;
+    }
 }

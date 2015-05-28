@@ -40,8 +40,19 @@ public class PushCarArrowThread {
         isPlayPlan = true;
     }
 
-    public void pushcarArrow(final ImageView image, float percent) {
-        float top, buttom;
+    public void loadCirclePic(final ImageView image,final float percent){
+
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                if(!isPlayPlan)return;
+                pushCarArrow(image, percent);
+            }
+        });
+    }
+
+    protected void pushCarArrow(final ImageView image, float percent) {
+        float top, bottom;
         Bitmap src;
         if (percent < -1) {
             handler.post(new Runnable() {
@@ -64,11 +75,11 @@ public class PushCarArrowThread {
 
         if (percent > 0) {
             top = 80 * density;
-            buttom = (80f + 208f * percent) * density;
+            bottom = (80f + 208f * percent) * density;
             src = down;
         } else {
             top = (288f - (1f + percent) * 208f) * density;
-            buttom = 288 * density;
+            bottom = 288 * density;
             src = up;
         }
 
@@ -77,7 +88,7 @@ public class PushCarArrowThread {
         Paint paint = new Paint();
         paint.setColor(Color.GRAY);
         canvas.drawBitmap(src, 0, 0, null);
-        canvas.drawRect(43 * density, top, 115 * density, buttom, paint);
+        canvas.drawRect(43 * density, top, 115 * density, bottom, paint);
 
         handler.post(new Runnable() {
             @Override

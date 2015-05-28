@@ -19,14 +19,14 @@ public class NetConnect extends Thread {
         this.handler = handler;
         this.questCode = questCode;
         ToastRun.preContext = null;
+        start();
     }
 
     @Override
     public void run() {
         while (!isClose) {
-            if (!client.isClose()) {
+            if (client == null || client.isClosed()) {
                 client = new SocketClient(context, handler);
-                client.start();
                 client.send(questCode);
             }
 
@@ -42,7 +42,7 @@ public class NetConnect extends Thread {
 
     public void close() {
         isClose = true;
-        if (!client.isClose()) client.onStop();
+        if (client != null) client.onStop();
     }
 
 }

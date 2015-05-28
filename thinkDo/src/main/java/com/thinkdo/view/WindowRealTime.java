@@ -75,6 +75,13 @@ public class WindowRealTime extends LinearLayout {
         result.setTextColor(color);
     }
 
+    public void setResult(ValuesPair valuesPair) {
+        if (valuesPair != null) {
+            setResultColor(valuesPair.getColor());
+            setResultText(valuesPair.getReal());
+        }
+    }
+
     public void setWindowBackground(Drawable drawable) {
         linearLayout.setBackgroundDrawable(drawable);
     }

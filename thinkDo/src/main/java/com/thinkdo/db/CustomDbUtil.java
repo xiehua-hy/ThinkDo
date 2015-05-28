@@ -180,11 +180,11 @@ public class CustomDbUtil {
             data.setRightRearCamber(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail1")), cur.getFloat(cur.getColumnIndex("OftenDetail2")), cur.getFloat(cur.getColumnIndex("OftenDetail3")), true, null));
 
             cur.moveToPosition(14);
-            data.setWheelbase(cur.getString(cur.getColumnIndex("OftenDetail2")));
+            data.setWheelbase(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail2"))));
             cur.moveToPosition(15);
-            data.setFrontWheel(cur.getString(cur.getColumnIndex("OftenDetail2")));
+            data.setFrontWheel(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail2"))));
             cur.moveToPosition(16);
-            data.setRearWheel(cur.getString(cur.getColumnIndex("OftenDetail2")));
+            data.setRearWheel(new ValuesPair(cur.getFloat(cur.getColumnIndex("OftenDetail2"))));
         }
 
         cur.close();
@@ -396,25 +396,25 @@ public class CustomDbUtil {
 
         //row15
         content.put("id", id++);
-        content.put("OftenDetail1", data.getWheelbase());
-        content.put("OftenDetail2", data.getWheelbase());
-        content.put("OftenDetail3", data.getWheelbase());
+        content.put("OftenDetail1", data.getWheelbase().getMid());
+        content.put("OftenDetail2", data.getWheelbase().getMid());
+        content.put("OftenDetail3", data.getWheelbase().getMid());
         content.put("OftenDetail4", OftenDetail4++);
         db.insert("OperOftenDataDetail", null, content);
 
         //row16
         content.put("id", id++);
-        content.put("OftenDetail1", data.getFrontWheel());
-        content.put("OftenDetail2", data.getFrontWheel());
-        content.put("OftenDetail3", data.getFrontWheel());
+        content.put("OftenDetail1", data.getFrontWheel().getMid());
+        content.put("OftenDetail2", data.getFrontWheel().getMid());
+        content.put("OftenDetail3", data.getFrontWheel().getMid());
         content.put("OftenDetail4", OftenDetail4++);
         db.insert("OperOftenDataDetail", null, content);
 
         //row17
         content.put("id", id);
-        content.put("OftenDetail1", data.getRearWheel());
-        content.put("OftenDetail2", data.getRearWheel());
-        content.put("OftenDetail3", data.getRearWheel());
+        content.put("OftenDetail1", data.getRearWheel().getMid());
+        content.put("OftenDetail2", data.getRearWheel().getMid());
+        content.put("OftenDetail3", data.getRearWheel().getMid());
         content.put("OftenDetail4", OftenDetail4);
         db.insert("OperOftenDataDetail", null, content);
 

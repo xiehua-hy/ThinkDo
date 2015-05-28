@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.util.CommonUtil;
@@ -25,15 +26,23 @@ public class SocketClient extends Thread {
     protected InputStream in;
 
     public SocketClient(Context context, Handler handler) {
+        this(context, handler, true);
+    }
+
+
+
+    public SocketClient(Context context, Handler handler, boolean listen) {
         this.handler = handler;
 
         String ip = CommonUtil.getIp(GloVariable.ip);
         if (ip == null) return;
         try {
+            Log.d("TAG", String.format("IP = %s, port = %d", ip, GloVariable.port));
             socket = new Socket(ip, GloVariable.port);
-
+            Log.d("TAG", "Connect Success");
             in = socket.getInputStream();
             out = socket.getOutputStream();
+            if (listen) start();
 
         } catch (UnknownHostException e) {
             if (handler != null)
@@ -45,7 +54,7 @@ public class SocketClient extends Thread {
     }
 
     /**
-     * ÏòÖ÷»ú·¢ËÍÇëÇó
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     public void send(int questCode) {
         this.send(questCode, 0);
@@ -61,8 +70,10 @@ public class SocketClient extends Thread {
 
     public void send(int questCode, int param, String data) {
         try {
-            if (!isClose())
+            if (!isClosed()) {
+                Log.d("TAG", String.format("Uri: questCode = %d, param = %d, data = %s", questCode, param, data));
                 out.write(getQuestUri(questCode, param, data));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,6 +81,7 @@ public class SocketClient extends Thread {
 
 
     protected void sendToHandler(String msg) {
+        Log.d("TAG", msg);
         if (handler != null) {
             Bundle bundle = new Bundle();
             bundle.putString(GloVariable.head, msg);
@@ -81,7 +93,7 @@ public class SocketClient extends Thread {
 
     @Override
     public void run() {
-        if (isClose()) return;
+        if (isClosed()) return;
         byte[] head = new byte[16];
         try {
             while (in.read(head) != -1) {
@@ -107,7 +119,7 @@ public class SocketClient extends Thread {
         }
     }
 
-    public boolean isClose() {
+    public boolean isClosed() {
         return socket == null || socket.isClosed();
     }
 
@@ -115,7 +127,7 @@ public class SocketClient extends Thread {
         try {
             if (in != null) in.close();
             if (out != null) out.close();
-            if (!isClose()) socket.close();
+            if (!isClosed()) socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

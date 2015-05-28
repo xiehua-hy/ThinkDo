@@ -1,6 +1,7 @@
 package com.thinkdo.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -17,6 +18,7 @@ import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
 import com.thinkdo.fragment.FrontAxleShowFragment;
+import com.thinkdo.fragment.FrontAxleShowFragment.FrontAxleCallback;
 import com.thinkdo.fragment.KingpinFragment;
 import com.thinkdo.fragment.KingpinFragment.KinPingCallback;
 import com.thinkdo.fragment.ManufacturerFragment;
@@ -26,16 +28,24 @@ import com.thinkdo.fragment.PickCarFragment.VehicleCallbacks;
 import com.thinkdo.fragment.PickCusCarFragment;
 import com.thinkdo.fragment.PickCusCarFragment.CusManufacturerCallback;
 import com.thinkdo.fragment.PushCarFragment;
+import com.thinkdo.fragment.PushCarFragment.PushCarCallback;
 import com.thinkdo.fragment.RearAxleShowFragment;
+import com.thinkdo.fragment.RearAxleShowFragment.RearAxleCallback;
 import com.thinkdo.fragment.TestResultFragment;
+import com.thinkdo.fragment.TestResultFragment.TestResultCallback;
 import com.thinkdo.fragment.VehicleInfoShow;
 import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
+import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetQuest;
+import com.thinkdo.net.SocketClient;
 
 public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback,
-        KinPingCallback {
+        KinPingCallback, RearAxleCallback, FrontAxleCallback, TestResultCallback, PushCarCallback {
     private int preCheckedRadio = R.id.radio_pick;
     public static ReferData referData;
     private int weightHeightLevelFlag;
+    private boolean autoDown = true;
+    private boolean backChoice = true;
 
     public final int WeightFlag = 0x01;
     public final int HeightFlag = 0x02;
@@ -55,12 +65,24 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     private void init() {
         TextView back = (TextView) findViewById(R.id.tv_back);
-        back.setOnClickListener(this);
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!autoDown) {
+                    warn();
+                } else if (backChoice) {
+                    finish();
+                } else {
+                    backChoice = true;
+                    fragmentCommit(new ManufacturerFragment());
+                }
+            }
+        });
 
         RadioButton rb = (RadioButton) findViewById(R.id.radio_pick);
         rb.setOnClickListener(this);
 
-        rb = (RadioButton) findViewById(R.id.radio_pull);
+        rb = (RadioButton) findViewById(R.id.radio_push);
         rb.setOnClickListener(this);
 
         rb = (RadioButton) findViewById(R.id.radio_kingpin);
@@ -84,12 +106,25 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onClick(View v) {
-
-        if (v.getId() == R.id.tv_back) {
-            finish();
-        } else {
-            radioButtonCheckedChange(v.getId());
+        int id = v.getId();
+        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.bar_front) {
+            warn();
+            return;
         }
+        radioButtonCheckedChange(id);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (autoDown) finish();
+        else warn();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        new NetQuest(GloVariable.homeUrl).start();
     }
 
     public void radioButtonCheckedChange(int checkId) {
@@ -99,7 +134,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             case R.id.radio_pick:
                 fragmentCommit(new ManufacturerFragment());
                 break;
-            case R.id.radio_pull:
+            case R.id.radio_push:
                 fragmentCommit(new PushCarFragment());
                 break;
             case R.id.radio_fast:
@@ -109,7 +144,9 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 fragmentCommit(new KingpinFragment());
                 break;
             case R.id.radio_rear:
-                fragmentCommit(new RearAxleShowFragment());
+                RearAxleShowFragment fragment = new RearAxleShowFragment();
+                fragment.setRaiseBtnStatus(!autoDown);
+                fragmentCommit(fragment);
                 break;
             case R.id.radio_front:
                 fragmentCommit(new FrontAxleShowFragment());
@@ -137,6 +174,10 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
     }
 
+    public void setRaise(boolean enabled) {
+        autoDown = !enabled;
+    }
+
     @Override
     public void onManufacturerSelected(String manId, String manInfo, int dbIndex) {
         if (manId.equals("0") && dbIndex == GloVariable.cusdb) {
@@ -144,6 +185,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             fragmentCommit(new PickCusCarFragment());
             return;
         }
+
+        backChoice = false;
         referData = new ReferData();
         referData.setManId(manId);
         referData.setManInfo(manInfo);
@@ -160,7 +203,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final int dbIndex) {
-
+        backChoice = true;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -174,6 +217,14 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                     referData.setManInfo(manInfo);
                     referData.setVehicleId(vehicleID);
                     referData.setRealYear(year);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SocketClient client = new SocketClient(null, null, false);
+                            client.send(GloVariable.synchCar, referData.getSynchData());
+                        }
+                    }).start();
                 }
 
                 if (dbIndex == GloVariable.cusdb) {
@@ -200,13 +251,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onVehicleInfoNext() {
-        RadioButton rb = (RadioButton) findViewById(R.id.radio_pull);
-        rb.performClick();
-    }
-
-    @Override
-    public void kinPingNext() {
-        RadioButton rb = (RadioButton) findViewById(R.id.radio_fast);
+        RadioButton rb = (RadioButton) findViewById(R.id.radio_push);
         rb.performClick();
     }
 
@@ -265,5 +310,83 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             fragment.setParams(manId, manInfo, pyIndex, dbIndex);
             fragmentCommit(fragment);
         }
+    }
+
+    @Override
+    public void pushCarNext(int position) {
+        synch(position);
+    }
+
+    @Override
+    public void kinPingNext(int position) {
+        synch(position);
+    }
+
+    @Override
+    public void TestResultNext(int position) {
+        synch(position);
+    }
+
+    @Override
+    public void rearAxleNext(int position) {
+        synch(position);
+    }
+
+    @Override
+    public void frontAxleNext(int position) {
+        synch(position);
+    }
+
+    private void synch(int i) {
+        int radioId = -1;
+
+        switch (i) {
+            case GloVariable.pushcarUrl:
+                radioId = R.id.radio_push;
+                break;
+
+            case GloVariable.kingpinUrl:
+                radioId = R.id.radio_kingpin;
+                break;
+
+            case GloVariable.testDataUrl:
+                radioId = R.id.radio_fast;
+                break;
+
+            case GloVariable.rearShowUrl:
+                radioId = R.id.radio_rear;
+                break;
+
+            case GloVariable.frontShowUrl:
+                radioId = R.id.radio_front;
+                break;
+
+            case GloVariable.printUrl:
+                radioId = R.id.radio_print;
+                break;
+
+            case GloVariable.samplePictureUrl:
+                Intent intent = new Intent();
+                break;
+
+            case GloVariable.homeUrl:
+                intent = new Intent(this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+
+        }
+
+        if (radioId != -1) {
+            RadioButton radioBtn = (RadioButton) findViewById(radioId);
+            radioBtn.performClick();
+        }
+    }
+
+    private void warn() {
+        new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setTitle(R.string.tip_raiseBtn_down).setPositiveButton(R.string.sure, null)
+                .create().show();
     }
 }

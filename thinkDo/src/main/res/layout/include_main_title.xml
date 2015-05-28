@@ -39,7 +39,7 @@
             android:textSize="@dimen/main_title_font_size" />
 
         <RadioButton
-            android:id="@+id/radio_pull"
+            android:id="@+id/radio_push"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

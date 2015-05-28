@@ -130,4 +130,13 @@
     <string name="diameter_inch">直径(Inch)</string>
     <string name="vehicle_infor">车辆信息</string>
     <string name="vehicle_data">车辆参数</string>
+    <string name="error">异常</string>
+    <string name="tip_raiseBtn_down">请放下车身</string>
+    <string name="tip_raiseBtn_up">放举起车身</string>
+    <string name="pushCar_tip_init">初始化中...</string>
+    <string name="pushCar_tip_testing">正在测试</string>
+    <string name="pushCar_tip_forward">请往前推车</string>
+    <string name="pushCar_tip_backward">请往后推车</string>
+    <string name="pushCar_tip_stop">停止推车</string>
+    <string name="pushCar_tip_data_handle">数据处理中</string>
 </resources>
