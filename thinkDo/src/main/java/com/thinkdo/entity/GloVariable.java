@@ -42,6 +42,8 @@ public class GloVariable {
     public static final int synchCar = 16;
     public static final int upCar = 17;
     public static final int downCar = 18;
+    public static final int loginUrl = 19;
+    public static final int registerUrl = 20;
 
     public static final int errorUrl = -2;
     public static final int erroDiss = -88;

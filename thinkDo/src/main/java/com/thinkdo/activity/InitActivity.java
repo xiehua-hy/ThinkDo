@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.UnitEnum;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.XmlInit;
 
 import java.io.File;
@@ -25,6 +27,18 @@ public class InitActivity extends Activity {
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
+            if (msg.what == -1) {
+                Toast.makeText(InitActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+            }
+
+            switch (msg.what) {
+                case -1:
+                    Toast.makeText(InitActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(InitActivity.this, "login success", Toast.LENGTH_SHORT).show();
+            }
+
 
             Intent it = new Intent(InitActivity.this, MenuActivity.class);
             it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -88,13 +102,13 @@ public class InitActivity extends Activity {
         @Override
         public void run() {
             init();
-
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            handler.sendEmptyMessage(0);
+            SocketClient client = new SocketClient(handler);
+            client.send(GloVariable.loginUrl);
         }
     }
 

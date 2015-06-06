@@ -248,7 +248,7 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            SocketClient client = new SocketClient(null, null, false);
+                            SocketClient client = new SocketClient(null, false);
                             client.send(GloVariable.hostSaveDataUrl, getPrintData(customerInfo, vehicleInfo, MainActivity.referData));
                             client.onStop();
 
@@ -266,7 +266,7 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        SocketClient client = new SocketClient(null, null, false);
+                        SocketClient client = new SocketClient(null, false);
                         client.send(GloVariable.printContent, getPrintData(customerInfo, vehicleInfo, MainActivity.referData));
                         client.onStop();
                         handler.sendEmptyMessage(2);

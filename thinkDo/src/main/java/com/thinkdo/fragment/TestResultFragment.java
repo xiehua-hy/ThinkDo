@@ -266,7 +266,7 @@ public class TestResultFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.testDataUrl);
+        socketClient = new NetConnect(handler, GloVariable.testDataUrl);
     }
 
     @Override

@@ -18,8 +18,8 @@ import java.io.InputStream;
  * Created by Administrator on 2015/5/25.
  */
 public class SocketClientPic extends SocketClient {
-    public SocketClientPic(Context context, Handler handler) {
-        super(context, handler);
+    public SocketClientPic(Handler handler) {
+        super(handler);
     }
 
     @Override
@@ -76,10 +76,12 @@ public class SocketClientPic extends SocketClient {
 
     // ��handle��������
     public void sendToHandler(String msg, Bitmap bitmap) {
-        Bundle bundle = new Bundle();
+        Message message = handler.obtainMessage();
+        Bundle bundle = message.getData() == null
+                ? new Bundle()
+                : message.getData();
         bundle.putString(GloVariable.head, msg);
         bundle.putParcelable(GloVariable.simpleBitmap, bitmap);
-        Message message = handler.obtainMessage();
         message.setData(bundle);
         handler.sendMessage(message);
     }

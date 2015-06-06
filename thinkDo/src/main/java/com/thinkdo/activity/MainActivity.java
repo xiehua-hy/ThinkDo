@@ -253,7 +253,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            SocketClient client = new SocketClient(null, null, false);
+                            SocketClient client = new SocketClient(null, false);
                             client.send(GloVariable.synchCar, referData.getSynchData());
                         }
                     }).start();
@@ -387,6 +387,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             case GloVariable.kingpinUrl:
                 radioId = R.id.radio_kingpin;
                 break;
+
+            case GloVariable.fastTestUrl:
 
             case GloVariable.testDataUrl:
                 radioId = R.id.radio_fast;

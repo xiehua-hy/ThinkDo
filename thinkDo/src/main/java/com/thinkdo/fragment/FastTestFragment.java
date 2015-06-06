@@ -218,7 +218,7 @@ public class FastTestFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.fastTestUrl);
+        socketClient = new NetConnect(handler, GloVariable.fastTestUrl);
     }
 
     @Override

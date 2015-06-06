@@ -93,7 +93,7 @@ public class SamplePicFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.samplePictureUrl, true);
+        socketClient = new NetConnect(handler, GloVariable.samplePictureUrl, true);
     }
 
     @Override

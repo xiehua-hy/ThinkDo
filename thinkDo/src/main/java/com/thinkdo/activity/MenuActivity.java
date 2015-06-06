@@ -38,6 +38,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
             String reply = msg.getData().getString(GloVariable.head);
+            if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             deal(backCode);
             return true;
@@ -133,7 +134,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
     protected void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(this, handler, GloVariable.synchShowUrl);
+        socketClient = new NetConnect(handler, GloVariable.synchShowUrl);
     }
 
     @Override

@@ -25,12 +25,12 @@ public class SocketClient extends Thread {
     protected OutputStream out;
     protected InputStream in;
 
-    public SocketClient(Context context, Handler handler) {
-        this(context, handler, true);
+    public SocketClient(Handler handler) {
+        this(handler, true);
     }
 
 
-    public SocketClient(Context context, Handler handler, boolean listen) {
+    public SocketClient(Handler handler, boolean listen) {
         this.handler = handler;
 
         String ip = CommonUtil.getIp(GloVariable.ip);
@@ -44,10 +44,14 @@ public class SocketClient extends Thread {
             if (listen) start();
 
         } catch (UnknownHostException e) {
-            if (handler != null)
-                handler.post(new ToastRun(context, "Failed Connect Host"));
+            if (handler != null) {
+                handler.sendEmptyMessage(-1);
+            }
             e.printStackTrace();
         } catch (IOException e) {
+            if (handler != null) {
+                handler.sendEmptyMessage(-1);
+            }
             e.printStackTrace();
         }
     }
@@ -84,9 +88,12 @@ public class SocketClient extends Thread {
     protected void sendToHandler(String msg) {
 //        Log.d("TAG", msg);
         if (handler != null) {
-            Bundle bundle = new Bundle();
+            Message message = handler.obtainMessage(1);
+            Bundle bundle = message.getData() == null
+                    ? new Bundle()
+                    : message.getData();
+
             bundle.putString(GloVariable.head, msg);
-            Message message = handler.obtainMessage();
             message.setData(bundle);
             handler.sendMessage(message);
         }

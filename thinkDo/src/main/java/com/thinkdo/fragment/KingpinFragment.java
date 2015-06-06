@@ -132,7 +132,7 @@ public class KingpinFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.kingpinUrl);
+        socketClient = new NetConnect(handler, GloVariable.kingpinUrl);
     }
 
     @Override

@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.MaintenanceActivity;
 import com.thinkdo.activity.R;
 import com.thinkdo.activity.SpecialTestActivity;
 import com.thinkdo.activity.UserDataActivity;
+import com.thinkdo.entity.GloVariable;
 
 public class FixedPositionFragment extends Fragment implements View.OnClickListener {
     @Override
@@ -45,7 +45,8 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_fast:
-                intent = new Intent(getActivity(), FastTestActivity.class);
+                intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("position", GloVariable.fastTestUrl);
                 startActivity(intent);
                 break;
             case R.id.btn_special:

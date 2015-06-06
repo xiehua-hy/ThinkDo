@@ -120,7 +120,7 @@ public class PushCarFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.pushcarUrl);
+        socketClient = new NetConnect(handler, GloVariable.pushcarUrl);
     }
 
     @Override

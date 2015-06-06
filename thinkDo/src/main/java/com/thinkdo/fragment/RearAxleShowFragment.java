@@ -193,7 +193,7 @@ public class RearAxleShowFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.rearShowUrl);
+        socketClient = new NetConnect(handler, GloVariable.rearShowUrl);
     }
 
     @Override

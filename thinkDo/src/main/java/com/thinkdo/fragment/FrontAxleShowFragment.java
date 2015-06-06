@@ -205,7 +205,7 @@ public class FrontAxleShowFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(getActivity(), handler, GloVariable.frontShowUrl);
+        socketClient = new NetConnect(handler, GloVariable.frontShowUrl);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class NetQuest extends Thread {
     public void run() {
         String hostIp = CommonUtil.getIp(GloVariable.ip);
         if (hostIp != null) {
-            SocketClient socket = new SocketClient(null, null, false);
+            SocketClient socket = new SocketClient(null, false);
             socket.send(quest, param, msg);
             socket.onStop();
         }
