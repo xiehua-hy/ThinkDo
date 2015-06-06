@@ -12,7 +12,7 @@ import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.thinkdo.db.dbUtil;
+import com.thinkdo.db.DbUtil;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
@@ -241,7 +241,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             public void run() {
                 weightHeightLevelFlag = 0;
 
-                dbUtil dbUtil = new dbUtil();
+                DbUtil dbUtil = new DbUtil();
                 referData = dbUtil.queryReferData(vehicleID, dbIndex);
 
                 if (referData != null) {

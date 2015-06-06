@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.thinkdo.db.dbUtil;
+import com.thinkdo.db.DbUtil;
 import com.thinkdo.entity.CustomerModel;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
@@ -232,7 +232,7 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
 
 
             if (!MainActivity.referData.isSaved()) {
-                dbUtil util = new dbUtil();
+                DbUtil util = new DbUtil();
 
                 boolean flag = true;
                 if (customerInfo.getId() == null) {
