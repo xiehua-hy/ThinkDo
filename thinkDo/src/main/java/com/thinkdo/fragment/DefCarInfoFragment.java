@@ -26,7 +26,7 @@ import com.thinkdo.util.CommonUtil;
  */
 public class DefCarInfoFragment extends Fragment {
     private DefCarInfoCallback callback;
-    private int toeUnit = 1, unit = 1;
+    private int toeUnit = 2, unit = 2;
     private boolean lockMM = false, lockIn = false;
 
     @Override
@@ -178,19 +178,16 @@ public class DefCarInfoFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio0:
-                        toeUnit = 1;
-                        break;
-                    case R.id.radio1:
-                        toeUnit = 0;
-                        break;
-                    case R.id.radio2:
                         toeUnit = 2;
                         break;
-                    case R.id.radio3:
+                    case R.id.radio1:
+                        toeUnit = 1;
+                        break;
+                    case R.id.radio2:
                         toeUnit = 3;
                         break;
-                    default:
-                        toeUnit = 0;
+                    case R.id.radio3:
+                        toeUnit = 4;
                         break;
                 }
             }
@@ -202,13 +199,10 @@ public class DefCarInfoFragment extends Fragment {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio4:
-                        unit = 1;
+                        unit = 2;
                         break;
                     case R.id.radio5:
-                        unit = 0;
-                        break;
-                    default:
-                        unit = 0;
+                        unit = 1;
                         break;
                 }
             }

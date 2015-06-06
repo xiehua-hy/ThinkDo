@@ -36,7 +36,7 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
         if (array == null || shared == null) return;
         ListPreference listPre = (ListPreference) findPreference(key);
 
-        UnitEnum unit = UnitEnum.getUnitFromValue(shared.getString(key, "0"));
+        UnitEnum unit = UnitEnum.getUnitFromValue(shared.getString(key, "1"));
 
         switch (unit) {
             case degreeSecond:

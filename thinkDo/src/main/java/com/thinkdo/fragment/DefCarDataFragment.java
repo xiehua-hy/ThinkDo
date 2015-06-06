@@ -24,7 +24,7 @@ import com.thinkdo.view.BarDefAdd;
  */
 public class DefCarDataFragment extends Fragment {
     private OperOftenDataTotalModel carInfo;
-    private int toeUnit = 1, unit = 1;
+    private int toeUnit = 2, unit = 2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,50 +69,58 @@ public class DefCarDataFragment extends Fragment {
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                ReferData data = new ReferData();
 
-                                data.setManId(carInfo.getManId());
-                                data.setVehicleId(carInfo.getVehicleId());
-                                data.setStartYear(carInfo.getStartYear());
-                                data.setEndYear(carInfo.getEndYear());
+                                if (carInfo != null) {
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ReferData data = new ReferData();
 
-                                data.setFrontTotalToe(frontTotalToe.getAllValues(UnitEnum.getUnitFromValue(toeUnit)));
-                                data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
-                                data.setRightFrontToe(data.getLeftFrontToe().copy());
+                                            data.setManId(carInfo.getManId());
+                                            data.setVehicleId(carInfo.getVehicleId());
+                                            data.setStartYear(carInfo.getStartYear());
+                                            data.setEndYear(carInfo.getEndYear());
 
-                                data.setLeftFrontCamber(leftFrontCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
-                                data.setRightFrontCamber(rightFrontCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setFrontTotalToe(frontTotalToe.getAllValues(UnitEnum.getUnitFromValue(toeUnit)));
+                                            data.setLeftFrontToe(data.getFrontTotalToe().generateSingleToe());
+                                            data.setRightFrontToe(data.getLeftFrontToe().copy());
 
-                                data.setLeftCaster(leftCaster.getAllValues(UnitEnum.getUnitFromValue(unit)));
-                                data.setRightCaster(rightCaster.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setLeftFrontCamber(leftFrontCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setRightFrontCamber(rightFrontCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
 
-                                data.setLeftKpi(leftKpi.getAllValues(UnitEnum.getUnitFromValue(unit)));
-                                data.setRightKpi(rightKpi.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setLeftCaster(leftCaster.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setRightCaster(rightCaster.getAllValues(UnitEnum.getUnitFromValue(unit)));
 
-                                data.setRearTotalToe(rearTotalToe.getAllValues(UnitEnum.getUnitFromValue(toeUnit)));
-                                data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
-                                data.setRightRearToe(data.getLeftRearToe().copy());
+                                            data.setLeftKpi(leftKpi.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setRightKpi(rightKpi.getAllValues(UnitEnum.getUnitFromValue(unit)));
 
-                                data.setLeftRearCamber(leftRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
-                                data.setRightRearCamber(rightRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setRearTotalToe(rearTotalToe.getAllValues(UnitEnum.getUnitFromValue(toeUnit)));
+                                            data.setLeftRearToe(data.getRearTotalToe().generateSingleToe());
+                                            data.setRightRearToe(data.getLeftRearToe().copy());
 
-                                data.setWheelbase(new ValuesPair(wheelbase.getMinText(), wheelbase.getMinText(), wheelbase.getMinText()));
-                                data.setFrontWheel(new ValuesPair(frontWheel.getMinText(), frontWheel.getMinText(), frontWheel.getMinText()));
-                                data.setRearWheel(new ValuesPair(rearWheel.getMinText(), rearWheel.getMinText(), frontWheel.getMinText()));
+                                            data.setLeftRearCamber(leftRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
+                                            data.setRightRearCamber(rightRearCamber.getAllValues(UnitEnum.getUnitFromValue(unit)));
 
-                                //�保存到数据库��ݵ����ݿ���
-                                CustomDbUtil dbUtil = new CustomDbUtil();
-                                dbUtil.insertVehicleInfo(carInfo);
-                                dbUtil.insertVehicleData(data);
+                                            data.setWheelbase(new ValuesPair(wheelbase.getMinText(), wheelbase.getMinText(), wheelbase.getMinText()));
+                                            data.setFrontWheel(new ValuesPair(frontWheel.getMinText(), frontWheel.getMinText(), frontWheel.getMinText()));
+                                            data.setRearWheel(new ValuesPair(rearWheel.getMinText(), rearWheel.getMinText(), frontWheel.getMinText()));
 
-                                getActivity().runOnUiThread(new Runnable() {
+                                            //�保存到数据库��ݵ����ݿ���
+                                            CustomDbUtil dbUtil = new CustomDbUtil();
+                                            if (dbUtil.insertVehicleInfo(carInfo) && dbUtil.insertVehicleData(data)) {
+                                                getActivity().runOnUiThread(new Runnable() {
 
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getActivity(), R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
-                                        getActivity().finish();
-                                    }
-                                });
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getActivity(), R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
+                                                        getActivity().finish();
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }).start();
+                                }
+
                             }
                         }).create().show();
             }

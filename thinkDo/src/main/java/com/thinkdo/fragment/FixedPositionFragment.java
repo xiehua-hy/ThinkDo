@@ -10,8 +10,10 @@ import android.widget.Button;
 
 import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
+import com.thinkdo.activity.MaintenanceActivity;
 import com.thinkdo.activity.R;
 import com.thinkdo.activity.SpecialTestActivity;
+import com.thinkdo.activity.UserDataActivity;
 
 public class FixedPositionFragment extends Fragment implements View.OnClickListener {
     @Override
@@ -51,10 +53,12 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_photo:
-
+                intent = new Intent(getActivity(), MaintenanceActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_user:
-
+                intent = new Intent(getActivity(), UserDataActivity.class);
+                startActivity(intent);
                 break;
         }
     }

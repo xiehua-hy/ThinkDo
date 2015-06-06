@@ -3,6 +3,8 @@ package com.thinkdo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,24 +12,43 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.thinkdo.entity.GloVariable;
 import com.thinkdo.fragment.FixedPositionFragment;
 import com.thinkdo.fragment.MaintenanceFragment;
 import com.thinkdo.fragment.SettingFragment;
+import com.thinkdo.net.NetConnect;
+import com.thinkdo.util.CommonUtil;
 import com.thinkdo.view.BarItem;
 
 public class MenuActivity extends SlidingFragmentActivity implements OnClickListener {
-
     private ViewPager viewPager;
+    private long time = 0;
+    private boolean transFlag = false;
+    private NetConnect socketClient;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (!transFlag) return true;
+            String reply = msg.getData().getString(GloVariable.head);
+            int backCode = CommonUtil.getQuestCode(reply);
+            deal(backCode);
+            return true;
+        }
+    });
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_menu);
         initSlidingMenu();
         init();
@@ -106,6 +127,63 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 }
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        transFlag = true;
+        socketClient = new NetConnect(this, handler, GloVariable.synchShowUrl);
+    }
+
+    @Override
+    protected void onPause() {
+        transFlag = false;
+        socketClient.close();
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - time < 3000) {
+            finish();
+        } else {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), R.string.tip_exit_press_again, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deal(int position) {
+        switch (position) {
+            case GloVariable.pushcarUrl:
+                redirect(position);
+                break;
+            case GloVariable.kingpinUrl:
+                redirect(position);
+                break;
+            case GloVariable.testDataUrl:
+                redirect(position);
+                break;
+            case GloVariable.rearShowUrl:
+                redirect(position);
+                break;
+            case GloVariable.frontShowUrl:
+                redirect(position);
+                break;
+            case GloVariable.samplePictureUrl:
+                Intent it = new Intent(this, MaintenanceActivity.class);
+                it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(it);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void redirect(int position) {
+        Intent it = new Intent(this, MainActivity.class);
+        it.putExtra("position", position);
+        startActivity(it);
     }
 
     public void radioFontColorChange(int radioId) {

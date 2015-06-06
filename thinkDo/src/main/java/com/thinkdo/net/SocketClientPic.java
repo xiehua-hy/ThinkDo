@@ -40,11 +40,25 @@ public class SocketClientPic extends SocketClient {
                         byte[] byte1 = new byte[remain];
                         byte[] byte2 = new byte[1024];
 
-                        if (in.read(byte1) != -1)
-                            byteArray.write(byte1);
+                        int len;
+                        if ((len = in.read(byte1)) != -1) {
+                            byteArray.write(byte1, 0, len);
+                            if (remain > len) {
+                                byte[] byte3 = new byte[remain - len];
+                                in.read(byte3);
+                                byteArray.write(byte3);
+                            }
+                        }
 
-                        for (int i = 0; i < div && in.read(byte2) != -1; i++) {
-                            byteArray.write(byte2);
+                        for (int i = 0; i < div; i++) {
+                            len = in.read(byte2);
+                            byteArray.write(byte2, 0, len);
+
+                            if (1024 > len) {
+                                byte[] byte3 = new byte[1024 - len];
+                                in.read(byte3);
+                                byteArray.write(byte3);
+                            }
                         }
 
                         InputStream input = new ByteArrayInputStream(byteArray.toByteArray());
@@ -57,12 +71,10 @@ public class SocketClientPic extends SocketClient {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            onStop();
         }
     }
 
-    //Ïòhandle·¢ËÍÊý¾Ý
+    // ï¿½ï¿½handleï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void sendToHandler(String msg, Bitmap bitmap) {
         Bundle bundle = new Bundle();
         bundle.putString(GloVariable.head, msg);

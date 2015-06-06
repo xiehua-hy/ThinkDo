@@ -12,7 +12,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     protected String max;
 
     protected String preReal;
-    protected String real = "99.99";
+    protected String real;
 
     protected String explain;
 
@@ -41,8 +41,8 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     public ValuesPair(String mid) {
-        setMid(mid);
         setMin(mid);
+        setMid(mid);
         setMax(mid);
     }
 
@@ -55,6 +55,14 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         setMid(mid);
         setMax(max);
         setExplain(explain);
+    }
+
+    public ValuesPair(String min, String mid, String max, String preReal, String real) {
+        setMin(min);
+        setMid(mid);
+        setMax(max);
+        this.real = real;
+        this.preReal = preReal;
     }
 
     /**
@@ -159,8 +167,8 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         if (GloVariable.initValue.equals(mid)) {
             init();
         } else {
-            this.min = min;
-            this.max = max;
+            this.min = format(Float.parseFloat(min));
+            this.max = format(Float.parseFloat(max));
         }
     }
 
@@ -217,6 +225,15 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         this.max = GloVariable.initValue;
     }
 
+    public void initEmptyValue() {
+        if (mid == null) init();
+        if (preReal == null) {
+            preReal = GloVariable.initValue;
+            real = GloVariable.initValue;
+        }
+
+    }
+
     public String getMin() {
         return min;
     }
@@ -254,7 +271,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     public void setReal(String real) {
-        if (preReal == null) setPreReal(real);
+        if (this.preReal == null) setPreReal(real);
         this.real = real;
     }
 
@@ -269,7 +286,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     /**
      * @param ascent ascent true 则表示左边小，右边大; 否则反之
      */
-    public void generatePercentAndcolor(boolean ascent) {
+    public void generatePercentAndColor(boolean ascent) {
         if (mid == null || real == null) return;
 
         percent = calculatePercent(ascent);
@@ -324,8 +341,8 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     @Override
     public ValuesPair copy() {
         ValuesPair valuesPair = new ValuesPair(min, mid, max);
-        valuesPair.setPreReal(preReal);
         valuesPair.setReal(real);
+        valuesPair.setPreReal(preReal);
         valuesPair.setExplain(explain);
         valuesPair.setColor(color);
         valuesPair.setPercent(percent);
@@ -350,6 +367,9 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
         min = addMMUnit(min);
         mid = addMMUnit(mid);
         max = addMMUnit(max);
+
+        preReal = addMMUnit(preReal);
+        real = addMMUnit(real);
     }
 
     protected String addMMUnit(String value) {
@@ -403,7 +423,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @return String
      */
     protected String degreeConvertOther(String angle, UnitEnum unit) {
-        if (angle == null) return null;
+        if (angle == null || unit == null) return null;
         if (angle.equals(GloVariable.initValue)) return angle;
 
         float val = Float.parseFloat(angle);
@@ -504,5 +524,6 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             return GloVariable.initValue;
         }
     }
+
 
 }

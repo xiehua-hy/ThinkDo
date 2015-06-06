@@ -36,4 +36,6 @@
     <dimen name="bar_refer_content_font_size">18sp</dimen>
     <dimen name="fragment_height_margin">40dp</dimen>
     <dimen name="fragment_level_margin">120dp</dimen>
+    <dimen name="title_user_data_padding">8dp</dimen>
+    <dimen name="fragment_sample_pic_height">200dp</dimen>
 </resources>

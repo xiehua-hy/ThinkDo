@@ -96,8 +96,8 @@ public class WindowRealTime extends LinearLayout {
     }
 
     /**
-     * @param ascent true ±íÊ¾×ó±ßµÄÖµĞ¡,ÓÒ±ßµÄÖµ´ó;
-     *               false ×ó±ßµÄ´ó,ÓÒ±ßµÄÖµĞ¡
+     * @param ascent true å·¦å°å³å¤§;
+     *               false ï¿½å·¦å¤§å³å°
      */
     public void setAllValues(ValuesPair values, boolean ascent) {
         if (values == null) return;

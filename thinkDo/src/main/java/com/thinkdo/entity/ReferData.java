@@ -9,7 +9,6 @@ import java.io.Serializable;
  */
 public class ReferData implements Serializable, CopyProtocol<ReferData> {
 
-
     //状态标志位
     protected boolean saved = false;
     protected boolean flush = false;
@@ -90,7 +89,6 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
         maxThrust = new ValuesPair();
         wheelbaseDiff = new ValuesPair();
         wheelDiff = new ValuesPair();
-
     }
 
     public boolean isSaved() {
@@ -557,9 +555,7 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
                     flag = 0;
                 }
 
-
-                if (flag != 0 && (vehicleId != null && !vehicleId.equals(String.valueOf(flag)))) {
-
+                if (flag != 0 && !String.valueOf(flag).equals(vehicleId)) {
                     setFlush(true);
                     vehicleId = data[18];
                     manId = data[19];
@@ -569,9 +565,10 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
                     endYear = data[24];
                     realYear = data[25];
 
-                    frontTotalToe.setReferValue(data[26], data[27]);
-                    leftFrontToe.setReferValue(frontTotalToe.generateSingleToe());
+                    leftFrontToe.setReferValue(data[26], data[27]);
                     rightFrontToe.setReferValue(leftFrontToe);
+                    frontTotalToe.setReferValue(leftFrontToe.generateTotalToe());
+
 
                     leftFrontCamber.setReferValue(data[28], data[29]);
                     rightFrontCamber.setReferValue(leftFrontCamber);
@@ -582,9 +579,10 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
                     leftKpi.setReferValue(data[32], data[33]);
                     rightKpi.setReferValue(leftKpi);
 
-                    rearTotalToe.setReferValue(data[34], data[35]);
-                    leftRearToe.setReferValue(rearTotalToe.generateSingleToe());
+                    leftRearToe.setReferValue(data[34], data[35]);
                     rightRearToe.setReferValue(leftRearToe);
+                    rearTotalToe.setReferValue(leftRearToe.generateTotalToe());
+
 
                     leftRearCamber.setReferValue(data[36], data[37]);
                     rightRearCamber.setReferValue(leftRearCamber);
@@ -625,35 +623,42 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
                 leftKpi.setReal(originalDeal(data[13], 2));
                 rightKpi.setReal(originalDeal(data[14], 2));
 
-                maxThrust.setReal(originalDeal(data[15], 2));
+                if (maxThrust != null) maxThrust.setReal(originalDeal(data[15], 2));
+                else {
+                    maxThrust = new ValuesPair();
+                    maxThrust.setReal(originalDeal(data[15], 2));
+                }
 
                 if (wheelbaseDiff == null) {
-                    wheelbaseDiff = new ValuesPair(originalDeal(data[16], 0));
-                    wheelDiff = new ValuesPair((originalDeal(data[17], 0)));
+                    wheelbaseDiff = new ValuesPair();
+                    wheelDiff = new ValuesPair();
+
+                    wheelbaseDiff.setReal(originalDeal(data[16], 0));
+                    wheelDiff.setReal((originalDeal(data[17], 0)));
                 } else {
                     wheelbaseDiff.setReal(originalDeal(data[16], 0));
                     wheelDiff.setReal(originalDeal(data[17], 0));
                 }
 
-                frontTotalToe.generatePercentAndcolor(true);
-                leftFrontToe.generatePercentAndcolor(true);
-                rightFrontToe.generatePercentAndcolor(false);
+                frontTotalToe.generatePercentAndColor(true);
+                leftFrontToe.generatePercentAndColor(true);
+                rightFrontToe.generatePercentAndColor(false);
 
-                leftFrontCamber.generatePercentAndcolor(false);
-                rightFrontCamber.generatePercentAndcolor(true);
+                leftFrontCamber.generatePercentAndColor(false);
+                rightFrontCamber.generatePercentAndColor(true);
 
-                rearTotalToe.generatePercentAndcolor(true);
-                leftRearToe.generatePercentAndcolor(true);
-                rightRearToe.generatePercentAndcolor(false);
+                rearTotalToe.generatePercentAndColor(true);
+                leftRearToe.generatePercentAndColor(true);
+                rightRearToe.generatePercentAndColor(false);
 
-                leftRearCamber.generatePercentAndcolor(false);
-                rightRearCamber.generatePercentAndcolor(true);
+                leftRearCamber.generatePercentAndColor(false);
+                rightRearCamber.generatePercentAndColor(true);
 
-                leftCaster.generatePercentAndcolor(true);
-                rightCaster.generatePercentAndcolor(true);
+                leftCaster.generatePercentAndColor(true);
+                rightCaster.generatePercentAndColor(true);
 
-                leftKpi.generatePercentAndcolor(true);
-                rightKpi.generatePercentAndcolor(false);
+                leftKpi.generatePercentAndColor(true);
+                rightKpi.generatePercentAndColor(false);
             }
         }
     }
@@ -730,5 +735,53 @@ public class ReferData implements Serializable, CopyProtocol<ReferData> {
 
     }
 
+    public void initEmptyValue() {
+        frontTotalToe = initEmptyValue(frontTotalToe);
+        leftFrontToe = initEmptyValue(leftFrontToe);
+        rightFrontToe = initEmptyValue(rightFrontToe);
+
+        leftFrontCamber = initEmptyValue(leftFrontCamber);
+        rightFrontCamber = initEmptyValue(rightFrontCamber);
+
+        leftCaster = initEmptyValue(leftCaster);
+        rightCaster = initEmptyValue(rightCaster);
+
+        leftKpi = initEmptyValue(leftKpi);
+        rightKpi = initEmptyValue(rightKpi);
+
+        rearTotalToe = initEmptyValue(rearTotalToe);
+        leftRearToe = initEmptyValue(leftRearToe);
+        rightRearToe = initEmptyValue(rightRearToe);
+
+        leftRearCamber = initEmptyValue(leftRearCamber);
+        rightRearCamber = initEmptyValue(rightRearCamber);
+
+        maxThrust = initEmptyValue(maxThrust);
+
+        wheelbase = initEmptyValue(wheelbase);
+        frontWheel = initEmptyValue(frontWheel);
+        rearWheel = initEmptyValue(rearWheel);
+
+        wheelbaseDiff = initEmptyValue(wheelbaseDiff);
+        wheelDiff = initEmptyValue(wheelDiff);
+
+        leftIncludeAngle = initEmptyValue(leftIncludeAngle);
+        rightIncludeAngle = initEmptyValue(rightIncludeAngle);
+
+        leftTurnAngle = initEmptyValue(leftTurnAngle);
+        rightTurnAngle = initEmptyValue(rightTurnAngle);
+
+        leftMaxTurnAngle = initEmptyValue(leftMaxTurnAngle);
+        rightMaxTurnAngle = initEmptyValue(rightMaxTurnAngle);
+    }
+
+    private ValuesPair initEmptyValue(ValuesPair values) {
+        if (values == null) {
+            values = new ValuesPair();
+        }
+
+        values.initEmptyValue();
+        return values;
+    }
 
 }

@@ -159,7 +159,7 @@ public class FrontAxleShowFragment extends Fragment {
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                new NetQuest(questCode).start();
+                                socketClient.send(questCode, 0, null);
                             }
                         })
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
@@ -167,12 +167,11 @@ public class FrontAxleShowFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 raiseBtn.changeChecked();
                                 ((MainActivity) getActivity()).setRaise(!checked);
-                                new NetQuest(questCode, 2).start();
+                                socketClient.send(questCode, 2, null);
                             }
                         })
                         .create().show();
-
-                new NetQuest(questCode, 1).start();
+                socketClient.send(questCode, 1, null);
             }
         });
 
@@ -188,7 +187,7 @@ public class FrontAxleShowFragment extends Fragment {
         leftFrontToe.setAllValues(copy.getLeftFrontToe());
         rightFrontToe.setAllValues(copy.getRightFrontToe(), false);
 
-        leftFrontCamber.setAllValues(copy.getLeftFrontCamber(),false);
+        leftFrontCamber.setAllValues(copy.getLeftFrontCamber(), false);
         rightFrontCamber.setAllValues(copy.getRightFrontCamber());
 
         leftCaster.setAllValues(copy.getLeftCaster());

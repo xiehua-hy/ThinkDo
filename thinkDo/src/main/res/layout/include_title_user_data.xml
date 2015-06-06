@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main_blue"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_back_btn"
+            android:drawableLeft="@drawable/ic_action_previous_item"
+            android:gravity="center"
+            android:paddingBottom="@dimen/title_user_data_padding"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="@dimen/title_user_data_padding" />
+
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/title_user_data_padding"
+        android:layout_marginTop="@dimen/title_user_data_padding"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_radio_left"
+            android:button="@null"
+            android:checked="true"
+            android:paddingBottom="4dp"
+            android:paddingLeft="32dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:text="@string/customer_info"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/radio_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_radio_right"
+            android:button="@null"
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="32dp"
+            android:paddingTop="4dp"
+            android:text="@string/history"
+            android:textSize="20sp" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_action_new"
+            android:gravity="center"
+            android:paddingBottom="@dimen/title_user_data_padding"
+            android:paddingLeft="4dp"
+            android:paddingRight="16dp"
+            android:paddingTop="@dimen/title_user_data_padding"
+            android:text="@string/add_customer"
+            android:textSize="22sp" />
+    </LinearLayout>
+</LinearLayout>

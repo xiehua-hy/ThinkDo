@@ -26,25 +26,25 @@ public class GloVariable {
 
 
     //other
-    public static final int pushcarUrl =1;
-    public static final int kingpinUrl =2;
-    public static final int fastTestUrl =3;
-    public static final int samplePictureUrl =6;
-    public static final int specialTestUrl=7;
-    public static final int synchShowUrl =8;
-    public static final int frontShowUrl =9;
-    public static final int rearShowUrl =10;
-    public static final int printUrl=11;
-    public static final int testDataUrl=12;
-    public static final int printContent=13;
-    public static final int hostSaveDataUrl=14;
-    public static final int homeUrl =15;
-    public static final int synchCar=16;
+    public static final int pushcarUrl = 1;
+    public static final int kingpinUrl = 2;
+    public static final int fastTestUrl = 3;
+    public static final int samplePictureUrl = 6;
+    public static final int specialTestUrl = 7;
+    public static final int synchShowUrl = 8;
+    public static final int frontShowUrl = 9;
+    public static final int rearShowUrl = 10;
+    public static final int printUrl = 11;
+    public static final int testDataUrl = 12;
+    public static final int printContent = 13;
+    public static final int hostSaveDataUrl = 14;
+    public static final int homeUrl = 15;
+    public static final int synchCar = 16;
     public static final int upCar = 17;
     public static final int downCar = 18;
 
-    public static final int errorUrl =-2;
-    public static final int erroDiss=-88;
+    public static final int errorUrl = -2;
+    public static final int erroDiss = -88;
 
     public static final String carSqliteName = "SKDDATA.db";
     public static final String customSqliteName = "SKDSELFDATA.db";
@@ -66,36 +66,36 @@ public class GloVariable {
 
     protected static SparseArray<String> errorMsg = new SparseArray<String>() {
         {
-            put(77, "Î´Öª´íÎó!");
-            put(-77, "Í¼ÏñĞÅºÅ´íÎó!");
-            put(-69, "Í¼ÏñÀë×ó±ßÔµÌ«½ü!");
-            put(-68, "Í¼ÏñÀëÓÒ±ßÔµÌ«½ü!");
-            put(-67, "Í¼ÏñÀëÉÏ±ßÔµÌ«½ü!");
+            put(77, "æœªçŸ¥é”™è¯¯!");
+            put(-77, "å›¾åƒä¿¡å·é”™è¯¯!");
+            put(-69, "å›¾åƒç¦»å·¦è¾¹ç¼˜å¤ªè¿‘!");
+            put(-68, "å›¾åƒç¦»å³è¾¹ç¼˜å¤ªè¿‘!");
+            put(-67, "å›¾åƒç¦»ä¸Šè¾¹ç¼˜å¤ªè¿‘!");
 
-            put(-66, "Í¼ÏñÀëÏÂ±ßÔµÌ«½ü!");
-            put(-65, "Í¼ÏñÌ«ÁÁ!");
-            put(-64, "Í¼ÏñÌ«°µ!");
-            put(-63, "±ßÔµµãÌ«ÉÙ!");
-            put(-62, "±ßÔµÌ«Ä£ºı!");
-            put(-61, "Í¼ÏñÕ³Á¬!");
-            put(-60, "ÕÒµ½µÄÔ²ÉÙÓÚÒªÇóÊıÁ¿!");
-            put(-59, "ÕÒµ½µÄÔ²¶àÓÚÒªÇóÊıÁ¿!");
-            put(-58, "×ø±êÎŞĞ§!");
-            put(-57, "±ß¿ò²»ÍêÕû!");
+            put(-66, "å›¾åƒç¦»ä¸‹è¾¹ç¼˜å¤ªè¿‘!");
+            put(-65, "å›¾åƒå¤ªäº®!");
+            put(-64, "å›¾åƒå¤ªæš—!");
+            put(-63, "è¾¹ç¼˜ç‚¹å¤ªå°‘!");
+            put(-62, "è¾¹ç¼˜å¤ªæ¨¡ç³Š!");
+            put(-61, "å›¾åƒç²˜è¿!");
+            put(-60, "æ‰¾åˆ°çš„åœ†å°‘äºè¦æ±‚æ•°é‡!");
+            put(-59, "æ‰¾åˆ°çš„åœ†å¤šäºè¦æ±‚æ•°é‡!");
+            put(-58, "åæ ‡æ— æ•ˆ!");
+            put(-57, "è¾¹æ¡†ä¸å®Œæ•´!");
 
-            put(-56, "Í¼Ïó²»ÎÈ¶¨!");
-            put(-55, "²É¼¯¿¨»òÕßÏà»ú´íÎó");
-            put(18, "×óÇ°ÂÖ: ");
-            put(19, "ÓÒÇ°ÂÖ: ");
-            put(20, "×óºóÂÖ: ");
-            put(21, "ÓÒºóÂÖ: ");
-            put(22, "×ªÌ«Ç°");
-            put(23, "×ªÌ«ºó");
+            put(-56, "å›¾è±¡ä¸ç¨³å®š!");
+            put(-55, "é‡‡é›†å¡æˆ–è€…ç›¸æœºé”™è¯¯");
+            put(18, "å·¦å‰è½®: ");
+            put(19, "å³å‰è½®: ");
+            put(20, "å·¦åè½®: ");
+            put(21, "å³åè½®: ");
+            put(22, "è½¬å¤ªå‰");
+            put(23, "è½¬å¤ªå");
         }
     };
 
     public static String getErrorInfo(int position) {
         String msg = errorMsg.get(position);
-        return msg == null ? "Í¼Ïñ²É¼¯Ê§°Ü" : msg;
+        return msg == null ? "å›¾åƒé‡‡é›†å¤±è´¥!" : msg;
     }
 }

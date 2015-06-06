@@ -21,13 +21,13 @@ public enum UnitEnum {
 
     public static UnitEnum getUnitFromValue(String value) {
         switch (value) {
-            case "0":
-                return degreeSecond;
             case "1":
-                return degree;
+                return degreeSecond;
             case "2":
-                return mm;
+                return degree;
             case "3":
+                return mm;
+            case "4":
                 return inch;
         }
         return degreeSecond;
@@ -35,13 +35,13 @@ public enum UnitEnum {
 
     public static UnitEnum getUnitFromValue(int value) {
         switch (value) {
-            case 0:
-                return degreeSecond;
             case 1:
-                return degree;
+                return degreeSecond;
             case 2:
-                return mm;
+                return degree;
             case 3:
+                return mm;
+            case 4:
                 return inch;
         }
         return degreeSecond;

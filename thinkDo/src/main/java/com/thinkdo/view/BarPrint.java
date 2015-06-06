@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.ValuesPair;
 
 public class BarPrint extends LinearLayout {
     private TextView title, before, after, max, min;
@@ -27,7 +29,7 @@ public class BarPrint extends LinearLayout {
         min = (TextView) findViewById(R.id.tv_min);
         max = (TextView) findViewById(R.id.tv_max);
 
-        title.setText(str);
+        setTitleText(str);
         setContextBg(color);
     }
 
@@ -35,11 +37,8 @@ public class BarPrint extends LinearLayout {
         title.setText(text);
     }
 
-    public void setTitleText(int resId) {
-        title.setText(resId);
-    }
-
     public void setBeforeText(String text) {
+        if (text == null || GloVariable.initValue.equals(text)) return;
         before.setText(text);
     }
 
@@ -48,6 +47,7 @@ public class BarPrint extends LinearLayout {
     }
 
     public void setAfterText(String text) {
+        if (text == null || GloVariable.initValue.equals(text)) return;
         after.setText(text);
     }
 
@@ -56,6 +56,7 @@ public class BarPrint extends LinearLayout {
     }
 
     public void setMinText(String text) {
+        if (text == null || GloVariable.initValue.equals(text)) return;
         min.setText(text);
     }
 
@@ -64,11 +65,21 @@ public class BarPrint extends LinearLayout {
     }
 
     public void setMaxText(String text) {
+        if (text == null || GloVariable.initValue.equals(text)) return;
         max.setText(text);
     }
 
     public void setMaxText(int resId) {
         max.setText(resId);
+    }
+
+
+    public void setAllValues(ValuesPair values) {
+        if (values == null) return;
+        setBeforeText(values.getPreReal());
+        setAfterText(values.getReal());
+        setMinText(values.getMin());
+        setMaxText(values.getMax());
     }
 
     public void setContextBg(int color) {

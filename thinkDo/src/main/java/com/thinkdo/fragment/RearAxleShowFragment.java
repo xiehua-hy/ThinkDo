@@ -17,7 +17,6 @@ import com.thinkdo.activity.R;
 import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.net.NetConnect;
-import com.thinkdo.net.NetQuest;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.DataCircleLoadThread;
 import com.thinkdo.util.MyDialog;
@@ -150,7 +149,7 @@ public class RearAxleShowFragment extends Fragment {
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                new NetQuest(questCode).start();
+                                socketClient.send(questCode, 0, null);
                             }
                         })
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
@@ -158,12 +157,12 @@ public class RearAxleShowFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 raiseBtn.changeChecked();
                                 ((MainActivity) getActivity()).setRaise(!checked);
-                                new NetQuest(questCode, 2).start();
+                                socketClient.send(questCode, 2, null);
                             }
                         })
                         .create().show();
 
-                new NetQuest(questCode, 1).start();
+                socketClient.send(questCode, 1, null);
             }
         });
 
@@ -179,7 +178,7 @@ public class RearAxleShowFragment extends Fragment {
         leftRearToe.setAllValues(copy.getLeftRearToe());
         rightRearToe.setAllValues(copy.getRightRearToe(), false);
 
-        leftRearCamber.setAllValues(copy.getLeftRearCamber(),false);
+        leftRearCamber.setAllValues(copy.getLeftRearCamber(), false);
         rightRearCamber.setAllValues(copy.getRightRearCamber());
     }
 

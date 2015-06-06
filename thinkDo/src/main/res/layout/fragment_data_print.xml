@@ -27,6 +27,7 @@
             android:padding="2dp">
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_param"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/parameters" />
@@ -37,6 +38,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_frontTotalToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -48,6 +50,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftFrontToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -59,6 +62,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightFrontToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -70,6 +74,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftFrontCamber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/left_front_camber" />
@@ -80,6 +85,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightFrontCamber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/right_front_camber" />
@@ -90,6 +96,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftCaster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -101,6 +108,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightCaster"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -112,6 +120,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftKpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/left_kpi" />
@@ -122,6 +131,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightKpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/right_kpi" />
@@ -132,6 +142,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rearTotalToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -143,6 +154,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftRearToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -154,6 +166,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightRearToe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -165,6 +178,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftRearCamber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/left_rear_camber" />
@@ -175,6 +189,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightRearCamber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/right_rear_camber" />
@@ -185,6 +200,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_thrust"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -196,6 +212,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_wheelbaseDiff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/wheelbase_diff" />
@@ -206,6 +223,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_wheelDiff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/wheel_diff" />
@@ -216,6 +234,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftInclude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -227,6 +246,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightInclude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -238,6 +258,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftTurn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/left_turn_angle" />
@@ -248,6 +269,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightTurn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintTitle="@string/right_turn_angle" />
@@ -258,6 +280,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_leftMaxTurn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"
@@ -269,6 +292,7 @@
                 android:background="@color/divider" />
 
             <com.thinkdo.view.BarPrint
+                android:id="@+id/barPrint_rightMaxTurn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 skd:PrintContentBg="@color/bar_holo"

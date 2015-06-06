@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title=" ">
         <ListPreference
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:dialogTitle="@string/unit"
             android:entries="@array/unitEntry"
             android:entryValues="@array/unitEntryValue"
@@ -11,7 +11,7 @@
             android:title="@string/unit" />
 
         <ListPreference
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:dialogTitle="@string/toe_unit"
             android:entries="@array/toeUnitEntry"
             android:entryValues="@array/toeUnitEntryValue"

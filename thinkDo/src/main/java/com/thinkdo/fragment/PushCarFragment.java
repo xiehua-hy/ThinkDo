@@ -24,7 +24,7 @@ public class PushCarFragment extends Fragment {
     private PushCarArrowThread arrowThread;
     private MyDialog myDialog;
     private boolean transFlag = false;
-    private int direFlag = 0;// 1����Ƴ� -1��ǰ�Ƴ�  0��ʼ
+    private int direFlag = 0;
     private ImageView iv;
     private TextView tv;
 

@@ -13,7 +13,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 /**
- * @author Ğ»ÈÙ»ª
+ * @author è°¢è£å
  */
 
 public class NetworkTool {
@@ -26,29 +26,27 @@ public class NetworkTool {
     }
 
     /**
-     * @param login_pw TPLink ÓÃ»§ÃÜÂë
+     * @param login_pw TPLink ç”¨æˆ·å¯†ç 
      */
     public NetworkTool(String login_pw) {
         this.login_pw = login_pw;
     }
 
     /**
-     * ´ÓLpLink»ñµÃipµØÖ·
+     * ä»LpLinkè·å¾—ipåœ°å€
      *
-     * @return ·µ»ØÄ¿±êipµØÖ·
+     * @return è¿”å›ç›®æ ‡ipåœ°å€
      */
-
     public String hostToIpfromLpLink() {
         return this.hostToIpfromLpLink(hostName);
     }
 
     /**
-     * ´ÓLpLink»ñµÃipµØÖ·
+     * ä»LpLinkè·å¾—ipåœ°å€
      *
-     * @param hostName Ö÷»úÃû
-     * @return ·µ»ØÄ¿±êipµØÖ·
+     * @param hostName ä¸»æœºå
+     * @return è¿”å›ç›®æ ‡ipåœ°å€
      */
-
     public String hostToIpfromLpLink(String hostName) {
         String ip_start = "var DHCPDynList = new Array(";
         String ip_end = "0,0 );";
@@ -57,14 +55,14 @@ public class NetworkTool {
         HttpClient httpClient = new DefaultHttpClient();
         HttpUriRequest request = new HttpGet(url);
 
-        // Ìí¼ÓÑéÖ¤ĞÅÏ¢
+        // æ·»åŠ éªŒè¯ä¿¡æ¯
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("Authorization=%s;", auth));
         builder.append("path=/");
         request.addHeader("cookie", builder.toString());
 
         try {
-            // ·¢ËÍÇëÇó£¬·µ»ØÏìÓ¦
+            // å‘é€è¯·æ±‚ï¼Œè¿”å›å“åº”
             HttpResponse response = httpClient.execute(request);
             HttpEntity entity = response.getEntity();
 
@@ -72,18 +70,18 @@ public class NetworkTool {
                 BufferedReader br = new BufferedReader(new InputStreamReader(
                         entity.getContent(), "gb2312"));
                 String line;
-                StringBuilder iplist = new StringBuilder();
+                StringBuilder ipList = new StringBuilder();
                 while ((line = br.readLine()) != null) {
                     if (line.equals(ip_start)) {
                         while ((line = br.readLine()) != null
                                 && !line.equals(ip_end)) {
-                            iplist.append(line);
+                            ipList.append(line);
                         }
                         break;
                     }
                 }
                 br.close();
-                return getIp(iplist.toString(), hostName);
+                return getIp(ipList.toString(), hostName);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -94,7 +92,7 @@ public class NetworkTool {
     }
 
     /**
-     * javascriptµÄescape·½·¨
+     * javascriptçš„escapeæ–¹æ³•
      */
     private String escape(String src) {
         int i;
@@ -120,10 +118,10 @@ public class NetworkTool {
     }
 
     /**
-     * ´Ó×Ö·û´®½âÎöip
+     * ä»å­—ç¬¦ä¸²è§£æip
      *
-     * @param ipList Òª½âÎöµÄ×Ö·û
-     * @param name   Ö÷»úÃû
+     * @param ipList è¦è§£æçš„å­—ç¬¦
+     * @param name   ä¸»æœºå
      */
     private String getIp(String ipList, String name) {
         if (ipList == null)
@@ -141,7 +139,7 @@ public class NetworkTool {
     }
 
     /**
-     * ¼ÓÃÜ
+     * åŠ å¯†
      */
     private String getBASE64(String str) {
         if (str == null)

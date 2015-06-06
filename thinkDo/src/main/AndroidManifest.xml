@@ -66,6 +66,27 @@
             android:name=".SearchActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
+        <activity
+            android:name=".SaveOrPrintActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".PrintCustomAddActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".AddCustomActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".UserDataActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".DataPrintActivity"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".CustomCarDetail"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".MaintenanceActivity"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

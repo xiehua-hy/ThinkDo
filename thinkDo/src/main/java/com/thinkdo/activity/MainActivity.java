@@ -17,6 +17,7 @@ import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
+import com.thinkdo.fragment.DataPrintFragment.DataPrintCallback;
 import com.thinkdo.fragment.FrontAxleShowFragment;
 import com.thinkdo.fragment.FrontAxleShowFragment.FrontAxleCallback;
 import com.thinkdo.fragment.KingpinFragment;
@@ -35,35 +36,45 @@ import com.thinkdo.fragment.TestResultFragment;
 import com.thinkdo.fragment.TestResultFragment.TestResultCallback;
 import com.thinkdo.fragment.VehicleInfoShow;
 import com.thinkdo.fragment.VehicleInfoShow.VehicleInfoCallback;
-import com.thinkdo.net.NetConnect;
 import com.thinkdo.net.NetQuest;
 import com.thinkdo.net.SocketClient;
 
 public class MainActivity extends Activity implements OnClickListener, ManufacturerCallback, VehicleCallbacks, CusManufacturerCallback, VehicleInfoCallback,
-        KinPingCallback, RearAxleCallback, FrontAxleCallback, TestResultCallback, PushCarCallback {
+        KinPingCallback, RearAxleCallback, FrontAxleCallback, TestResultCallback, PushCarCallback, DataPrintCallback {
     private int preCheckedRadio = R.id.radio_pick;
     public static ReferData referData;
     private int weightHeightLevelFlag;
     private boolean autoDown = true;
     private boolean backChoice = true;
+    private boolean transFlag = false;
 
     public final int WeightFlag = 0x01;
     public final int HeightFlag = 0x02;
     public final int LevelFlag = 0x04;
     public static final int searchFlag = 0x08;
+    private int redirect = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         init();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (getIntent() != null) {
+            redirect = getIntent().getIntExtra("position", -1);
+        }
+    }
+
     private void init() {
+        if (getIntent() != null) {
+            redirect = getIntent().getIntExtra("position", -1);
+        }
         TextView back = (TextView) findViewById(R.id.tv_back);
         back.setOnClickListener(new OnClickListener() {
             @Override
@@ -107,12 +118,28 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.bar_front) {
+        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.radio_front) {
             warn();
             return;
         }
         radioButtonCheckedChange(id);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        transFlag = true;
+        if (redirect != -1) {
+            synch(redirect);
+            redirect = -1;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        transFlag = false;
     }
 
     @Override
@@ -124,6 +151,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void finish() {
         super.finish();
+        referData = null;
+        SaveOrPrintActivity.clear();
         new NetQuest(GloVariable.homeUrl).start();
     }
 
@@ -144,15 +173,17 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 fragmentCommit(new KingpinFragment());
                 break;
             case R.id.radio_rear:
-                RearAxleShowFragment fragment = new RearAxleShowFragment();
-                fragment.setRaiseBtnStatus(!autoDown);
-                fragmentCommit(fragment);
+                RearAxleShowFragment rearFragment = new RearAxleShowFragment();
+                rearFragment.setRaiseBtnStatus(!autoDown);
+                fragmentCommit(rearFragment);
                 break;
             case R.id.radio_front:
                 fragmentCommit(new FrontAxleShowFragment());
                 break;
             case R.id.radio_print:
-                fragmentCommit(new DataPrintFragment());
+                DataPrintFragment printFragment = new DataPrintFragment();
+                if (referData != null) printFragment.setReferData(referData.copy());
+                fragmentCommit(printFragment);
                 break;
         }
 
@@ -204,6 +235,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void onVehicleSelected(final String manId, final String manInfo, final String vehicleID, final String year, final int dbIndex) {
         backChoice = true;
+        SaveOrPrintActivity.clear();
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -337,6 +369,13 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         synch(position);
     }
 
+    @Override
+    public void dataPrintNext(int position) {
+        Intent it = new Intent(this, SaveOrPrintActivity.class);
+        if (position == 1) it.putExtra("print", true);
+        startActivity(it);
+    }
+
     private void synch(int i) {
         int radioId = -1;
 
@@ -366,7 +405,9 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 break;
 
             case GloVariable.samplePictureUrl:
-                Intent intent = new Intent();
+                Intent intent = new Intent(this, MaintenanceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
                 break;
 
             case GloVariable.homeUrl:
@@ -374,10 +415,9 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
-
         }
 
-        if (radioId != -1) {
+        if (radioId != -1 && transFlag) {
             RadioButton radioBtn = (RadioButton) findViewById(radioId);
             radioBtn.performClick();
         }

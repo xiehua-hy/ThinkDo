@@ -3,6 +3,11 @@ package com.thinkdo.entity;
 /**
  * Created by Administrator on 2015/5/21.
  */
+
+/**
+ * 自定义添加车型时 车辆信息的实体类
+ * 对应 表OperOftenDataTotalModel
+ * */
 public class OperOftenDataTotalModel {
     private String manId;
     private String manInfo;

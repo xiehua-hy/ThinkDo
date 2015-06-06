@@ -13,12 +13,18 @@ public class NetConnect extends Thread {
     private int questCode;
     private boolean isClose = false;
     private Context context;
+    private boolean picFlag = false;
 
     public NetConnect(Context context, Handler handler, int questCode) {
+        this(context, handler, questCode, false);
+    }
+
+    public NetConnect(Context context, Handler handler, int questCode, boolean isPic) {
         this.context = context;
         this.handler = handler;
         this.questCode = questCode;
         ToastRun.preContext = null;
+        this.picFlag = isPic;
         start();
     }
 
@@ -26,7 +32,9 @@ public class NetConnect extends Thread {
     public void run() {
         while (!isClose) {
             if (client == null || client.isClosed()) {
-                client = new SocketClient(context, handler);
+                if (!picFlag) client = new SocketClient(context, handler);
+                else client = new SocketClientPic(context, handler);
+
                 client.send(questCode);
             }
 
@@ -36,6 +44,12 @@ public class NetConnect extends Thread {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    public void send(int questCode, int param, String data) {
+        if (client != null && !client.isClosed()) {
+            client.send(questCode, param, data);
         }
     }
 
