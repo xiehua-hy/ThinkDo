@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.thinkdo.db.CustomDbUtil;
-import com.thinkdo.db.DbUtil;
+import com.thinkdo.db.DBUtil;
 import com.thinkdo.entity.CustomerModel;
 import com.thinkdo.util.CommonUtil;
 
@@ -96,7 +96,7 @@ public class AddCustomActivity extends Activity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            DbUtil util = new DbUtil();
+                            DBUtil util = new DBUtil();
                             if (util.addCustomer(customer))
                                 handler.sendEmptyMessage(1);
                         }
