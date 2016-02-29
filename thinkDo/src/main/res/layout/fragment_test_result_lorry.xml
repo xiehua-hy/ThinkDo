@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:skd="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/if_lorry"
+    android:orientation="horizontal"
+    android:paddingRight="8dp">
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_firstTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        skd:RealTimeTitle="@string/first_total_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_secondTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_firstTotalToe"
+        android:layout_alignStart="@+id/window_firstTotalToe"
+        android:layout_below="@+id/window_firstTotalToe"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/second_total_toe" />
+
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_fourthTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_secondTotalToe"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/window_secondTotalToe"
+        android:layout_marginBottom="8dp"
+        skd:RealTimeTitle="@string/fourth_total_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_thirdTotalToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_fourthTotalToe"
+        android:layout_alignLeft="@+id/window_fourthTotalToe"
+        android:layout_alignStart="@+id/window_fourthTotalToe"
+        android:layout_marginBottom="8dp"
+        skd:RealTimeTitle="@string/third_total_toe" />
+
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_firstLeftToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@+id/window_firstTotalToe"
+        android:layout_toStartOf="@+id/window_firstTotalToe"
+        skd:RealTimeTitle="@string/first_left_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_secondLeftToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_firstLeftToe"
+        android:layout_alignStart="@+id/window_firstLeftToe"
+        android:layout_below="@+id/window_firstLeftToe"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/second_left_toe" />
+
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_fourthLeftToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_toLeftOf="@+id/window_fourthTotalToe"
+        android:layout_toStartOf="@+id/window_fourthTotalToe"
+        skd:RealTimeTitle="@string/fourth_left_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_thirdLeftToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_fourthLeftToe"
+        android:layout_alignLeft="@+id/window_fourthLeftToe"
+        android:layout_alignStart="@+id/window_fourthLeftToe"
+        android:layout_marginBottom="8dp"
+        skd:RealTimeTitle="@string/third_left_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_firstLeftCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_toLeftOf="@+id/window_firstLeftToe"
+        android:layout_toStartOf="@+id/window_firstLeftToe"
+        skd:RealTimeTitle="@string/first_left_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_secondLeftCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_firstLeftCamber"
+        android:layout_alignStart="@+id/window_firstLeftCamber"
+        android:layout_below="@+id/window_firstLeftCamber"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/second_left_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_fourthLeftCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_toLeftOf="@+id/window_fourthLeftToe"
+        android:layout_toStartOf="@+id/window_fourthLeftToe"
+        skd:RealTimeTitle="@string/fourth_left_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_thirdLeftCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_fourthLeftCamber"
+        android:layout_alignLeft="@+id/window_fourthLeftCamber"
+        android:layout_alignStart="@+id/window_fourthLeftCamber"
+        android:layout_marginBottom="8dp"
+        skd:RealTimeTitle="@string/third_left_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_firstRightToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/window_firstTotalToe"
+        android:layout_toRightOf="@+id/window_firstTotalToe"
+        skd:RealTimeTitle="@string/first_right_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_secondRightToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_firstRightToe"
+        android:layout_alignStart="@+id/window_firstRightToe"
+        android:layout_below="@+id/window_firstRightToe"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/second_right_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_fourthRightToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/window_fourthTotalToe"
+        android:layout_toRightOf="@+id/window_fourthTotalToe"
+        skd:RealTimeTitle="@string/fourth_right_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_thirdRightToe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_fourthRightToe"
+        android:layout_alignLeft="@+id/window_fourthRightToe"
+        android:layout_alignStart="@+id/window_fourthRightToe"
+        android:layout_marginBottom="8dp"
+        skd:RealTimeTitle="@string/third_right_toe" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_firstRightCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/window_firstRightToe"
+        android:layout_toRightOf="@+id/window_firstRightToe"
+        skd:RealTimeTitle="@string/first_right_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_secondRightCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/window_firstRightCamber"
+        android:layout_alignStart="@+id/window_firstRightCamber"
+        android:layout_below="@+id/window_firstRightCamber"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/second_right_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_fourthRightCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/window_fourthRightToe"
+        android:layout_toRightOf="@+id/window_fourthRightToe"
+        skd:RealTimeTitle="@string/fourth_right_camber" />
+
+    <com.thinkdo.view.WindowRealTime
+        android:id="@+id/window_thirdRightCamber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/window_fourthRightCamber"
+        android:layout_alignLeft="@+id/window_fourthRightCamber"
+        android:layout_alignStart="@+id/window_fourthRightCamber"
+        android:layout_marginTop="8dp"
+        skd:RealTimeTitle="@string/third_right_camber" />
+
+    <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/window_firstRightCamber"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="1" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/window_secondRightCamber"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="2" />
+
+    <RadioButton
+        android:id="@+id/radioButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/window_thirdRightCamber"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="3" />
+
+    <RadioButton
+        android:id="@+id/radioButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/window_fourthRightCamber"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:text="4" />
+
+
+</RelativeLayout>

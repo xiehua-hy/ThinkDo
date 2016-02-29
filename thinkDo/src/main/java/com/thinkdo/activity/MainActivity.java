@@ -6,14 +6,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.DbUtil;
-import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
 import com.thinkdo.fragment.DataPrintFragment;
@@ -118,7 +119,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.radio_front) {
+        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.radio_front && id != R.id.radio_print) {
             warn();
             return;
         }
@@ -153,7 +154,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         super.finish();
         referData = null;
         SaveOrPrintActivity.clear();
-        new NetQuest(GloVariable.homeUrl).start();
+        new NetQuest(MainApplication.homeUrl);
     }
 
     public void radioButtonCheckedChange(int checkId) {
@@ -211,16 +212,16 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void onManufacturerSelected(String manId, String manInfo, int dbIndex) {
-        if (manId.equals("0") && dbIndex == GloVariable.cusdb) {
+        if (manId.equals("0") && dbIndex == MainApplication.cusdb) {
             //进入自定义车型的界面
             fragmentCommit(new PickCusCarFragment());
             return;
         }
 
         backChoice = false;
-        referData = new ReferData();
-        referData.setManId(manId);
-        referData.setManInfo(manInfo);
+//        referData = new ReferData();
+//        referData.setManId(manId);
+//        referData.setManInfo(manInfo);
 
         PickCarFragment fragment = new PickCarFragment();
         fragment.setParams(manId, manInfo, null, dbIndex);
@@ -244,24 +245,26 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 DbUtil dbUtil = new DbUtil();
                 referData = dbUtil.queryReferData(vehicleID, dbIndex);
 
+                if (dbIndex == MainApplication.cusdb) {
+                    startWeightHeightLevel(null);
+                    return;
+                }
+
                 if (referData != null) {
                     referData.setManId(manId);
                     referData.setManInfo(manInfo);
                     referData.setVehicleId(vehicleID);
                     referData.setRealYear(year);
 
+                    final ReferData tem = referData.copy();
+
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
                             SocketClient client = new SocketClient(null, false);
-                            client.send(GloVariable.synchCar, referData.getSynchData());
+                            client.send(MainApplication.synchCar, tem.copy().getSynchData());
                         }
                     }).start();
-                }
-
-                if (dbIndex == GloVariable.cusdb) {
-                    startWeightHeightLevel(null);
-                    return;
                 }
 
                 SpecialParams specialParams = dbUtil.querySpecParam(vehicleID);
@@ -277,6 +280,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 startWeightHeightLevel(specialParams);
             }
         };
+
 
         new Thread(runnable, "specialThread").start();
     }
@@ -336,7 +340,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             String manId = data.getStringExtra(SearchActivity.manufacturerId);
             String manInfo = data.getStringExtra(SearchActivity.manufacturerInfo);
             String pyIndex = data.getStringExtra(SearchActivity.pyIndex);
-            int dbIndex = data.getIntExtra(SearchActivity.dbIndex, GloVariable.stadb);
+            int dbIndex = data.getIntExtra(SearchActivity.dbIndex, MainApplication.stadb);
 
             PickCarFragment fragment = new PickCarFragment();
             fragment.setParams(manId, manInfo, pyIndex, dbIndex);
@@ -380,42 +384,46 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         int radioId = -1;
 
         switch (i) {
-            case GloVariable.pushcarUrl:
+            case MainApplication.pushcarUrl:
                 radioId = R.id.radio_push;
                 break;
 
-            case GloVariable.kingpinUrl:
+            case MainApplication.kingpinUrl:
                 radioId = R.id.radio_kingpin;
                 break;
 
-            case GloVariable.fastTestUrl:
+            case MainApplication.fastTestUrl:
 
-            case GloVariable.testDataUrl:
+            case MainApplication.testDataUrl:
                 radioId = R.id.radio_fast;
                 break;
 
-            case GloVariable.rearShowUrl:
+            case MainApplication.rearShowUrl:
                 radioId = R.id.radio_rear;
                 break;
 
-            case GloVariable.frontShowUrl:
+            case MainApplication.frontShowUrl:
                 radioId = R.id.radio_front;
                 break;
 
-            case GloVariable.printUrl:
+            case MainApplication.printUrl:
                 radioId = R.id.radio_print;
                 break;
 
-            case GloVariable.samplePictureUrl:
+            case MainApplication.samplePictureUrl:
                 Intent intent = new Intent(this, MaintenanceActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
 
-            case GloVariable.homeUrl:
-                intent = new Intent(this, MenuActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            case MainApplication.specialTestUrl:
+                intent = new Intent(this, SpecialTestActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
+                break;
+            case MainApplication.homeUrl:
+                Intent it = new Intent(this, MenuActivity.class);
+                startActivity(it);
                 break;
         }
 
