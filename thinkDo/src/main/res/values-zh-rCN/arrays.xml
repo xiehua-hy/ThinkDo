@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="unitEntry">
+        <item>度分(°\')</item>
+        <item>百分度(°)</item>
+    </string-array>
+
+    <string-array name="toeUnitEntry">
+        <item>度分(°\')</item>
+        <item>百分度(°)</item>
+        <item>毫米(mm)</item>
+        <item>英寸(in)</item>
+    </string-array>
+
+    <string-array name="axle">
+        <item>1轴</item>
+        <item>2轴</item>
+        <item>3轴</item>
+        <item>4轴</item>
+        <item>5轴</item>
+        <item>6轴</item>
+        <item>7轴</item>
+        <item>8轴</item>
+        <item>9轴</item>
+        <item>10轴</item>
+        <item>11轴</item>
+        <item>12轴</item>
+    </string-array>
+
+    <string-array name="axle_short">
+        <item>1轴</item>
+        <item>2轴</item>
+        <item>3轴</item>
+        <item>4轴</item>
+        <item>5轴</item>
+        <item>6轴</item>
+
+    </string-array>
+
+</resources>

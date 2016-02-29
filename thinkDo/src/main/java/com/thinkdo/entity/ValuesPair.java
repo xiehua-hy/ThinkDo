@@ -2,6 +2,8 @@ package com.thinkdo.entity;
 
 import android.graphics.Color;
 
+import com.thinkdo.application.MainApplication;
+
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -18,7 +20,8 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     protected float percent = -1f;
 
-    protected int color = Color.BLUE;
+    //blue
+    protected int color = Color.argb(255, 0, 27, 203);
 
     public ValuesPair() {
         init();
@@ -31,13 +34,13 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     public ValuesPair(float mid, int num) {
         if (isInitValue(format(mid))) {
-            setMid(GloVariable.initValue);
+            setMid(MainApplication.initValue);
         } else {
             setMid(format(mid, num));
         }
 
-        setMin(GloVariable.initValue);
-        setMax(GloVariable.initValue);
+        setMin(MainApplication.initValue);
+        setMax(MainApplication.initValue);
     }
 
     public ValuesPair(String mid) {
@@ -147,7 +150,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     public ValuesPair(String min, String max, UnitEnum unit) {
-        if (GloVariable.initValue.equals(min) || GloVariable.initValue.equals(max)) {
+        if (MainApplication.initValue.equals(min) || MainApplication.initValue.equals(max)) {
             init();
         } else {
             this.min = reverseUnitConvert(min, unit);
@@ -164,7 +167,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     public void setReferValue(String min, String max) {
         mid = originalAverage(min, max);
-        if (GloVariable.initValue.equals(mid)) {
+        if (MainApplication.initValue.equals(mid)) {
             init();
         } else {
             this.min = format(Float.parseFloat(min));
@@ -200,7 +203,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * 把自己当成总前束 产生一个 单前束
      */
     public ValuesPair generateSingleToe() {
-        if (mid.equals(GloVariable.initValue)) {
+        if (mid.equals(MainApplication.initValue)) {
             return new ValuesPair();
         } else {
             return new ValuesPair(format(Float.parseFloat(min) / 2),
@@ -210,7 +213,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     public ValuesPair generateTotalToe() {
-        if (mid.equals(GloVariable.initValue)) {
+        if (mid.equals(MainApplication.initValue)) {
             return new ValuesPair();
         } else {
             return new ValuesPair(format(Float.parseFloat(min) * 2),
@@ -220,16 +223,16 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
     }
 
     protected void init() {
-        this.min = GloVariable.initValue;
-        this.mid = GloVariable.initValue;
-        this.max = GloVariable.initValue;
+        this.min = MainApplication.initValue;
+        this.mid = MainApplication.initValue;
+        this.max = MainApplication.initValue;
     }
 
     public void initEmptyValue() {
         if (mid == null) init();
         if (preReal == null) {
-            preReal = GloVariable.initValue;
-            real = GloVariable.initValue;
+            preReal = MainApplication.initValue;
+            real = MainApplication.initValue;
         }
 
     }
@@ -295,16 +298,17 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             color = Color.RED;
         } else if (percent > 0) {
             //green
-            color = -16737946;
+            color = Color.argb(255, 0, 100, 50);
         } else if (percent > -1) {
             color = Color.RED;
         } else {
-            color = Color.BLUE;
+            //blue
+            color = Color.argb(255, 0, 27, 203);
         }
     }
 
     protected float calculatePercent(boolean ascent) {
-        if (GloVariable.initValue.equals(max)) return -1.0f;
+        if (MainApplication.initValue.equals(max)) return -1.0f;
 
         float ma = Float.parseFloat(max);
         float t = Float.parseFloat(real);
@@ -374,11 +378,11 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
 
     protected String addMMUnit(String value) {
         if (value == null) return null;
-        return isInitValue(value) ? GloVariable.initValue : String.format("%smm", value);
+        return isInitValue(value) ? MainApplication.initValue : String.format("%smm", value);
     }
 
     public boolean isInitValue(String value) {
-        return value.equals(GloVariable.initValue);
+        return value.equals(MainApplication.initValue);
     }
 
     /**
@@ -388,12 +392,12 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      * @param num 值保留小数点的位数
      */
     public void format(int num) {
-        if (mid != null && !GloVariable.initValue.equals(mid)) {
+        if (mid != null && !MainApplication.initValue.equals(mid)) {
             min = format(Float.parseFloat(min), num);
             mid = format(Float.parseFloat(mid), num);
             max = format(Float.parseFloat(max), num);
         }
-        if (real != null && !GloVariable.initValue.equals(real)) {
+        if (real != null && !MainApplication.initValue.equals(real)) {
             real = format(Float.parseFloat(real), num);
             preReal = format(Float.parseFloat(preReal), num);
         }
@@ -424,7 +428,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
      */
     protected String degreeConvertOther(String angle, UnitEnum unit) {
         if (angle == null || unit == null) return null;
-        if (angle.equals(GloVariable.initValue)) return angle;
+        if (angle.equals(MainApplication.initValue)) return angle;
 
         float val = Float.parseFloat(angle);
 
@@ -521,7 +525,7 @@ public class ValuesPair implements CopyProtocol<ValuesPair>, UnitConvertProtocol
             max = Float.parseFloat(sMax);
             return format((min + max) / 2, 2);
         } catch (NumberFormatException e) {
-            return GloVariable.initValue;
+            return MainApplication.initValue;
         }
     }
 

@@ -14,6 +14,7 @@ import com.thinkdo.view.BarItem;
 public class SettingFragment extends Fragment implements View.OnClickListener {
     public static final String extraIntKey = "ExtraIntKey";
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_preferences, container, false);
@@ -25,6 +26,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         barItem.setOnClickListener(this);
 
         barItem = (BarItem) rootView.findViewById(R.id.bar_printSet);
+        barItem.setOnClickListener(this);
+
+        barItem = (BarItem) rootView.findViewById(R.id.bar_language);
         barItem.setOnClickListener(this);
 
         barItem = (BarItem) rootView.findViewById(R.id.bar_addcar);
@@ -48,6 +52,9 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.bar_addcar:
                 intent.putExtra(extraIntKey, 4);
+                break;
+            case R.id.bar_language:
+                intent.putExtra(extraIntKey, 5);
                 break;
             default:
                 intent = null;

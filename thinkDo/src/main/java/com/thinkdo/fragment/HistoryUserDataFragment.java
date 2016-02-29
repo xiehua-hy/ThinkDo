@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.thinkdo.activity.CustomCarDetail;
 import com.thinkdo.activity.DataPrintActivity;
+import com.thinkdo.activity.DataPrintLorryActivity;
 import com.thinkdo.activity.R;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.entity.FormMetaModel;
 
@@ -123,7 +125,11 @@ public class HistoryUserDataFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Intent intent = new Intent(getActivity(), DataPrintActivity.class);
+
+                Intent intent = MainApplication.isCar
+                        ? new Intent(getActivity(), DataPrintActivity.class)
+                        : new Intent(getActivity(), DataPrintLorryActivity.class);
+
                 intent.putExtra(clientIdKey, data.get(position).getCustomerId());
                 intent.putExtra(testNoKey, data.get(position).getTestNo());
                 startActivity(intent);

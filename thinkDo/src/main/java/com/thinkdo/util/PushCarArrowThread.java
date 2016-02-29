@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,9 +27,9 @@ public class PushCarArrowThread {
     public PushCarArrowThread(Handler handler) {
         this.handler = handler;
         executorService = Executors.newSingleThreadExecutor();
-        density = GloVariable.context.getResources().getDisplayMetrics().density;
-        down = BitmapFactory.decodeResource(GloVariable.context.getResources(), R.drawable.if_arrow_down);
-        up = BitmapFactory.decodeResource(GloVariable.context.getResources(), R.drawable.if_arrow_up);
+        density = MainApplication.context.getResources().getDisplayMetrics().density;
+        down = BitmapFactory.decodeResource(MainApplication.context.getResources(), R.drawable.if_arrow_down);
+        up = BitmapFactory.decodeResource(MainApplication.context.getResources(), R.drawable.if_arrow_up);
     }
 
     public void onPause() {

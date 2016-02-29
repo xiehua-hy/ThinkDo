@@ -3,6 +3,7 @@ package com.thinkdo.activity;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -10,6 +11,7 @@ import com.thinkdo.entity.OperOftenDataTotalModel;
 import com.thinkdo.fragment.DefCarDataFragment;
 import com.thinkdo.fragment.DefCarInfoFragment;
 import com.thinkdo.fragment.GarageFragment;
+import com.thinkdo.fragment.LanguageFragment;
 import com.thinkdo.fragment.PrintSetFragment;
 import com.thinkdo.fragment.SettingFragment;
 import com.thinkdo.fragment.UnitFragment;
@@ -19,6 +21,8 @@ import com.thinkdo.fragment.DefCarInfoFragment.DefCarInfoCallback;
  * Created by Administrator on 2015/5/7.
  */
 public class MPreferenceActivity extends Activity implements DefCarInfoCallback {
+    public boolean updata = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,10 @@ public class MPreferenceActivity extends Activity implements DefCarInfoCallback 
                 actionBar.setTitle(R.string.add_car);
                 fragmentCommit(new DefCarInfoFragment());
                 break;
+            case 5:
+                actionBar.setTitle(R.string.languageSet);
+                fragmentCommit(new LanguageFragment());
+                break;
         }
     }
 
@@ -65,6 +73,16 @@ public class MPreferenceActivity extends Activity implements DefCarInfoCallback 
 
     public void fragmentCommit(Fragment fragment) {
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (updata) {
+            Intent intent = new Intent(this, MenuActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ValuesPair;
 
 public class BarReferData extends LinearLayout {
@@ -70,7 +70,7 @@ public class BarReferData extends LinearLayout {
 
     public void setLeftMinText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             leftMin.setText(R.string.default_signal);
         } else {
             leftMin.setText(text);
@@ -79,7 +79,7 @@ public class BarReferData extends LinearLayout {
 
     public void setLeftMidText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             leftMid.setText(R.string.default_signal);
         } else {
             leftMid.setText(text);
@@ -88,7 +88,7 @@ public class BarReferData extends LinearLayout {
 
     public void setLeftMaxText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             leftMax.setText(R.string.default_signal);
         } else {
             leftMax.setText(text);
@@ -97,7 +97,7 @@ public class BarReferData extends LinearLayout {
 
     public void setRightMinText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             rightMin.setText(R.string.default_signal);
         } else {
             rightMin.setText(text);
@@ -106,7 +106,7 @@ public class BarReferData extends LinearLayout {
 
     public void setRightMidText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             rightMid.setText(R.string.default_signal);
         } else {
             rightMid.setText(text);
@@ -115,7 +115,7 @@ public class BarReferData extends LinearLayout {
 
     public void setRightMaxText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             rightMax.setText(R.string.default_signal);
         } else {
             rightMax.setText(text);

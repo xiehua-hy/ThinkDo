@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 /**
  * Created by Administrator on 2015/5/7.
@@ -35,14 +35,14 @@ public class GarageFragment extends Fragment {
         final EditText fax = (EditText) view.findViewById(R.id.et_garageFax);
         final EditText repairMan = (EditText) view.findViewById(R.id.et_garageRepairman);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
 
-        name.setText(shared.getString(GloVariable.garageNameKey, GloVariable.emptyString));
-        address.setText(shared.getString(GloVariable.garageAddressKey, GloVariable.emptyString));
-        contactNum.setText(shared.getString(GloVariable.garageTelKey, GloVariable.emptyString));
-        repairMan.setText(shared.getString(GloVariable.garageRepairManKey, GloVariable.emptyString));
-        fax.setText(shared.getString(GloVariable.garageFaxKey, GloVariable.emptyString));
-        post.setText(shared.getString(GloVariable.garagePostCodeKey, GloVariable.emptyString));
+        name.setText(shared.getString(MainApplication.garageNameKey, MainApplication.emptyString));
+        address.setText(shared.getString(MainApplication.garageAddressKey, MainApplication.emptyString));
+        contactNum.setText(shared.getString(MainApplication.garageTelKey, MainApplication.emptyString));
+        repairMan.setText(shared.getString(MainApplication.garageRepairManKey, MainApplication.emptyString));
+        fax.setText(shared.getString(MainApplication.garageFaxKey, MainApplication.emptyString));
+        post.setText(shared.getString(MainApplication.garagePostCodeKey, MainApplication.emptyString));
 
         Button btn = (Button) view.findViewById(R.id.btn_save);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -52,14 +52,14 @@ public class GarageFragment extends Fragment {
                 String garageAddress = address.getText().toString();
                 String garageContactNum = contactNum.getText().toString();
 
-                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
                 final SharedPreferences.Editor edit = shared.edit();
-                edit.putString(GloVariable.garageNameKey, garageName);
-                edit.putString(GloVariable.garageAddressKey, garageAddress);
-                edit.putString(GloVariable.garageTelKey, garageContactNum);
-                edit.putString(GloVariable.garageRepairManKey, repairMan.getText().toString());
-                edit.putString(GloVariable.garagePostCodeKey, post.getText().toString());
-                edit.putString(GloVariable.garageFaxKey, fax.getText().toString());
+                edit.putString(MainApplication.garageNameKey, garageName);
+                edit.putString(MainApplication.garageAddressKey, garageAddress);
+                edit.putString(MainApplication.garageTelKey, garageContactNum);
+                edit.putString(MainApplication.garageRepairManKey, repairMan.getText().toString());
+                edit.putString(MainApplication.garagePostCodeKey, post.getText().toString());
+                edit.putString(MainApplication.garageFaxKey, fax.getText().toString());
 
                 new AlertDialog.Builder(getActivity())
                         .setTitle(R.string.sure)
@@ -69,7 +69,7 @@ public class GarageFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 edit.apply();
-                                Toast.makeText(GloVariable.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainApplication.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
                                 getActivity().finish();
                             }
                         })

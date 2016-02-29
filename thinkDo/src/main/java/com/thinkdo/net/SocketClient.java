@@ -1,12 +1,11 @@
 package com.thinkdo.net;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-//import android.util.Log;
+import android.util.Log;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.util.CommonUtil;
 
 import java.io.IOException;
@@ -33,11 +32,12 @@ public class SocketClient extends Thread {
     public SocketClient(Handler handler, boolean listen) {
         this.handler = handler;
 
-        String ip = CommonUtil.getIp(GloVariable.ip);
+        String ip = CommonUtil.getIp(MainApplication.ip);
         if (ip == null) return;
         try {
-//            Log.d("TAG", String.format("IP = %s, port = %d", ip, GloVariable.port));
-            socket = new Socket(ip, GloVariable.port);
+//            Log.d("TAG", String.format("IP = %s, port = %d", ip, MainApplication.port));
+
+            socket = new Socket(ip, MainApplication.port);
 //            Log.d("TAG", ">>> Connect Success");
             in = socket.getInputStream();
             out = socket.getOutputStream();
@@ -76,7 +76,7 @@ public class SocketClient extends Thread {
         try {
             if (!isClosed()) {
 //                Log.d("TAG", String.format("Thread:%s", Thread.currentThread().getName()));
-//                Log.d("TAG", String.format("Uri: questCode = %d, param = %d, data = %s", questCode, param, data));
+                Log.d("TAG", String.format("Uri: questCode = %d, param = %d, data = %s", questCode, param, data));
                 out.write(getQuestUri(questCode, param, data));
             }
         } catch (IOException e) {
@@ -86,14 +86,14 @@ public class SocketClient extends Thread {
 
 
     protected void sendToHandler(String msg) {
-//        Log.d("TAG", msg);
+        Log.d("TAG", msg);
         if (handler != null) {
             Message message = handler.obtainMessage(1);
             Bundle bundle = message.getData() == null
                     ? new Bundle()
                     : message.getData();
 
-            bundle.putString(GloVariable.head, msg);
+            bundle.putString(MainApplication.head, msg);
             message.setData(bundle);
             handler.sendMessage(message);
         }
@@ -134,7 +134,11 @@ public class SocketClient extends Thread {
         try {
             if (in != null) in.close();
             if (out != null) out.close();
-            if (!isClosed()) socket.close();
+            if (!isClosed()) {
+                socket.shutdownInput();
+                socket.shutdownOutput();
+                socket.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -214,5 +218,14 @@ public class SocketClient extends Thread {
     protected String dataParse(byte[] by) {
         if (by[0] == 0 && by[1] == 0) return null;
         return "&&" + new String(by);
+    }
+
+    public static String[] parseData(String head) {
+        if (head == null) return null;
+        if (head.contains("&&")) {
+            String[] arr = head.split("&&");
+            return arr[1].split("\\|");
+        }
+        return null;
     }
 }

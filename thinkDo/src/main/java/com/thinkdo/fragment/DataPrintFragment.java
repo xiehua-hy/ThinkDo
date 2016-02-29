@@ -9,21 +9,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.net.NetQuest;
 import com.thinkdo.view.BarPrint;
 
 public class DataPrintFragment extends Fragment implements View.OnClickListener {
-    private int saveBtnVisible = View.VISIBLE;
     private DataPrintCallback callback;
+    private int saveBtnVisible = View.VISIBLE;
     private boolean connect = true;
     private ReferData data;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (connect) new NetQuest(GloVariable.printUrl).start();
+        if (connect) new NetQuest(MainApplication.printUrl);
     }
 
 
@@ -155,6 +155,12 @@ public class DataPrintFragment extends Fragment implements View.OnClickListener 
     }
 
     public interface DataPrintCallback {
+        /**
+         * @param position
+         *        0 save   <br/>
+         *       1 print
+         *
+         * **/
         void dataPrintNext(int position);
     }
 

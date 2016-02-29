@@ -9,7 +9,7 @@ import android.os.Handler;
 import android.widget.LinearLayout;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,7 +25,7 @@ public class DataCircleLoadThread {
     public DataCircleLoadThread(Handler handler, int num) {
         this.handler = handler;
         this.executorService = Executors.newFixedThreadPool(num);
-        this.density = GloVariable.context.getResources().getDisplayMetrics().density;
+        this.density = MainApplication.context.getResources().getDisplayMetrics().density;
 
     }
 
@@ -35,13 +35,13 @@ public class DataCircleLoadThread {
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    Bitmap original = BitmapFactory.decodeResource(GloVariable.context.getResources(), R.drawable.ib_data);
-                    Bitmap circle = BitmapFactory.decodeResource(GloVariable.context.getResources(), R.drawable.ib_circle);
+                    Bitmap original = BitmapFactory.decodeResource(MainApplication.context.getResources(), R.drawable.ib_data);
+                    Bitmap circle = BitmapFactory.decodeResource(MainApplication.context.getResources(), R.drawable.ib_circle);
                     Bitmap bg = Bitmap.createBitmap(original.getWidth(), original.getHeight(), Bitmap.Config.ARGB_8888);
                     Canvas canvas = new Canvas(bg);
                     canvas.drawBitmap(original, 0, 0, null);
                     canvas.drawBitmap(circle, (115 * percent + 25) * density, 48 * density, null);
-                    final Drawable drawable = new BitmapDrawable(GloVariable.context.getResources(), bg);
+                    final Drawable drawable = new BitmapDrawable(MainApplication.context.getResources(), bg);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

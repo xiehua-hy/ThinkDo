@@ -43,4 +43,9 @@
     <declare-styleable name="BarDefAdd">
         <attr name="DBarTitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="NumberSeekBar">
+        <attr name="SeeKBarTitle" format="string" />
+    </declare-styleable>
+
 </resources>

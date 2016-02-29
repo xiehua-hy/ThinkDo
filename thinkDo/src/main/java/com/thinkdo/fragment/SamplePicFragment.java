@@ -10,10 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.MyDialog;
 
@@ -24,27 +27,43 @@ public class SamplePicFragment extends Fragment {
     private SamplePicCallback callback;
     private boolean transFlag = false;
     private NetConnect socketClient;
+    private NetSingleConnect loginConnect;
     private MyDialog myDialog;
     private ImageView iv1, iv2, iv3, iv4, iv5;
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.samplePictureUrl && callback != null) {
+            } else if (backCode != MainApplication.samplePictureUrl && callback != null) {
                 callback.SamplePicNext(backCode);
             } else {
-                Bitmap bitmap = msg.getData().getParcelable(GloVariable.simpleBitmap);
+                Bitmap bitmap = msg.getData().getParcelable(MainApplication.simpleBitmap);
                 switch (statusCode) {
                     case 0:
                         iv1.setVisibility(View.VISIBLE);
@@ -93,7 +112,17 @@ public class SamplePicFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.samplePictureUrl, true);
+        startConnect();
+    }
+
+    public void startConnect() {
+        if (MainApplication.availableDay > 0) {
+            socketClient = new NetConnect(handler, MainApplication.samplePictureUrl, true);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -101,7 +130,8 @@ public class SamplePicFragment extends Fragment {
         super.onPause();
         transFlag = false;
         myDialog.dismiss();
-        socketClient.close();
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
     }
 
     @Override

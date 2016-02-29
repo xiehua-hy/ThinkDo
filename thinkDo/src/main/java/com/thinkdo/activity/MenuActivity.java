@@ -14,36 +14,71 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.fragment.FixedPositionFragment;
 import com.thinkdo.fragment.MaintenanceFragment;
 import com.thinkdo.fragment.SettingFragment;
 import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.view.BarItem;
 
 public class MenuActivity extends SlidingFragmentActivity implements OnClickListener {
     private ViewPager viewPager;
     private long time = 0;
-    private boolean transFlag = false;
-    private NetConnect socketClient;
+    private boolean transFlag = false, loginFlag = false;
+    private NetConnect socketClient, loginConnect;
+
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
-            if (reply == null) return true;
-            int backCode = CommonUtil.getQuestCode(reply);
-            deal(backCode);
+            switch (msg.what) {
+                case -1:
+                    if (loginFlag) {
+                        loginFlag = false;
+                        Toast.makeText(MenuActivity.this, R.string.tip_connect_failed, Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case 1:
+                    String reply = msg.getData().getString(MainApplication.head);
+                    if (reply == null) return true;
+                    int backCode = CommonUtil.getQuestCode(reply);
+                    if (backCode == MainApplication.loginUrl) {
+                        loginFlag = false;
+                        if (loginConnect != null) loginConnect.close();
+                        String[] data = SocketClient.parseData(reply);
+                        if (data != null && data.length == 2) {
+                            int i;
+                            try {
+                                i = Integer.parseInt(data[1]);
+                            } catch (NumberFormatException e) {
+                                i = 0;
+                            }
+                            MainApplication.device = data[0];
+                            MainApplication.availableDay = i;
+                            MainApplication.loginFlag = true;
+                            Toast.makeText(MenuActivity.this, R.string.tip_login_success, Toast.LENGTH_SHORT).show();
+                            loadLoginInfo();
+                            startSynch();
+                        }
+                    } else deal(backCode);
+                    break;
+            }
             return true;
         }
     });
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +100,9 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         sm.setTouchModeAbove(SlidingMenu.LEFT);
         sm.setBehindWidthRes(R.dimen.slidingMenu_width);
 
+        LinearLayout user = (LinearLayout) findViewById(R.id.user_info);
+        user.setOnClickListener(this);
+
         BarItem item = (BarItem) findViewById(R.id.barItem_hostSet);
         item.setOnClickListener(this);
 
@@ -74,8 +112,21 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         item = (BarItem) findViewById(R.id.barItem_about);
         item.setOnClickListener(this);
 
+        item = (BarItem) findViewById(R.id.barItem_register);
+        item.setOnClickListener(this);
+
         Button btn = (Button) findViewById(R.id.btn_exit);
         btn.setOnClickListener(this);
+    }
+
+    private void loadLoginInfo() {
+        ImageView iv = (ImageView) findViewById(R.id.imageView_user);
+        iv.setImageResource(R.drawable.ib_user_login);
+        TextView tv = (TextView) findViewById(R.id.tv_day);
+        tv.setVisibility(View.VISIBLE);
+        tv.setText(String.format("%s: %s", getString(R.string.remaining_days), MainApplication.availableDay));
+        tv = (TextView) findViewById(R.id.tv_cdk);
+        tv.setText(String.format("%s: %s", getString(R.string.devicesId), MainApplication.device));
     }
 
     private void init() {
@@ -133,14 +184,29 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
     @Override
     protected void onResume() {
         super.onResume();
+        if (MainApplication.loginFlag) loadLoginInfo();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.synchShowUrl);
+        startSynch();
+    }
+
+    private void startSynch() {
+//        socketClient = new NetConnect(handler, MainApplication.synchShowUrl);
+
+        if (MainApplication.availableDay > 0)
+            socketClient = new NetConnect(handler, MainApplication.synchShowUrl);
+        else if (!MainApplication.loginFlag) {
+            loginFlag = true;
+            loginConnect = new NetConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onPause() {
         transFlag = false;
-        socketClient.close();
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
         super.onPause();
     }
 
@@ -154,35 +220,45 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.exit(0);
+    }
+
     private void deal(int position) {
         switch (position) {
-            case GloVariable.pushcarUrl:
+            case MainApplication.pushcarUrl:
                 redirect(position);
                 break;
-            case GloVariable.kingpinUrl:
+            case MainApplication.kingpinUrl:
                 redirect(position);
                 break;
-            case GloVariable.testDataUrl:
+            case MainApplication.testDataUrl:
                 redirect(position);
                 break;
-            case GloVariable.rearShowUrl:
+            case MainApplication.rearShowUrl:
                 redirect(position);
                 break;
-            case GloVariable.frontShowUrl:
+            case MainApplication.frontShowUrl:
                 redirect(position);
                 break;
-            case GloVariable.samplePictureUrl:
+            case MainApplication.samplePictureUrl:
                 Intent it = new Intent(this, MaintenanceActivity.class);
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(it);
                 break;
-            default:
-                break;
+            case MainApplication.specialTestUrl:
+                it = new Intent(this, SpecialTestActivity.class);
+                it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(it);
         }
     }
 
     private void redirect(int position) {
-        Intent it = new Intent(this, MainActivity.class);
+        Intent it = MainApplication.isCar
+                ? new Intent(this, MainActivity.class)
+                : new Intent(this, MainActivityLorry.class);
         it.putExtra("position", position);
         startActivity(it);
     }
@@ -232,6 +308,14 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.user_info:
+                if (MainApplication.loginFlag) {
+                    Toast.makeText(this, R.string.tip_login_already, Toast.LENGTH_SHORT).show();
+                } else {
+                    loginFlag = true;
+                }
+
+                break;
             case R.id.btn_toggle:
                 toggle();
                 break;
@@ -243,6 +327,14 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 intent = new Intent(this, DBUpdateActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.barItem_register:
+                if (MainApplication.loginFlag) {
+                    intent = new Intent(this, RegisterActivity.class);
+                    startActivityForResult(intent, 1);
+                } else {
+                    Toast.makeText(this, R.string.tip_please_login, Toast.LENGTH_SHORT).show();
+                }
+                break;
             case R.id.barItem_about:
                 intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
@@ -251,6 +343,15 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 finish();
             default:
                 break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            TextView tv = (TextView) findViewById(R.id.tv_day);
+            tv.setText(String.format("%s: %s", getString(R.string.remaining_days), MainApplication.availableDay));
         }
     }
 }

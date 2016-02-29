@@ -1,6 +1,6 @@
 package com.thinkdo.util;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 
@@ -24,7 +24,7 @@ public class CommonUtil {
 
     public static String findSpecialChar(String msg) {
         if (msg != null) {
-            for (int i = 0; i < msg.length(); i++) {
+            for (int i = 1; i < msg.length(); i++) {
                 char ch = msg.charAt(i);
                 switch (ch) {
                     case ' ':
@@ -35,7 +35,8 @@ public class CommonUtil {
                         return "\\(";
                     case '/':
                         return "/";
-
+                    case '[':
+                        return "\\[";
                 }
             }
         }
@@ -93,12 +94,20 @@ public class CommonUtil {
 
     public static int getQuestCode(String msg) {
         String[] array = msg.split("&");
-        return Integer.parseInt(array[0]);
+        try {
+            return Integer.parseInt(array[0]);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public static int getStatusCode(String msg) {
         String[] array = msg.split("&");
-        return Integer.parseInt(array[1]);
+        try {
+            return Integer.parseInt(array[1]);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public static String getErrorString(int status, String str) {
@@ -106,38 +115,30 @@ public class CommonUtil {
         if (str.contains("&&")) {
             String[] data = str.split("&&");
             String[] array = data[1].split("\\|");
-            if (status < 16 && status > 0) {
-                if (bitCount(status, 0x01)) {
-                    //左前
-                    buff.append(GloVariable.getErrorInfo(18));
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[0]))));
-                }
-                if (bitCount(status, 0x02)) {
-                    //右前
-                    buff.append(GloVariable.getErrorInfo(19));
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[1]))));
-                }
-                if (bitCount(status, 0x04)) {
-                    //左后
-                    buff.append(GloVariable.getErrorInfo(20));
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[2]))));
-                }
-                if (bitCount(status, 0x08)) {
-                    //右后
-                    buff.append(GloVariable.getErrorInfo(21));
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[3]))));
-                }
+            if (bitCount(status, 0x01)) {
+                //左前
+                buff.append(MainApplication.getErrorInfo(18));
+                buff.append(String.format("%s\n", MainApplication.getErrorInfo(Integer.parseInt(array[0]))));
+            }
+            if (bitCount(status, 0x02)) {
+                //右前
+                buff.append(MainApplication.getErrorInfo(19));
+                buff.append(String.format("%s\n", MainApplication.getErrorInfo(Integer.parseInt(array[1]))));
+            }
+            if (bitCount(status, 0x04)) {
+                //左后
+                buff.append(MainApplication.getErrorInfo(20));
+                buff.append(String.format("%s\n", MainApplication.getErrorInfo(Integer.parseInt(array[2]))));
+            }
+            if (bitCount(status, 0x08)) {
+                //右后
+                buff.append(MainApplication.getErrorInfo(21));
+                buff.append(String.format("%s\n", MainApplication.getErrorInfo(Integer.parseInt(array[3]))));
+            }
 
-                if (bitCount(status, 0x100)) {
-                    buff.append(GloVariable.getErrorInfo(16));
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(Integer.parseInt(array[3]))));
-                }
-
-                if (Integer.parseInt(array[3]) == -2) {
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(16)));
-                } else if (Integer.parseInt(array[3]) == -1) {
-                    buff.append(String.format("%s\n", GloVariable.getErrorInfo(17)));
-                }
+            if (bitCount(status, 0x100)) {
+                //中部图像被挡
+                buff.append(MainApplication.getErrorInfo(16));
             }
         }
         return buff.toString();

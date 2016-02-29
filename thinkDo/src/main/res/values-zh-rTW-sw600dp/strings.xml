@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vehicles_choice">車輛選擇</string>
+    <string name="pull_test">推車測試</string>
+    <string name="fast_test">快速測量</string>
+    <string name="kingpin_test">主銷測試</string>
+    <string name="rearAxle_show">後軸顯示</string>
+    <string name="frontAxle_show">前軸顯示</string>
+    <string name="data_print">數據打印</string>
+</resources>

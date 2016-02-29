@@ -20,15 +20,15 @@ import android.widget.Toast;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
 import com.thinkdo.activity.SearchActivity;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.VehicleDbUtil;
-import com.thinkdo.entity.GloVariable;
 
 
 public class ManufacturerFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnTouchListener {
     private GridView gridView;
     private final int bitmapDimen = 153;
-    private final int countryCount = 3;
-    private int count = 3000;
+    private int countryCount = 3;
+    private int count = 3002;
     private ManufacturerCallback callback;
     private GestureDetector gesture;
 
@@ -116,7 +116,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.manu_133, R.drawable.manu_134, R.drawable.manu_135};
 
     private int[] ImageId_EUP = {
-            R.drawable.manu_search, R.drawable.manu_def,
+            R.drawable.manu_search_en, R.drawable.manu_def_en,
             R.drawable.eur_manu_1, R.drawable.eur_manu_2,
             R.drawable.eur_manu_3, R.drawable.eur_manu_4,
             R.drawable.eur_manu_5, R.drawable.eur_manu_6,
@@ -151,7 +151,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.eur_manu_63, R.drawable.eur_manu_64};
 
     private int[] ImageId_NA = {
-            R.drawable.manu_search, R.drawable.manu_def,
+            R.drawable.manu_search_en, R.drawable.manu_def_en,
             R.drawable.na_manu_1, R.drawable.na_manu_2,
             R.drawable.na_manu_3, R.drawable.na_manu_4,
             R.drawable.na_manu_5, R.drawable.na_manu_6,
@@ -196,6 +196,16 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!getResources().getConfiguration().locale.getLanguage().startsWith("zh")) {
+            countryCount = 2;
+
+        }
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_manfacturer, container, false);
         init(rootView);
@@ -222,22 +232,22 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     public String getTip() {
         switch (count % countryCount) {
             case 0:
-                return getResources().getString(R.string.tip_chinese_vehicle);
+                return getResources().getString(R.string.tip_european_vehicle);
             case 1:
                 return getResources().getString(R.string.tip_american_vehicle);
             default:
-                return getResources().getString(R.string.tip_european_vehicle);
+                return getResources().getString(R.string.tip_chinese_vehicle);
         }
     }
 
     public int[] getManuID() {
         switch (count % countryCount) {
             case 0:
-                return manId_CN;
+                return manId_EUP;
             case 1:
                 return manId_NA;
             default:
-                return manId_EUP;
+                return manId_CN;
         }
     }
 
@@ -245,11 +255,11 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
     public int[] getImageId() {
         switch (count % countryCount) {
             case 0:
-                return ImageId_CN;
+                return ImageId_EUP;
             case 1:
                 return ImageId_NA;
             default:
-                return ImageId_EUP;
+                return ImageId_CN;
         }
     }
 
@@ -268,12 +278,12 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
         int dbIndex;
         if (position > 1) {
             //标准数据
-            dbIndex = GloVariable.stadb;
+            dbIndex = MainApplication.stadb;
             manId = getManuID()[position - 2];
             info = new VehicleDbUtil().queryManufacturerInfo(manId);
         } else {
             //自定义数据
-            dbIndex = GloVariable.cusdb;
+            dbIndex = MainApplication.cusdb;
         }
 
         if (callback != null) {
@@ -341,7 +351,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
 
     public void gridDataChanged() {
         ((BaseAdapter) gridView.getAdapter()).notifyDataSetChanged();
-        Toast.makeText(GloVariable.context, getTip(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainApplication.context, getTip(), Toast.LENGTH_SHORT).show();
     }
 
     public interface ManufacturerCallback {

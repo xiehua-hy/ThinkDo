@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.application.MainApplication;
 
 /**
  * Created by Administrator on 2015/5/7.
@@ -37,8 +38,13 @@ public class WindowSpecial extends LinearLayout {
         title.setText(msg);
     }
 
-    public void setTestText(String msg) {
-        result.setText(msg);
+    public void setTestText(String text) {
+        if (text == null) return;
+        if (text.equals(MainApplication.initValue)) {
+            result.setText(R.string.default_signal);
+        } else {
+            result.setText(text);
+        }
     }
 
     public void setImageSrc(int resourceId) {

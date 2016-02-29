@@ -1,13 +1,12 @@
 package com.thinkdo.net;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -80,8 +79,8 @@ public class SocketClientPic extends SocketClient {
         Bundle bundle = message.getData() == null
                 ? new Bundle()
                 : message.getData();
-        bundle.putString(GloVariable.head, msg);
-        bundle.putParcelable(GloVariable.simpleBitmap, bitmap);
+        bundle.putString(MainApplication.head, msg);
+        bundle.putParcelable(MainApplication.simpleBitmap, bitmap);
         message.setData(bundle);
         handler.sendMessage(message);
     }

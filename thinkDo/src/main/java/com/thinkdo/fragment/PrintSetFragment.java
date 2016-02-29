@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 /**
  * Created by xh on 15/5/7.
@@ -29,8 +29,8 @@ public class PrintSetFragment extends Fragment {
         RadioButton mini = (RadioButton) view.findViewById(R.id.radio_mini);
         RadioButton standard = (RadioButton) view.findViewById(R.id.radio_standard);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
-        int currentValues = shared.getInt(GloVariable.printSetKey, 0);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
+        int currentValues = shared.getInt(MainApplication.printSetKey, 0);
 
         switch (currentValues) {
             case 0:
@@ -46,15 +46,15 @@ public class PrintSetFragment extends Fragment {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+                SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
                 SharedPreferences.Editor edit = shared.edit();
 
                 switch (checkedId) {
                     case R.id.radio_standard:
-                        edit.putInt(GloVariable.printSetKey, 0);
+                        edit.putInt(MainApplication.printSetKey, 0);
                         break;
                     case R.id.radio_mini:
-                        edit.putInt(GloVariable.printSetKey, 1);
+                        edit.putInt(MainApplication.printSetKey, 1);
                         break;
                 }
                 edit.apply();

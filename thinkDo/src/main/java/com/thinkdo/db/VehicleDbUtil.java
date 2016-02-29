@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.HeightParam;
 import com.thinkdo.entity.LevelParam;
 import com.thinkdo.entity.ReferData;
@@ -23,7 +23,7 @@ import java.util.Map;
 public class VehicleDbUtil {
     public SQLiteDatabase getWriteDb() {
 
-        String path = GloVariable.context.getDatabasePath(GloVariable.carSqliteName).getPath();
+        String path = MainApplication.context.getDatabasePath(MainApplication.carSqliteName).getPath();
         try {
             return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
@@ -33,7 +33,7 @@ public class VehicleDbUtil {
     }
 
     public SQLiteDatabase getReadDb() {
-        String path = GloVariable.context.getDatabasePath(GloVariable.carSqliteName).getPath();
+        String path = MainApplication.context.getDatabasePath(MainApplication.carSqliteName).getPath();
         try {
             return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
@@ -91,6 +91,7 @@ public class VehicleDbUtil {
             if (endY == 0) endY = startY;
             for (int i = startY; i <= endY; i++) {
                 String brand = type.split(CommonUtil.findSpecialChar(type))[0];
+
                 data.add(String.format("%s;%s;%s;%s", brand, String.valueOf(i), type, id));
             }
         }
@@ -647,7 +648,7 @@ public class VehicleDbUtil {
     }
 
     private boolean isValid(float value) {
-        return !GloVariable.initValue.equals(new DecimalFormat("0.00").format(value));
+        return !MainApplication.initValue.equals(new DecimalFormat("0.00").format(value));
     }
 
     private String getPicPath(String manInfo, String path) {

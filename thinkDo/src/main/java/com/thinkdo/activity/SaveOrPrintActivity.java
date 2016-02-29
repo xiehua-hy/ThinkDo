@@ -3,11 +3,9 @@ package com.thinkdo.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,14 +14,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.DbUtil;
 import com.thinkdo.entity.CustomerModel;
-import com.thinkdo.entity.GloVariable;
-import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.TestVehicleInfoModel;
 import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
-import com.thinkdo.util.XmlInit;
 
 /**
  * Created by Administrator on 2015/5/29.
@@ -169,7 +165,6 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
                     dialog = ProgressDialog.show(this, "", "wait...");
                     new Thread(new DataSaveOrPrint()).start();
                 }
-
                 break;
         }
     }
@@ -249,7 +244,7 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
                         @Override
                         public void run() {
                             SocketClient client = new SocketClient(null, false);
-                            client.send(GloVariable.hostSaveDataUrl, getPrintData(customerInfo, vehicleInfo, MainActivity.referData));
+                            client.send(MainApplication.hostSaveDataUrl, MainActivity.referData.getPrintData(customerInfo, vehicleInfo));
                             client.onStop();
 
                         }
@@ -267,7 +262,7 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
                     @Override
                     public void run() {
                         SocketClient client = new SocketClient(null, false);
-                        client.send(GloVariable.printContent, getPrintData(customerInfo, vehicleInfo, MainActivity.referData));
+                        client.send(MainApplication.printContent, MainActivity.referData.getPrintData(customerInfo, vehicleInfo));
                         client.onStop();
                         handler.sendEmptyMessage(2);
                     }
@@ -283,236 +278,4 @@ public class SaveOrPrintActivity extends Activity implements View.OnClickListene
         customerInfo = null;
     }
 
-    public static String getPrintData(CustomerModel custom, TestVehicleInfoModel info, ReferData data) {
-        if (custom == null || info == null || data == null) return null;
-
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
-        String initValue = "";
-
-        String garageName = shared.getString(GloVariable.garageNameKey, initValue);
-        String garageAddress = shared.getString(GloVariable.garageAddressKey, initValue);
-        String garageTel = shared.getString(GloVariable.garageTelKey, initValue);
-        String garagePostCode = shared.getString(GloVariable.garagePostCodeKey, initValue);
-        String garageFax = shared.getString(GloVariable.garageFaxKey, initValue);
-
-        String array[] = new String[175];
-        array[0] = initValue;
-
-        array[1] = XmlInit.getResourceNodeValue("String1600");
-        array[2] = XmlInit.getResourceNodeValue("String5012");
-        array[3] = XmlInit.getResourceNodeValue("String1612");
-        array[4] = XmlInit.getResourceNodeValue("String1221");
-        array[5] = XmlInit.getResourceNodeValue("String1222");
-        array[6] = XmlInit.getResourceNodeValue("String1223");
-        array[7] = XmlInit.getResourceNodeValue("String1613");
-
-        array[8] = initValue;
-
-        array[9] = custom.getName();
-        array[10] = info.getPlateNum();
-        array[11] = info.getManInfo();
-        array[12] = info.getModel();
-        array[13] = info.getStartYear();
-        array[14] = info.getEndYear();
-        array[15] = info.getCurUnit();
-
-        array[16] = initValue;
-        array[17] = XmlInit.getResourceNodeValue("String3001");
-        array[18] = XmlInit.getResourceNodeValue("String3002");
-        array[19] = initValue;
-        array[20] = XmlInit.getResourceNodeValue("String3004");
-        array[21] = initValue;
-
-        array[22] = info.getTestDate();
-        array[23] = info.getOperator();
-
-        array[24] = initValue;
-        array[25] = info.getMalfunction();
-        array[26] = XmlInit.getResourceNodeValue("String3006");
-        array[27] = info.getTestDate();
-        array[28] = garageName;
-        array[29] = garageTel;
-        array[30] = XmlInit.getResourceNodeValue("String1601");
-
-        array[31] = custom.getCompany();
-        array[33] = custom.getAddress();
-
-        array[32] = XmlInit.getResourceNodeValue("String1602");
-        array[34] = garageAddress;
-        array[35] = XmlInit.getResourceNodeValue("String1233");
-        array[36] = info.getRemark();
-        array[37] = initValue;
-        array[38] = initValue;
-        array[39] = initValue;
-        array[40] = garageTel;
-
-        array[41] = garageFax;
-        array[42] = garagePostCode;
-
-        array[43] = initValue;
-        array[44] = initValue;
-        array[45] = initValue;
-        array[46] = initValue;
-        array[47] = initValue;
-        array[48] = initValue;
-        array[49] = initValue;
-
-        array[50] = GloVariable.context.getString(R.string.parameters);
-        array[51] = GloVariable.context.getString(R.string.before);
-        array[52] = GloVariable.context.getString(R.string.min);
-        array[53] = GloVariable.context.getString(R.string.max);
-        array[54] = GloVariable.context.getString(R.string.after);
-
-        array[55] = GloVariable.context.getString(R.string.front_total_toe);
-        array[60] = GloVariable.context.getString(R.string.left_front_toe);
-        array[65] = GloVariable.context.getString(R.string.right_front_toe);
-        array[70] = GloVariable.context.getString(R.string.left_front_camber);
-        array[75] = GloVariable.context.getString(R.string.right_front_camber);
-        array[80] = GloVariable.context.getString(R.string.left_caster);
-        array[85] = GloVariable.context.getString(R.string.right_caster);
-        array[90] = GloVariable.context.getString(R.string.left_kpi);
-        array[95] = GloVariable.context.getString(R.string.right_kpi);
-        array[100] = GloVariable.context.getString(R.string.rear_total_toe);
-        array[105] = GloVariable.context.getString(R.string.left_rear_toe);
-        array[110] = GloVariable.context.getString(R.string.right_rear_toe);
-        array[115] = GloVariable.context.getString(R.string.left_rear_camber);
-        array[120] = GloVariable.context.getString(R.string.right_rear_camber);
-        array[125] = GloVariable.context.getString(R.string.thrust_angle);
-        array[130] = GloVariable.context.getString(R.string.wheelbase_diff);
-        array[135] = GloVariable.context.getString(R.string.wheel_diff);
-        array[140] = GloVariable.context.getString(R.string.left_include_angle);
-        array[145] = GloVariable.context.getString(R.string.right_include_angle);
-        array[150] = GloVariable.context.getString(R.string.left_turn_angle);
-        array[155] = GloVariable.context.getString(R.string.right_turn_angle);
-        array[160] = GloVariable.context.getString(R.string.left_max_turn_angle);
-        array[165] = GloVariable.context.getString(R.string.right_max_turn_angle);
-
-        array[56] = data.getFrontTotalToe().getPreReal();
-        array[57] = data.getFrontTotalToe().getMin();
-        array[58] = data.getFrontTotalToe().getMax();
-        array[59] = data.getFrontTotalToe().getReal();
-
-        array[61] = data.getLeftFrontToe().getPreReal();
-        array[62] = data.getLeftFrontToe().getMin();
-        array[63] = data.getLeftFrontToe().getMax();
-        array[64] = data.getLeftFrontToe().getReal();
-
-        array[66] = data.getRightFrontToe().getPreReal();
-        array[67] = data.getRightFrontToe().getMin();
-        array[68] = data.getRightFrontToe().getMax();
-        array[69] = data.getRightFrontToe().getReal();
-
-        array[71] = data.getLeftFrontCamber().getPreReal();
-        array[72] = data.getLeftFrontCamber().getMin();
-        array[73] = data.getLeftFrontCamber().getMax();
-        array[74] = data.getLeftFrontCamber().getReal();
-
-        array[76] = data.getRightFrontCamber().getPreReal();
-        array[77] = data.getRightFrontCamber().getMin();
-        array[78] = data.getRightFrontCamber().getMax();
-        array[79] = data.getRightFrontCamber().getReal();
-
-        array[81] = data.getLeftCaster().getPreReal();
-        array[82] = data.getLeftCaster().getMin();
-        array[83] = data.getLeftCaster().getMax();
-        array[84] = data.getLeftCaster().getReal();
-
-        array[86] = data.getRightCaster().getPreReal();
-        array[87] = data.getRightCaster().getMin();
-        array[88] = data.getRightCaster().getMax();
-        array[89] = data.getRightCaster().getReal();
-
-        array[91] = data.getLeftKpi().getPreReal();
-        array[92] = data.getLeftKpi().getMin();
-        array[93] = data.getLeftKpi().getMax();
-        array[94] = data.getLeftKpi().getReal();
-
-        array[96] = data.getRightKpi().getPreReal();
-        array[97] = data.getRightKpi().getMin();
-        array[98] = data.getRightKpi().getMax();
-        array[99] = data.getRightKpi().getReal();
-
-        array[101] = data.getRearTotalToe().getPreReal();
-        array[102] = data.getRearTotalToe().getMin();
-        array[103] = data.getRearTotalToe().getMax();
-        array[104] = data.getRearTotalToe().getReal();
-
-        array[106] = data.getLeftRearToe().getPreReal();
-        array[107] = data.getLeftRearToe().getMin();
-        array[108] = data.getLeftRearToe().getMax();
-        array[109] = data.getLeftRearToe().getReal();
-
-        array[111] = data.getRightRearToe().getPreReal();
-        array[112] = data.getRightRearToe().getMin();
-        array[113] = data.getRightRearToe().getMax();
-        array[114] = data.getRightRearToe().getReal();
-
-        array[116] = data.getLeftRearCamber().getPreReal();
-        array[117] = data.getLeftRearCamber().getMin();
-        array[118] = data.getLeftRearCamber().getMax();
-        array[119] = data.getLeftRearCamber().getReal();
-
-        array[121] = data.getRightRearCamber().getPreReal();
-        array[122] = data.getRightRearCamber().getMin();
-        array[123] = data.getRightRearCamber().getMax();
-        array[124] = data.getRightRearCamber().getReal();
-
-        array[126] = data.getMaxThrust().getPreReal();
-        array[127] = data.getMaxThrust().getMin();
-        array[128] = data.getMaxThrust().getMax();
-        array[129] = data.getMaxThrust().getReal();
-
-        array[131] = data.getWheelbaseDiff().getPreReal();
-        array[132] = data.getWheelbaseDiff().getMin();
-        array[133] = data.getWheelbaseDiff().getMax();
-        array[134] = data.getWheelbaseDiff().getReal();
-
-        array[136] = data.getWheelDiff().getPreReal();
-        array[137] = data.getWheelDiff().getMin();
-        array[138] = data.getWheelDiff().getMax();
-        array[139] = data.getWheelDiff().getReal();
-
-        array[141] = data.getLeftIncludeAngle().getPreReal();
-        array[142] = data.getLeftIncludeAngle().getMin();
-        array[143] = data.getLeftIncludeAngle().getMax();
-        array[144] = data.getLeftIncludeAngle().getReal();
-
-        array[146] = data.getRightIncludeAngle().getPreReal();
-        array[147] = data.getRightIncludeAngle().getMin();
-        array[148] = data.getRightIncludeAngle().getMax();
-        array[149] = data.getRightIncludeAngle().getReal();
-
-        array[151] = data.getLeftTurnAngle().getPreReal();
-        array[152] = data.getLeftTurnAngle().getMin();
-        array[153] = data.getLeftTurnAngle().getMax();
-        array[154] = data.getLeftTurnAngle().getReal();
-
-        array[156] = data.getRightTurnAngle().getPreReal();
-        array[157] = data.getRightTurnAngle().getMin();
-        array[158] = data.getRightTurnAngle().getMax();
-        array[159] = data.getRightTurnAngle().getReal();
-
-        array[161] = data.getLeftMaxTurnAngle().getPreReal();
-        array[162] = data.getLeftMaxTurnAngle().getMin();
-        array[163] = data.getLeftMaxTurnAngle().getMax();
-        array[164] = data.getLeftMaxTurnAngle().getReal();
-
-        array[166] = data.getRightMaxTurnAngle().getPreReal();
-        array[167] = data.getRightMaxTurnAngle().getMin();
-        array[168] = data.getRightMaxTurnAngle().getMax();
-        array[169] = data.getRightMaxTurnAngle().getReal();
-
-        array[171] = GloVariable.unit.getValue();
-        array[172] = "500.00";
-        array[173] = info.getWheelBase();
-        array[174] = info.getFrontTread();
-
-        StringBuilder buff = new StringBuilder();
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) array[i] = "";
-            buff.append(String.format("%s|", array[i]));
-        }
-
-        return buff.toString();
-    }
 }

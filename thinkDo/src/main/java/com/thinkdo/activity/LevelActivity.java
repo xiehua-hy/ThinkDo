@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.VehicleDbUtil;
-import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.LevelParam;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.SpecialParams;
@@ -146,13 +146,13 @@ public class LevelActivity extends Activity {
                 }
 
                 if (sLeftFront.equals("")) {
-                    sLeftFront = GloVariable.initValue;
-                    sRightFront = GloVariable.initValue;
+                    sLeftFront = MainApplication.initValue;
+                    sRightFront = MainApplication.initValue;
                 }
 
                 if (sLeftRear.equals("")) {
-                    sLeftRear = GloVariable.initValue;
-                    sRightRear = GloVariable.initValue;
+                    sLeftRear = MainApplication.initValue;
+                    sRightRear = MainApplication.initValue;
                 }
 
                 final String fFront = CommonUtil.format((Float.parseFloat(sLeftFront) + Float.parseFloat(sRightFront)) / 2, 2);

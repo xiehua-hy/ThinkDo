@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">升克度</string>
     <string name="menu">菜单</string>
     <string name="alignment">四轮定位</string>
     <string name="preferences">优先设置</string>
@@ -15,12 +14,12 @@
     <string name="port_hint">端口号</string>
     <string name="save">保存</string>
     <string name="reset">清空</string>
-    <string name="about_explain">顺易公司版权所有，侵权必究！</string>
+    <string name="about_explain">3D公司版权所有，侵权必究！</string>
     <string name="current_version">当前版本: </string>
     <string name="started_measure">开始测量</string>
     <string name="fast_measure">快速测量</string>
     <string name="photo_monitor">相机监视</string>
-    <string name="special_measure">特殊测量</string>
+    <string name="special_measure">附加测量</string>
     <string name="user_data">用户数据</string>
     <string name="unit_set">单位设置</string>
     <string name="garage_set">店家设置</string>
@@ -60,10 +59,8 @@
     <string name="right_turn_angle">右转20度前张角</string>
     <string name="left_max_turn_angle">左转最大转向角</string>
     <string name="right_max_turn_angle">右转最大转向角</string>
-    <string name="rightLateralDeviation">右侧横向偏位</string>
-    <string name="leftLateralDeviation">左侧横向偏位</string>
-    <string name="fontFlinchAngle">前轮退缩角</string>
-    <string name="rearFlinchAngle">后轮退缩角</string>
+    <string name="rightWheelbase">右侧轴距(mm)</string>
+    <string name="leftWheelbase">左侧轴距(mm)</string>
     <string name="axleOffset">轴偏位</string>
     <string name="tip_add_data">确定添加数据？</string>
     <string name="sure">确定</string>
@@ -98,7 +95,9 @@
     <string name="totalToe">总前束角</string>
     <string name="max_thrust_angle">最大推力角</string>
     <string name="front_wheel">前轮距</string>
+    <string name="front_wheel_1">前轮距(mm)</string>
     <string name="rearWheel">后轮距</string>
+    <string name="rearWheel_1">后轮距(mm)</string>
     <string name="wheelbase">轴距</string>
     <string name="attention_content_height">检查汽车状态，并调节相关部件，使相应的高度测量值都在标准范围内</string>
     <string name="front_height_values">前部车身高度</string>
@@ -132,8 +131,8 @@
     <string name="vehicle_data">车辆参数</string>
     <string name="error">异常</string>
     <string name="tip_raiseBtn_down">请放下车身</string>
-    <string name="tip_raiseBtn_up">放举起车身</string>
-    <string name="pushCar_tip_init">初始化中...</string>
+    <string name="tip_raiseBtn_up">请举起车身</string>
+    <string name="pushCar_tip_init">初始化中</string>
     <string name="pushCar_tip_testing">正在测试</string>
     <string name="pushCar_tip_forward">请往前推车</string>
     <string name="pushCar_tip_backward">请往后推车</string>
@@ -154,7 +153,7 @@
     <string name="notes">备注</string>
     <string name="vehicleInfo">车辆信息</string>
     <string name="tip_printOrSave_data">车牌号或姓名不能为空</string>
-    <string name="tip_data_saved">数据已保存！</string>
+    <string name="tip_data_saved">数据已保存</string>
     <string name="tip_data_printing">数据正在打印！</string>
     <string name="add_customer">添加客户</string>
     <string name="company">公司</string>
@@ -170,4 +169,155 @@
     <string name="tip_sure_delete">确认删除数据？</string>
     <string name="tip_data_fail_save">数据保存失败</string>
     <string name="tip_exit_press_again">再按一次，退出程序</string>
+    <string name="register">注册</string>
+    <string name="register_code">注册码</string>
+    <string name="tip_login_already">已登录</string>
+    <string name="tip_login_failed">登录失败</string>
+    <string name="tip_login_success">登录成功</string>
+    <string name="tip_connect_failed">连接失败</string>
+    <string name="tip_cdk_error">注册码错误</string>
+    <string name="tip_cdk_length_error">注册码长度错误</string>
+    <string name="tip_register_success">注册成功</string>
+    <string name="remaining_days">剩余天数</string>
+    <string name="devicesId">设备ID</string>
+    <string name="tip_please_login">请登录</string>
+    <string name="tip_recharge">请充值</string>
+    <string name="photo_light_set">相机亮度</string>
+    <string name="tip_photo_password">请输入相机密码</string>
+    <string name="tip_set_photo_password">相机密码设置</string>
+    <string name="camera1">一号相机</string>
+    <string name="camera2">二号相机</string>
+    <string name="camera3">三号相机</string>
+    <string name="camera4">四号相机</string>
+    <string name="camera5">五号相机</string>
+    <string name="connect_failed">连接主机失败,点击屏幕重新连接</string>
+
+    <string name="error_1">未知错误</string>
+    <string name="error_2">图像采集失败</string>
+    <string name="error_77">图像信号错误</string>
+    <string name="error_69">图像离左边缘太近</string>
+    <string name="error_68">图像离右边缘太近</string>
+    <string name="error_67">图像离上边缘太近</string>
+    <string name="error_66">图像离下边缘太近</string>
+    <string name="error_65">图像太亮</string>
+    <string name="error_64">图像太暗</string>
+    <string name="error_63">边缘点太少</string>
+    <string name="error_62">边缘太模糊</string>
+    <string name="error_61">图像粘连</string>
+    <string name="error_60">找到的圆少于要求数量</string>
+    <string name="error_59">找到的圆多于要求数量</string>
+    <string name="error_58">坐标无效</string>
+    <string name="error_57">边框不完整</string>
+    <string name="error_56">图象不稳定</string>
+    <string name="error_16">中部图像被遮挡</string>
+    <string name="error_55">采集卡或者相机错误</string>
+    <string name="error_18">左前轮: </string>
+    <string name="error_19">右前轮: </string>
+    <string name="error_20">左后轮: </string>
+    <string name="error_21">右后轮: </string>
+    <string name="error_22">转太前</string>
+    <string name="error_23">转太后</string>
+    <string name="password_error">密码错误</string>
+    <string name="languageSet">语言设置</string>
+    <string name="first_left_toe">一轴左前束</string>
+    <string name="second_left_toe">二轴左前束</string>
+    <string name="third_left_toe">三轴左前束</string>
+    <string name="fourth_left_toe">四轴左前束</string>
+
+    <string name="first_right_toe">一轴右前束</string>
+    <string name="second_right_toe">二轴右前束</string>
+    <string name="third_right_toe">三轴右前束</string>
+    <string name="fourth_right_toe">四轴右前束</string>
+
+    <string name="first_left_camber">一轴左外倾</string>
+    <string name="second_left_camber">二轴左外倾</string>
+    <string name="third_left_camber">三轴左外倾</string>
+    <string name="fourth_left_camber">四轴左外倾</string>
+
+    <string name="first_right_camber">一轴右外倾</string>
+    <string name="second_right_camber">二轴右外倾</string>
+    <string name="third_right_camber">三轴右外倾</string>
+    <string name="fourth_right_camber">四轴右外倾</string>
+
+    <string name="first_total_toe">一轴总前束</string>
+    <string name="second_total_toe">二轴总前束</string>
+    <string name="third_total_toe">三轴总前束</string>
+    <string name="fourth_total_toe">四轴总前束</string>
+
+    <string name="first_left_kpi">一轴左内倾</string>
+    <string name="first_right_kpi">一轴右内倾</string>
+    <string name="second_left_kpi">二轴左内倾</string>
+    <string name="second_right_kpi">二轴右内倾</string>
+    <string name="first_left_caster">一轴左后倾</string>
+    <string name="first_right_caster">一轴右后倾</string>
+    <string name="second_left_caster">二轴左后倾</string>
+    <string name="second_right_caster">二轴右后倾</string>
+
+    <string name="third_left_caster">三轴左后倾</string>
+    <string name="third_right_caster">三轴右后倾</string>
+    <string name="third_left_kpi">三轴左内倾</string>
+    <string name="third_right_kpi">三轴右内倾</string>
+
+    <string name="fourth_left_caster">四轴左后倾</string>
+    <string name="fourth_right_caster">四轴右后倾</string>
+    <string name="fourth_left_kpi">四轴左内倾</string>
+    <string name="fourth_right_kpi">四轴右内倾</string>
+
+    <string name="fifth_total_toe">五轴总前束</string>
+    <string name="fifth_left_toe">五轴左前束</string>
+    <string name="fifth_right_toe">五轴右前束</string>
+    <string name="fifth_left_camber">五轴左外倾</string>
+    <string name="fifth_right_camber">五轴右外倾</string>
+    <string name="fifth_left_caster">五轴左后倾</string>
+    <string name="fifth_right_caster">五轴右后倾</string>
+    <string name="fifth_left_kpi">五轴左内倾</string>
+    <string name="fifth_right_kpi">五轴右内倾</string>
+    <string name="sixth_total_toe">六轴总前束</string>
+    <string name="sixth_left_toe">六轴左前束</string>
+    <string name="sixth_right_toe">六轴右前束</string>
+    <string name="sixth_left_camber">六轴左外倾</string>
+    <string name="sixth_right_camber">六轴右外倾</string>
+    <string name="sixth_left_caster">六轴左后倾</string>
+    <string name="sixth_right_caster">六轴右后倾</string>
+    <string name="sixth_left_kpi">六轴左内倾</string>
+    <string name="sixth_right_kpi">六轴右内倾</string>
+    <string name="seventh_total_toe">七轴总前束</string>
+    <string name="seventh_left_toe">七轴左前束</string>
+    <string name="seventh_right_toe">七轴右前束</string>
+    <string name="seventh_left_camber">七轴左外倾</string>
+    <string name="seventh_right_camber">七轴右外倾</string>
+    <string name="eighth_total_toe">八轴总前束</string>
+    <string name="eighth_left_toe">八轴左前束</string>
+    <string name="eighth_right_toe">八轴右前束</string>
+    <string name="eighth_left_camber">八轴左外倾</string>
+    <string name="eighth_right_camber">八轴右外倾</string>
+    <string name="ninth_total_toe">九轴总前束</string>
+    <string name="ninth_left_toe">九轴左前束</string>
+    <string name="ninth_right_toe">九轴右前束</string>
+    <string name="ninth_left_camber">九轴左外倾</string>
+    <string name="ninth_right_camber">九轴右外倾</string>
+    <string name="tenth_total_toe">十轴总前束</string>
+    <string name="tenth_left_toe">十轴左前束</string>
+    <string name="tenth_right_toe">十轴右前束</string>
+    <string name="tenth_left_camber">十轴左外倾</string>
+    <string name="tenth_right_camber">十轴右外倾</string>
+    <string name="eleventh_total_toe">十一轴总前束</string>
+    <string name="eleventh_left_toe">十一轴左前束</string>
+    <string name="eleventh_right_toe">十一轴右前束</string>
+    <string name="eleventh_left_camber">十一轴左外倾</string>
+    <string name="eleventh_right_camber">十一轴右外倾</string>
+    <string name="twelfth_total_toe">十二轴总前束</string>
+    <string name="twelfth_left_toe">十二轴左前束</string>
+    <string name="twelfth_right_toe">十二轴右前束</string>
+    <string name="twelfth_left_camber">十二轴左外倾</string>
+    <string name="twelfth_right_camber">十二轴右外倾</string>
+    <string name="axle">车轴</string>
+    <string name="tip_select_vehicle">请先选择车型</string>
+    <string name="tip_set_refer_1">一轴已设为标准轴</string>
+    <string name="tip_set_refer_2">二轴已设为标准轴</string>
+    <string name="tip_set_refer_3">三轴已设为标准轴</string>
+    <string name="tip_set_refer_4">四轴已设为标准轴</string>
+    <string name="tip_data_save_as">数据保存为</string>
+
+
 </resources>

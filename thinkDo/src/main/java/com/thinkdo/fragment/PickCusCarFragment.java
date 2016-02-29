@@ -12,8 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.CustomDbUtil;
-import com.thinkdo.entity.GloVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class PickCusCarFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 if (callback != null) {
                                     Map<String, String> map = data.get(i);
-                                    callback.onCusManSelected(map.get(colID), map.get(colInfo), GloVariable.cusdb);
+                                    callback.onCusManSelected(map.get(colID), map.get(colInfo), MainApplication.cusdb);
                                 }
                             }
                         });

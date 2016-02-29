@@ -1,6 +1,5 @@
 package com.thinkdo.util;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,7 +7,7 @@ import android.os.Handler;
 import android.widget.ImageView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,8 +24,8 @@ public class KingpinCircleThread {
     public KingpinCircleThread(Handler handler) {
         this.handler = handler;
         this.executorService = Executors.newSingleThreadExecutor();
-        this.density = GloVariable.context.getResources().getDisplayMetrics().density;
-        src = BitmapFactory.decodeResource(GloVariable.context.getResources(), R.drawable.if_circle_1);
+        this.density = MainApplication.context.getResources().getDisplayMetrics().density;
+        src = BitmapFactory.decodeResource(MainApplication.context.getResources(), R.drawable.if_circle_1);
 
     }
 

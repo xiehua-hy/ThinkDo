@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.UnitEnum;
 import com.thinkdo.entity.ValuesPair;
 
@@ -58,7 +58,7 @@ public class BarDefAdd extends LinearLayout {
     public String getMinText() {
         String str = min.getText().toString();
         if (str.equals("")) {
-            return GloVariable.initValue;
+            return MainApplication.initValue;
         }
         return str;
     }
@@ -66,7 +66,7 @@ public class BarDefAdd extends LinearLayout {
     public String getMaxText() {
         String str = max.getText().toString();
         if (str.equals("")) {
-            return GloVariable.initValue;
+            return MainApplication.initValue;
         }
         return str;
     }

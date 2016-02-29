@@ -15,10 +15,9 @@ import android.widget.ImageView;
 import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.net.NetConnect;
-import com.thinkdo.net.NetQuest;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.DataCircleLoadThread;
 import com.thinkdo.util.MyDialog;
@@ -45,79 +44,76 @@ public class FastTestFragment extends Fragment {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+            if (backCode == MainApplication.testDataUrl) {
+                if (MainActivity.referData == null)
+                    MainActivity.referData = new ReferData();
+                MainActivity.referData.addRealData(reply);
+
+                ReferData test = MainActivity.referData.copy();
+                test.unitConvert();
+
+                if (MainActivity.referData.isFlush()) {
+                    loadData(test);
+                    MainActivity.referData.setFlush(false);
+                }
+
+                if (carInUp != test.isRaiseStatus()) {
+                    carInUp = !carInUp;
+                    raiseBtn.setChecked(carInUp);
+                    ((MainActivity) getActivity()).setRaise(carInUp);
+                }
+
+                frontTotalToe.setResult(test.getFrontTotalToe());
+                leftFrontToe.setResult(test.getLeftFrontToe());
+                rightFrontToe.setResult(test.getRightFrontToe());
+
+                leftFrontCamber.setResult(test.getLeftFrontCamber());
+                rightFrontCamber.setResult(test.getRightFrontCamber());
+
+                rearTotalToe.setResult(test.getRearTotalToe());
+                leftRearToe.setResult(test.getLeftRearToe());
+                rightRearToe.setResult(test.getRightRearToe());
+
+                leftRearCamber.setResult(test.getLeftRearCamber());
+                rightRearCamber.setResult(test.getRightRearCamber());
+
+                circleLoad.loadCirclePic(frontTotalToe.getLinearLayout(),
+                        test.getFrontTotalToe().getPercent());
+                circleLoad.loadCirclePic(leftFrontToe.getLinearLayout(),
+                        test.getLeftFrontToe().getPercent());
+                circleLoad.loadCirclePic(rightFrontToe.getLinearLayout(),
+                        test.getRightFrontToe().getPercent());
+
+                circleLoad.loadCirclePic(leftFrontCamber.getLinearLayout(),
+                        test.getLeftFrontCamber().getPercent());
+                circleLoad.loadCirclePic(rightFrontCamber.getLinearLayout(),
+                        test.getRightFrontCamber().getPercent());
+
+                circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
+                        test.getLeftRearCamber().getPercent());
+                circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
+                        test.getRightRearCamber().getPercent());
+
+                circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
+                        test.getRearTotalToe().getPercent());
+                circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
+                        test.getLeftRearToe().getPercent());
+                circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
+                        test.getRightRearToe().getPercent());
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.testDataUrl && callback != null) {
+            } else if (callback != null) {
                 callback.fastTestNext(backCode);
-            } else {
-                switch (statusCode) {
-                    case 3:
-                        if (MainActivity.referData == null)
-                            MainActivity.referData = new ReferData();
-                        MainActivity.referData.addRealData(reply);
-
-                        ReferData test = MainActivity.referData.copy();
-                        test.unitConvert();
-
-                        if (MainActivity.referData.isFlush()) {
-                            loadData(test);
-                            MainActivity.referData.setFlush(false);
-                        }
-
-                        if (carInUp != test.isRaiseStatus()) {
-                            carInUp = !carInUp;
-                            raiseBtn.setChecked(carInUp);
-                            ((MainActivity) getActivity()).setRaise(carInUp);
-                        }
-
-                        frontTotalToe.setResult(test.getFrontTotalToe());
-                        leftFrontToe.setResult(test.getLeftFrontToe());
-                        rightFrontToe.setResult(test.getRightFrontToe());
-
-                        leftFrontCamber.setResult(test.getLeftFrontCamber());
-                        rightFrontCamber.setResult(test.getRightFrontCamber());
-
-                        rearTotalToe.setResult(test.getRearTotalToe());
-                        leftRearToe.setResult(test.getLeftRearToe());
-                        rightRearToe.setResult(test.getRightRearToe());
-
-                        leftRearCamber.setResult(test.getLeftRearCamber());
-                        rightRearCamber.setResult(test.getRightRearCamber());
-
-                        circleLoad.loadCirclePic(frontTotalToe.getLinearLayout(),
-                                test.getFrontTotalToe().getPercent());
-                        circleLoad.loadCirclePic(leftFrontToe.getLinearLayout(),
-                                test.getLeftFrontToe().getPercent());
-                        circleLoad.loadCirclePic(rightFrontToe.getLinearLayout(),
-                                test.getRightFrontToe().getPercent());
-
-                        circleLoad.loadCirclePic(leftFrontCamber.getLinearLayout(),
-                                test.getLeftFrontCamber().getPercent());
-                        circleLoad.loadCirclePic(rightFrontCamber.getLinearLayout(),
-                                test.getRightFrontCamber().getPercent());
-
-                        circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
-                                test.getLeftRearCamber().getPercent());
-                        circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
-                                test.getRightRearCamber().getPercent());
-
-                        circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
-                                test.getRearTotalToe().getPercent());
-                        circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
-                                test.getLeftRearToe().getPercent());
-                        circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
-                                test.getRightRearToe().getPercent());
-                        break;
-                }
             }
             return true;
         }
@@ -155,11 +151,11 @@ public class FastTestFragment extends Fragment {
                 if (checked) {
                     contentId = R.string.tip_raiseBtn_down;
                     resId = R.drawable.ib_arrow_down_press1;
-                    questCode = GloVariable.downCar;
+                    questCode = MainApplication.downCar;
                 } else {
                     contentId = R.string.tip_raiseBtn_up;
                     resId = R.drawable.ib_arrow_up_press1;
-                    questCode = GloVariable.upCar;
+                    questCode = MainApplication.upCar;
                 }
 
                 ImageView iv = new ImageView(getActivity());
@@ -218,14 +214,14 @@ public class FastTestFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.fastTestUrl);
+        socketClient = new NetConnect(handler, MainApplication.fastTestUrl);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         transFlag = false;
-        socketClient.close();
+        if (socketClient != null) socketClient.close();
         myDialog.dismiss();
     }
 

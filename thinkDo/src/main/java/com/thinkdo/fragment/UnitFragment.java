@@ -7,7 +7,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.UnitEnum;
 
 
@@ -19,8 +19,8 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.fragment_unit);
-        loadSummary(GloVariable.unitKey);
-        loadSummary(GloVariable.toeUnitKey);
+        loadSummary(MainApplication.unitKey);
+        loadSummary(MainApplication.toeUnitKey);
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
     }
@@ -32,7 +32,7 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
 
     public void loadSummary(String key) {
         String[] array = getResources().getStringArray(R.array.toeUnitEntry);
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
         if (array == null || shared == null) return;
         ListPreference listPre = (ListPreference) findPreference(key);
 
@@ -59,11 +59,11 @@ public class UnitFragment extends PreferenceFragment implements SharedPreference
 
     public void recordCurUnit(String key, UnitEnum unit) {
         switch (key) {
-            case GloVariable.unitKey:
-                GloVariable.unit = unit;
+            case MainApplication.unitKey:
+                MainApplication.unit = unit;
                 break;
-            case GloVariable.toeUnitKey:
-                GloVariable.toeUnit = unit;
+            case MainApplication.toeUnitKey:
+                MainApplication.toeUnit = unit;
                 break;
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="main_blue">#99cccc</color>
+    <color name="main_blue">#99CCFF</color>
     <color name="font_red_holo">#ff6666</color>
     <color name="font_black">#333333</color>
     <color name="font_blue">#6699cc</color>
-    <color name="bg_main">#66ccff</color>
-    <color name="dark_blue">#1F55B8</color>
+    <color name="bg_main">#fbfbfb</color>
+    <color name="dark_blue">#1F5599</color>
     <color name="gold">#ffcc33</color>
     <color name="dark_red">#cc3333</color>
     <color name="light_blue">#99ccff</color>

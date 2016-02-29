@@ -7,10 +7,15 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/user_info"
+        layout="@layout/include_user_info" />
+
     <com.thinkdo.view.BarItem
         android:id="@+id/barItem_hostSet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         skd:barTextColor="@android:color/white"
         skd:barTitle="@string/net_set" />
 
@@ -20,6 +25,13 @@
         android:layout_height="wrap_content"
         skd:barTextColor="@android:color/white"
         skd:barTitle="@string/db_update" />
+
+    <com.thinkdo.view.BarItem
+        android:id="@+id/barItem_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        skd:barTextColor="@android:color/white"
+        skd:barTitle="@string/register" />
 
     <com.thinkdo.view.BarItem
         android:id="@+id/barItem_about"
@@ -34,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/selector_exit_btn"
         android:text="@string/exit"
         android:textColor="@android:color/white"

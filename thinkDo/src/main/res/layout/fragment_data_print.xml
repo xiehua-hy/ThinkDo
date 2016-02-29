@@ -300,34 +300,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center">
+        <include layout="@layout/include_print_btn" />
 
-            <Button
-                android:id="@id/btn_save"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="@dimen/print_btn_width"
-                android:layout_height="@dimen/print_btn_height"
-                android:layout_marginEnd="64dp"
-                android:layout_marginRight="64dp"
-                android:background="@drawable/selector_next_btn"
-                android:text="@string/save"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/print_title_font_size" />
-
-            <Button
-                android:id="@+id/btn_print"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="@dimen/print_btn_width"
-                android:layout_height="@dimen/print_btn_height"
-                android:background="@drawable/selector_next_btn"
-                android:text="@string/print"
-                android:textColor="@color/font_black"
-                android:textSize="@dimen/print_title_font_size" />
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

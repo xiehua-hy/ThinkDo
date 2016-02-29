@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.KingpinCircleThread;
 import com.thinkdo.util.MyDialog;
@@ -26,6 +29,7 @@ public class KingpinFragment extends Fragment {
     private MyDialog myDialog;
     private boolean transFlag = false;
     private KingpinCircleThread kingpinCircleThread;
+    private NetSingleConnect loginConnect;
     private TextView tv;
     private ImageView iv_wheel, iv_circle;
 
@@ -33,18 +37,33 @@ public class KingpinFragment extends Fragment {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.kingpinUrl && callback != null) {
+            } else if (backCode != MainApplication.kingpinUrl && callback != null) {
                 callback.kinPingNext(backCode);
             } else {
                 switch (statusCode) {
@@ -72,7 +91,7 @@ public class KingpinFragment extends Fragment {
                         break;
 
                     case 6:
-                        if (callback != null) callback.kinPingNext(GloVariable.testDataUrl);
+                        if (callback != null) callback.kinPingNext(MainApplication.testDataUrl);
                         break;
 
                     case 7:
@@ -116,7 +135,7 @@ public class KingpinFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (callback != null)
-                    callback.kinPingNext(GloVariable.testDataUrl);
+                    callback.kinPingNext(MainApplication.frontShowUrl);
             }
         });
     }
@@ -132,7 +151,7 @@ public class KingpinFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.kingpinUrl);
+        startConnect();
     }
 
     @Override
@@ -140,7 +159,18 @@ public class KingpinFragment extends Fragment {
         super.onPause();
         transFlag = false;
         myDialog.dismiss();
-        socketClient.close();
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
+    }
+
+    public void startConnect() {
+        if (MainApplication.availableDay > 0) {
+            socketClient = new NetConnect(handler, MainApplication.kingpinUrl);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

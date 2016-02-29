@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.fragment.FastTestFragment;
 import com.thinkdo.fragment.FastTestFragment.FastTestCallback;
 import com.thinkdo.net.NetQuest;
@@ -57,7 +57,7 @@ public class FastTestActivity extends Activity implements FastTestCallback {
             return;
         }
         super.finish();
-        new NetQuest(GloVariable.homeUrl).start();
+        new NetQuest(MainApplication.homeUrl);
     }
 
     public void setRaise(boolean check) {

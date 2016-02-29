@@ -1,6 +1,6 @@
 package com.thinkdo.net;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.util.CommonUtil;
 
 /**
@@ -23,11 +23,12 @@ public class NetQuest extends Thread {
         this.quest = quest;
         this.param = param;
         this.msg = msg;
+        start();
     }
 
     @Override
     public void run() {
-        String hostIp = CommonUtil.getIp(GloVariable.ip);
+        String hostIp = CommonUtil.getIp(MainApplication.ip);
         if (hostIp != null) {
             SocketClient socket = new SocketClient(null, false);
             socket.send(quest, param, msg);

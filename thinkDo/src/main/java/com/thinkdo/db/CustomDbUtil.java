@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.CustomerModel;
 import com.thinkdo.entity.FormMetaModel;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.entity.LorryDataItem;
+import com.thinkdo.entity.LorryReferData;
 import com.thinkdo.entity.OperOftenDataTotalModel;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.TestVehicleInfoModel;
@@ -15,7 +18,10 @@ import com.thinkdo.entity.ValuesPair;
 import com.thinkdo.fragment.PickCusCarFragment;
 import com.thinkdo.util.CommonUtil;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +29,7 @@ import java.util.Map;
 public class CustomDbUtil {
 
     public SQLiteDatabase getWriteDb() {
-        String path = GloVariable.context.getDatabasePath(GloVariable.customSqliteName).getPath();
+        String path = MainApplication.context.getDatabasePath(MainApplication.customSqliteName).getPath();
         try {
             return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READWRITE);
         } catch (SQLiteException e) {
@@ -33,7 +39,7 @@ public class CustomDbUtil {
     }
 
     public SQLiteDatabase getReadDb() {
-        String path = GloVariable.context.getDatabasePath(GloVariable.customSqliteName).getPath();
+        String path = MainApplication.context.getDatabasePath(MainApplication.customSqliteName).getPath();
         try {
             return SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
         } catch (SQLiteException e) {
@@ -77,6 +83,7 @@ public class CustomDbUtil {
 
         cur.close();
         db.close();
+        Collections.sort(data);
         return data;
     }
 
@@ -441,6 +448,74 @@ public class CustomDbUtil {
         return flag != -1;
     }
 
+    public LorryDataItem queryLorryTestData(String customerId, String testSerial) {
+        SQLiteDatabase db = getReadDb();
+        if (db == null) return null;
+        String[] params = {
+                "FirstTotalToe", "FirstLeftToe", "FirstRightToe", "FirstLeftCamber", "FirstRightCamber",
+                "FirstLeftCaster", "FirstRightCaster", "FirstLeftKpi", "FirstRightKpi",
+
+                "SecondTotalToe", "SecondLeftToe", "SecondRightToe", "SecondLeftCamber", "SecondRightCamber",
+                "SecondLeftCaster", "SecondRightCaster", "SecondLeftKpi", "SecondRightKpi",
+
+                "ThirdTotalToe", "ThirdLeftToe", "ThirdRightToe", "ThirdLeftCamber", "ThirdRightCamber",
+                "ThirdLeftCaster", "ThirdRightCaster", "ThirdLeftKpi", "ThirdRightKpi",
+
+                "FourthTotalToe", "FourthLeftToe", "FourthRightToe", "FourthLeftCamber", "FourthRightCamber",
+                "FourthLeftCaster", "FourthRightCaster", "FourthLeftKpi", "FourthRightKpi",
+
+                "FifthTotalToe", "FifthLeftToe", "FifthRightToe", "FifthLeftCamber", "FifthRightCamber",
+                "FifthLeftCaster", "FifthRightCaster", "FifthLeftKpi", "FifthRightKpi",
+
+                "SixthTotalToe", "SixthLeftToe", "SixthRightToe", "SixthLeftCamber", "SixthRightCamber",
+                "SixthLeftCaster", "SixthRightCaster", "SixthLeftKpi", "SixthRightKpi",
+
+                "SeventhTotalToe", "SeventhLeftToe", "SeventhRightToe", "SeventhLeftCamber", "SeventhRightCamber",
+
+                "EighthTotalToe", "EighthLeftToe", "EighthRightToe", "EighthLeftCamber", "EighthRightCamber",
+
+                "NinthTotalToe", "NinthLeftToe", "NinthRightToe", "NinthLeftCamber", "NinthRightCamber",
+
+                "TenthTotalToe", "TenthLeftToe", "TenthRightToe", "TenthLeftCamber", "TenthRightCamber",
+
+                "EleventhTotalToe", "EleventhLeftToe", "EleventhRightToe", "EleventhLeftCamber", "EleventhRightCamber",
+
+                "TwelfthTotalToe", "TwelfthLeftToe", "TwelfthRightToe", "TwelfthLeftCamber", "TwelfthRightCamber",
+        };
+
+        LorryDataItem data = new LorryDataItem();
+        String where = String.format("Client1=%s And ClientInfo1=%s", customerId, testSerial);
+        Cursor cur = db.query("OperClientTestData_L", null, where, null, null, null, "ID");
+        if (cur.getCount() == params.length) {
+            for (String str : params) {
+                cur.moveToNext();
+                String preReal = cur.getString(cur.getColumnIndex("ClientTestInfo1"));
+                String min = cur.getString(cur.getColumnIndex("ClientTestInfo2"));
+                String mid = cur.getString(cur.getColumnIndex("ClientTestInfo3"));
+                String max = cur.getString(cur.getColumnIndex("ClientTestInfo4"));
+                String real = cur.getString(cur.getColumnIndex("ClientTestInfo5"));
+
+                try {
+                    Method method = LorryDataItem.class.getMethod("set" + str, ValuesPair.class);
+                    method.invoke(data, new ValuesPair(min, mid, max, preReal, real));
+
+                    method = LorryDataItem.class.getMethod("get" + str);
+                    ((ValuesPair) method.invoke(data)).format(2);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        cur.close();
+        db.close();
+        return data;
+    }
+
     public ReferData queryTestData(String customerId, String testSerial) {
         SQLiteDatabase db = getReadDb();
         if (db == null) return null;
@@ -684,10 +759,51 @@ public class CustomDbUtil {
         return data;
     }
 
+
+    public boolean insertLorryTestData(LorryDataItem data, String customerId, String plateNo, String testSeries, String date) {
+        SQLiteDatabase db = getWriteDb();
+        if (db == null) return false;
+        long flag = -1;
+        Cursor cur = db.query("OperClientTestData_L", new String[]{"Max(ID) max"}, null, null, null, null, null);
+        int insertId = cur.moveToFirst()
+                ? cur.getInt(cur.getColumnIndex("max")) + 1
+                : 1;
+
+        ContentValues content = new ContentValues();
+        content.put("Client1", customerId);
+        content.put("Client3", plateNo);
+        content.put("ClientInfo1", testSeries);
+        content.put("ClientInfo2", date);
+
+        db.beginTransaction();
+        try {
+            //插入实时数据
+
+            for (ValuesPair pair : data.getValuesPairs()) {
+                content.put("ID", insertId++);
+                content.put("ClientTestInfo1", pair.getPreReal());
+                content.put("ClientTestInfo2", pair.getMin());
+                content.put("ClientTestInfo3", pair.getMid());
+                content.put("ClientTestInfo4", pair.getMax());
+                content.put("ClientTestInfo5", pair.getReal());
+                flag = db.insert("OperClientTestData_L", null, content);
+            }
+
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
+
+        cur.close();
+        db.close();
+
+        return flag != -1;
+    }
+
     public boolean insertTestVehicleData(ReferData data, String customerId, String plateNo, String testSeries, String date) {
         SQLiteDatabase db = getWriteDb();
         if (db == null) return false;
-
+        long flag = -1;
         Cursor cur = db.query("OperClientTestData", new String[]{"Max(ID) max"}, null, null, null, null, null);
         int insertId = cur.moveToFirst()
                 ? cur.getInt(cur.getColumnIndex("max")) + 1
@@ -698,212 +814,22 @@ public class CustomDbUtil {
         content.put("ClientInfo1", testSeries);
         content.put("ClientInfo2", date);
 
-        //row1 FrontTotalToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getFrontTotalToe().getPreReal());
-        content.put("ClientTestInfo2", data.getFrontTotalToe().getMin());
-        content.put("ClientTestInfo3", data.getFrontTotalToe().getMid());
-        content.put("ClientTestInfo4", data.getFrontTotalToe().getMax());
-        content.put("ClientTestInfo5", data.getFrontTotalToe().getReal());
-        db.insert("OperClientTestData", null, content);
+        db.beginTransaction();
+        try {
 
-        //row2 LeftFrontToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftFrontToe().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftFrontToe().getMin());
-        content.put("ClientTestInfo3", data.getLeftFrontToe().getMid());
-        content.put("ClientTestInfo4", data.getLeftFrontToe().getMax());
-        content.put("ClientTestInfo5", data.getLeftFrontToe().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row3 RightFrontToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightFrontToe().getPreReal());
-        content.put("ClientTestInfo2", data.getRightFrontToe().getMin());
-        content.put("ClientTestInfo3", data.getRightFrontToe().getMid());
-        content.put("ClientTestInfo4", data.getRightFrontToe().getMax());
-        content.put("ClientTestInfo5", data.getRightFrontToe().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row4 LeftFrontCamber
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftFrontCamber().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftFrontCamber().getMin());
-        content.put("ClientTestInfo3", data.getLeftFrontCamber().getMid());
-        content.put("ClientTestInfo4", data.getLeftFrontCamber().getMax());
-        content.put("ClientTestInfo5", data.getLeftFrontCamber().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row5 RightFrontCamber
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightFrontCamber().getPreReal());
-        content.put("ClientTestInfo2", data.getRightFrontCamber().getMin());
-        content.put("ClientTestInfo3", data.getRightFrontCamber().getMid());
-        content.put("ClientTestInfo4", data.getRightFrontCamber().getMax());
-        content.put("ClientTestInfo5", data.getRightFrontCamber().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row6 LeftCaster
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftCaster().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftCaster().getMin());
-        content.put("ClientTestInfo3", data.getLeftCaster().getMid());
-        content.put("ClientTestInfo4", data.getLeftCaster().getMax());
-        content.put("ClientTestInfo5", data.getLeftCaster().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row7 RightCaster
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightCaster().getPreReal());
-        content.put("ClientTestInfo2", data.getRightCaster().getMin());
-        content.put("ClientTestInfo3", data.getRightCaster().getMid());
-        content.put("ClientTestInfo4", data.getRightCaster().getMax());
-        content.put("ClientTestInfo5", data.getRightCaster().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row8 LeftKPI
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftKpi().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftKpi().getMin());
-        content.put("ClientTestInfo3", data.getLeftKpi().getMid());
-        content.put("ClientTestInfo4", data.getLeftKpi().getMax());
-        content.put("ClientTestInfo5", data.getLeftKpi().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row9 RightKPI
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightKpi().getPreReal());
-        content.put("ClientTestInfo2", data.getRightKpi().getMin());
-        content.put("ClientTestInfo3", data.getRightKpi().getMid());
-        content.put("ClientTestInfo4", data.getRightKpi().getMax());
-        content.put("ClientTestInfo5", data.getRightKpi().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row10 RearTotalToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRearTotalToe().getPreReal());
-        content.put("ClientTestInfo2", data.getRearTotalToe().getMin());
-        content.put("ClientTestInfo3", data.getRearTotalToe().getMid());
-        content.put("ClientTestInfo4", data.getRearTotalToe().getMax());
-        content.put("ClientTestInfo5", data.getRearTotalToe().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row11 LeftRearToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftRearToe().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftRearToe().getMin());
-        content.put("ClientTestInfo3", data.getLeftRearToe().getMid());
-        content.put("ClientTestInfo4", data.getLeftRearToe().getMax());
-        content.put("ClientTestInfo5", data.getLeftRearToe().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row12 RightRearToe
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightRearToe().getPreReal());
-        content.put("ClientTestInfo2", data.getRightRearToe().getMin());
-        content.put("ClientTestInfo3", data.getRightRearToe().getMid());
-        content.put("ClientTestInfo4", data.getRightRearToe().getMax());
-        content.put("ClientTestInfo5", data.getRightRearToe().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row13 LeftRearCamber
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftRearCamber().getPreReal());
-        content.put("ClientTestInfo2", data.getLeftRearCamber().getMin());
-        content.put("ClientTestInfo3", data.getLeftRearCamber().getMid());
-        content.put("ClientTestInfo4", data.getLeftRearCamber().getMax());
-        content.put("ClientTestInfo5", data.getLeftRearCamber().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row14 RightRearCamber
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightRearCamber().getPreReal());
-        content.put("ClientTestInfo2", data.getRightRearCamber().getMin());
-        content.put("ClientTestInfo3", data.getRightRearCamber().getMid());
-        content.put("ClientTestInfo4", data.getRightRearCamber().getMax());
-        content.put("ClientTestInfo5", data.getRightRearCamber().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row15 ThrustAngleMax
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getMaxThrust().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getMaxThrust().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row16 WheelbaseDiff
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getWheelbaseDiff().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getWheelbaseDiff().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row17 WheelbaseDiff
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getWheelDiff().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getWheelDiff().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row18 LeftIncludedAngle
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftIncludeAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getLeftIncludeAngle().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row19 RightIncludedAngle
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightIncludeAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getRightIncludeAngle().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row20 LeftTurnAngle
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftTurnAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getLeftTurnAngle().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row21 RightTurnAngle
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getRightTurnAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getRightTurnAngle().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row22 LeftMaxTurnAngle
-        content.put("ID", insertId++);
-        content.put("ClientTestInfo1", data.getLeftMaxTurnAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getLeftMaxTurnAngle().getReal());
-        db.insert("OperClientTestData", null, content);
-
-        //row23 LeftMaxTurnAngle
-        content.put("ID", insertId);
-        content.put("ClientTestInfo1", data.getLeftMaxTurnAngle().getPreReal());
-        content.put("ClientTestInfo2", GloVariable.initValue);
-        content.put("ClientTestInfo3", GloVariable.initValue);
-        content.put("ClientTestInfo4", GloVariable.initValue);
-        content.put("ClientTestInfo5", data.getLeftMaxTurnAngle().getReal());
-        long flag = db.insert("OperClientTestData", null, content);
+            for (ValuesPair pair : data.getValuesPairs()) {
+                content.put("ID", insertId++);
+                content.put("ClientTestInfo1", pair.getPreReal());
+                content.put("ClientTestInfo2", pair.getMin());
+                content.put("ClientTestInfo3", pair.getMid());
+                content.put("ClientTestInfo4", pair.getMax());
+                content.put("ClientTestInfo5", pair.getReal());
+                flag = db.insert("OperClientTestData", null, content);
+            }
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
 
         cur.close();
         db.close();
@@ -1152,6 +1078,16 @@ public class CustomDbUtil {
         cur.close();
         db.close();
         return data;
+    }
+
+    public void deleteVehicleInfo(String vehicleId) {
+        SQLiteDatabase db = getWriteDb();
+        if (db == null) return;
+        //删除车型字段信息
+        db.delete("OperOftenDataTotal", "OftenTotal23 = " + vehicleId, null);
+        //删除车型参数信息
+        db.delete("OperOftenDataDetail", "OftenTotal23 = " + vehicleId, null);
+
     }
 
 

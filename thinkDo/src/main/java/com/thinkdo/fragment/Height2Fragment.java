@@ -15,9 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.HeightParam;
-import com.thinkdo.util.CommonUtil;
 
 import java.io.IOException;
 
@@ -151,13 +150,13 @@ public class Height2Fragment extends Fragment {
                 }
 
                 if (sLeftFront.equals("")) {
-                    sLeftFront = GloVariable.initValue;
-                    sRightFront = GloVariable.initValue;
+                    sLeftFront = MainApplication.initValue;
+                    sRightFront = MainApplication.initValue;
                 }
 
                 if (sLeftRear.equals("")) {
-                    sLeftRear = GloVariable.initValue;
-                    sRightRear = GloVariable.initValue;
+                    sLeftRear = MainApplication.initValue;
+                    sRightRear = MainApplication.initValue;
                 }
 
                 if (callback != null)

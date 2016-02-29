@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ValuesPair;
 
 public class WindowRealTime extends LinearLayout {
@@ -37,7 +37,7 @@ public class WindowRealTime extends LinearLayout {
 
     public void setLeftText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             left.setText(R.string.default_signal);
         } else {
             left.setText(text);
@@ -46,7 +46,7 @@ public class WindowRealTime extends LinearLayout {
 
     public void setMiddleText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             mid.setText(R.string.default_signal);
         } else {
             mid.setText(text);
@@ -55,7 +55,7 @@ public class WindowRealTime extends LinearLayout {
 
     public void setRightText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             right.setText(R.string.default_signal);
         } else {
             right.setText(text);
@@ -64,7 +64,7 @@ public class WindowRealTime extends LinearLayout {
 
     public void setResultText(String text) {
         if (text == null) return;
-        if (text.equals(GloVariable.initValue)) {
+        if (text.equals(MainApplication.initValue)) {
             result.setText(R.string.default_signal);
         } else {
             result.setText(text);
@@ -109,5 +109,13 @@ public class WindowRealTime extends LinearLayout {
             setRightText(values.getMin());
         }
         setMiddleText(values.getMid());
+    }
+
+    public void setTitleTextColor(int color) {
+        title.setTextColor(color);
+    }
+
+    public int getTitleTextColor() {
+        return title.getTextColors().getDefaultColor();
     }
 }

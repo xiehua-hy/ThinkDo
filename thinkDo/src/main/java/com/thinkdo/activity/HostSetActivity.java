@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 public class HostSetActivity extends Activity implements View.OnClickListener {
     private EditText et_ip, et_port;
@@ -32,9 +32,9 @@ public class HostSetActivity extends Activity implements View.OnClickListener {
         et_ip = (EditText) findViewById(R.id.et_ip);
         et_port = (EditText) findViewById(R.id.et_port);
 
-        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(GloVariable.context);
-        String ip = shared.getString(GloVariable.hostIpKey, GloVariable.defaultIp);
-        String port = String.valueOf(shared.getInt(GloVariable.hostPortKey, GloVariable.defaultPort));
+        SharedPreferences shared = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
+        String ip = shared.getString(MainApplication.hostIpKey, MainApplication.defaultIp);
+        String port = String.valueOf(shared.getInt(MainApplication.hostPortKey, MainApplication.defaultPort));
 
         et_ip.setText(ip);
         et_port.setText(port);
@@ -59,8 +59,8 @@ public class HostSetActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_reset:
-                et_ip.setText(GloVariable.emptyString);
-                et_port.setText(GloVariable.emptyString);
+                et_ip.setText(MainApplication.emptyString);
+                et_port.setText(MainApplication.emptyString);
                 break;
             case R.id.btn_save:
                 new AlertDialog.Builder(this)
@@ -74,17 +74,21 @@ public class HostSetActivity extends Activity implements View.OnClickListener {
                                 String ip = et_ip.getText().toString();
                                 String port = et_port.getText().toString();
 
-                                if (ip.equals(GloVariable.emptyString) || port.equals(GloVariable.emptyString)) {
+                                if (ip.equals(MainApplication.emptyString) || port.equals(MainApplication.emptyString)) {
                                     Toast.makeText(getApplicationContext(), R.string.tip_data_cannot_null, Toast.LENGTH_SHORT).show();
                                 } else {
                                     int newPort = Integer.parseInt(port);
-                                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(GloVariable.context).edit();
-                                    edit.putString(GloVariable.hostIpKey, ip);
-                                    edit.putInt(GloVariable.hostPortKey, newPort);
+                                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(MainApplication.context).edit();
+//                                    GloVariable.ip = ip;
+//                                    GloVariable.port = newPort;
+
+                                    MainApplication.ip = ip;
+                                    MainApplication.port = newPort;
+
+                                    edit.putString(MainApplication.hostIpKey, ip);
+                                    edit.putInt(MainApplication.hostPortKey, newPort);
                                     edit.apply();
-                                    GloVariable.ip = ip;
-                                    GloVariable.port = newPort;
-                                    Toast.makeText(GloVariable.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainApplication.context, R.string.tip_data_success_save, Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
 

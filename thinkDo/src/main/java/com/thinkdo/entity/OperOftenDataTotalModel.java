@@ -4,6 +4,8 @@ package com.thinkdo.entity;
  * Created by Administrator on 2015/5/21.
  */
 
+import com.thinkdo.application.MainApplication;
+
 /**
  * 自定义添加车型时 车辆信息的实体类
  * 对应 表OperOftenDataTotalModel
@@ -41,7 +43,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getManInfo() {
-        if (manInfo == null) return GloVariable.emptyString;
+        if (manInfo == null) return MainApplication.emptyString;
         return manInfo;
     }
 
@@ -58,7 +60,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getVehicleInfo() {
-        if (vehicleInfo == null) return GloVariable.emptyString;
+        if (vehicleInfo == null) return MainApplication.emptyString;
         return vehicleInfo;
     }
 
@@ -67,7 +69,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getStartYear() {
-        if (startYear == null) return GloVariable.emptyString;
+        if (startYear == null) return MainApplication.emptyString;
         return startYear;
     }
 
@@ -76,7 +78,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getEndYear() {
-        if (endYear == null) return GloVariable.emptyString;
+        if (endYear == null) return MainApplication.emptyString;
         return endYear;
     }
 
@@ -94,7 +96,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getDate() {
-        if (date == null) return GloVariable.emptyString;
+        if (date == null) return MainApplication.emptyString;
         return date;
     }
 
@@ -111,7 +113,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getWheelType() {
-        if (wheelType == null) return GloVariable.emptyString;
+        if (wheelType == null) return MainApplication.emptyString;
         return wheelType;
     }
 
@@ -138,7 +140,7 @@ public class OperOftenDataTotalModel {
     }
 
     public String getPyIndex() {
-        if (pyIndex == null) return GloVariable.emptyString;
+        if (pyIndex == null) return MainApplication.emptyString;
         return pyIndex;
     }
 

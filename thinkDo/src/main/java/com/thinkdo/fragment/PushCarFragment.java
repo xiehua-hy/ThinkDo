@@ -2,6 +2,8 @@ package com.thinkdo.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.media.AudioManager;
+import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.MyDialog;
 import com.thinkdo.util.PushCarArrowThread;
@@ -21,29 +26,48 @@ import com.thinkdo.util.PushCarArrowThread;
 public class PushCarFragment extends Fragment {
     private PushCarCallback callback;
     private NetConnect socketClient;
+    private NetSingleConnect loginConnect;
     private PushCarArrowThread arrowThread;
     private MyDialog myDialog;
     private boolean transFlag = false;
     private int direFlag = 0;
     private ImageView iv;
     private TextView tv;
+    private ToneGenerator toneGenerator = new ToneGenerator(AudioManager.STREAM_SYSTEM,
+            ToneGenerator.MAX_VOLUME);
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
 
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.pushcarUrl && callback != null) {
+            } else if (backCode != MainApplication.pushcarUrl && callback != null) {
                 callback.pushCarNext(backCode);
             } else {
                 switch (statusCode) {
@@ -54,7 +78,9 @@ public class PushCarFragment extends Fragment {
                         tv.setText(R.string.pushCar_tip_testing);
                         break;
                     case 2:
+                        //向后推车
                         tv.setText(R.string.pushCar_tip_backward);
+                        toneGenerator.startTone(ToneGenerator.TONE_CDMA_DIAL_TONE_LITE, 500);
                         if (direFlag != 1) {
                             iv.setImageResource(R.drawable.if_arrow_down);
                             direFlag = 1;
@@ -62,7 +88,9 @@ public class PushCarFragment extends Fragment {
                         arrowThread.onPlay();
                         break;
                     case 3:
+                        //向前推车
                         tv.setText(R.string.pushCar_tip_forward);
+                        toneGenerator.startTone(ToneGenerator.TONE_CDMA_INTERCEPT, 500);
                         if (direFlag != -1) {
                             iv.setImageResource(R.drawable.if_arrow_up);
                             direFlag = -1;
@@ -81,18 +109,45 @@ public class PushCarFragment extends Fragment {
                         break;
 
                     case 6:
-                        if (callback != null) callback.pushCarNext(GloVariable.testDataUrl);
+                        if (callback != null) callback.pushCarNext(MainApplication.testDataUrl);
                         break;
                     case 9:
                         Float data = getPushcarData(reply);
                         if (data != null && data != 0) {
+
+                            if (data > 1 || data < -1) {
+                                tv.setText("");
+                                direFlag = 0;
+                            } else if (data > 0 && direFlag != 1) {
+                                tv.setText(R.string.pushCar_tip_backward);
+                                direFlag = 1;
+                            } else if (data < 0 && direFlag != -1) {
+                                tv.setText(R.string.pushCar_tip_forward);
+                                direFlag = -1;
+                            }
                             arrowThread.loadCirclePic(iv, data);
                         }
+
+                        if (data == 0) tv.setText("");
                         break;
                     case 10:
                         arrowThread.onPause();
                         tv.setText(R.string.pushCar_tip_stop);
                         iv.setImageResource(R.drawable.if_stop);
+
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                for (int i = 0; i < 3; i++) {
+                                    toneGenerator.startTone(ToneGenerator.TONE_CDMA_DIAL_TONE_LITE, 500);
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        }).start();
                         break;
                 }
             }
@@ -120,13 +175,24 @@ public class PushCarFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.pushcarUrl);
+        startConnect();
+    }
+
+    public void startConnect() {
+        if (MainApplication.availableDay > 0) {
+            socketClient = new NetConnect(handler, MainApplication.pushcarUrl);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        socketClient.close();
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
         transFlag = false;
         myDialog.dismiss();
     }

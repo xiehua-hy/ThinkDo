@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,13 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.net.NetConnect;
-import com.thinkdo.net.NetQuest;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.DataCircleLoadThread;
 import com.thinkdo.util.MyDialog;
@@ -38,108 +39,118 @@ public class TestResultFragment extends Fragment {
 
     private MyDialog myDialog;
     private NetConnect socketClient;
+    private NetSingleConnect loginConnect;
     private DataCircleLoadThread circleLoad;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+            if (backCode == MainApplication.testDataUrl) {
+                if (!raiseBtn.isBtnEnable()) raiseBtn.setBtnEnable(true);
+
+                if (MainActivity.referData == null)
+                    MainActivity.referData = new ReferData();
+                MainActivity.referData.addRealData(reply);
+
+                ReferData test = MainActivity.referData.copy();
+                test.unitConvert();
+
+                if (MainActivity.referData.isFlush()) {
+                    loadData(test);
+                    MainActivity.referData.setFlush(false);
+                }
+
+                if (carInUp != test.isRaiseStatus()) {
+                    carInUp = !carInUp;
+                    raiseBtn.setChecked(carInUp);
+                    ((MainActivity) getActivity()).setRaise(carInUp);
+                }
+
+                frontTotalToe.setResult(test.getFrontTotalToe());
+                leftFrontToe.setResult(test.getLeftFrontToe());
+                rightFrontToe.setResult(test.getRightFrontToe());
+
+                leftFrontCamber.setResult(test.getLeftFrontCamber());
+                rightFrontCamber.setResult(test.getRightFrontCamber());
+
+                leftCaster.setResult(test.getLeftCaster());
+                rightCaster.setResult(test.getRightCaster());
+
+                leftKPI.setResult(test.getLeftKpi());
+                rightKPI.setResult(test.getRightKpi());
+
+                rearTotalToe.setResult(test.getRearTotalToe());
+                leftRearToe.setResult(test.getLeftRearToe());
+                rightRearToe.setResult(test.getRightRearToe());
+
+                leftRearCamber.setResult(test.getLeftRearCamber());
+                rightRearCamber.setResult(test.getRightRearCamber());
+
+                thrustAngle.setResult(test.getMaxThrust());
+
+                circleLoad.loadCirclePic(frontTotalToe.getLinearLayout(),
+                        test.getFrontTotalToe().getPercent());
+                circleLoad.loadCirclePic(leftFrontToe.getLinearLayout(),
+                        test.getLeftFrontToe().getPercent());
+                circleLoad.loadCirclePic(rightFrontToe.getLinearLayout(),
+                        test.getRightFrontToe().getPercent());
+
+                circleLoad.loadCirclePic(leftFrontCamber.getLinearLayout(),
+                        test.getLeftFrontCamber().getPercent());
+                circleLoad.loadCirclePic(rightFrontCamber.getLinearLayout(),
+                        test.getRightFrontCamber().getPercent());
+
+                circleLoad.loadCirclePic(leftCaster.getLinearLayout(),
+                        test.getLeftCaster().getPercent());
+                circleLoad.loadCirclePic(rightCaster.getLinearLayout(),
+                        test.getRightCaster().getPercent());
+
+                circleLoad.loadCirclePic(leftKPI.getLinearLayout(),
+                        test.getLeftKpi().getPercent());
+                circleLoad.loadCirclePic(rightKPI.getLinearLayout(),
+                        test.getRightKpi().getPercent());
+
+                circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
+                        test.getRearTotalToe().getPercent());
+                circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
+                        test.getLeftRearToe().getPercent());
+                circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
+                        test.getRightRearToe().getPercent());
+
+                circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
+                        test.getLeftRearCamber().getPercent());
+                circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
+                        test.getRightRearCamber().getPercent());
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.testDataUrl && callback != null) {
-                callback.TestResultNext(backCode);
-            } else {
-                switch (statusCode) {
-                    case 3:
-                        if (MainActivity.referData == null)
-                            MainActivity.referData = new ReferData();
-                        MainActivity.referData.addRealData(reply);
-
-                        ReferData test = MainActivity.referData.copy();
-                        test.unitConvert();
-
-                        if (MainActivity.referData.isFlush()) {
-                            loadData(test);
-                            MainActivity.referData.setFlush(false);
-                        }
-
-                        if (carInUp != test.isRaiseStatus()) {
-                            carInUp = !carInUp;
-                            raiseBtn.setChecked(carInUp);
-                            ((MainActivity) getActivity()).setRaise(carInUp);
-                        }
-
-                        frontTotalToe.setResult(test.getFrontTotalToe());
-                        leftFrontToe.setResult(test.getLeftFrontToe());
-                        rightFrontToe.setResult(test.getRightFrontToe());
-
-                        leftFrontCamber.setResult(test.getLeftFrontCamber());
-                        rightFrontCamber.setResult(test.getRightFrontCamber());
-
-                        leftCaster.setResult(test.getLeftCaster());
-                        rightCaster.setResult(test.getRightCaster());
-
-                        leftKPI.setResult(test.getLeftKpi());
-                        rightKPI.setResult(test.getRightKpi());
-
-                        rearTotalToe.setResult(test.getRearTotalToe());
-                        leftRearToe.setResult(test.getLeftRearToe());
-                        rightRearToe.setResult(test.getRightRearToe());
-
-                        leftRearCamber.setResult(test.getLeftRearCamber());
-                        rightRearCamber.setResult(test.getRightRearCamber());
-
-                        thrustAngle.setResultText(test.getMaxThrust().getReal());
-
-                        circleLoad.loadCirclePic(frontTotalToe.getLinearLayout(),
-                                test.getFrontTotalToe().getPercent());
-                        circleLoad.loadCirclePic(leftFrontToe.getLinearLayout(),
-                                test.getLeftFrontToe().getPercent());
-                        circleLoad.loadCirclePic(rightFrontToe.getLinearLayout(),
-                                test.getRightFrontToe().getPercent());
-
-                        circleLoad.loadCirclePic(leftFrontCamber.getLinearLayout(),
-                                test.getLeftFrontCamber().getPercent());
-                        circleLoad.loadCirclePic(rightFrontCamber.getLinearLayout(),
-                                test.getRightFrontCamber().getPercent());
-
-                        circleLoad.loadCirclePic(leftCaster.getLinearLayout(),
-                                test.getLeftCaster().getPercent());
-                        circleLoad.loadCirclePic(rightCaster.getLinearLayout(),
-                                test.getRightCaster().getPercent());
-
-                        circleLoad.loadCirclePic(leftKPI.getLinearLayout(),
-                                test.getLeftKpi().getPercent());
-                        circleLoad.loadCirclePic(rightKPI.getLinearLayout(),
-                                test.getRightKpi().getPercent());
-
-                        circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
-                                test.getRearTotalToe().getPercent());
-                        circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
-                                test.getLeftRearToe().getPercent());
-                        circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
-                                test.getRightRearToe().getPercent());
-
-                        circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
-                                test.getLeftRearCamber().getPercent());
-                        circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
-                                test.getRightRearCamber().getPercent());
-
-                        break;
-
-                    case 4:
-                        //?exception
-                        break;
+            } else if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
                 }
+
+            } else if (callback != null) {
+                callback.TestResultNext(backCode);
             }
 
             return true;
@@ -175,7 +186,6 @@ public class TestResultFragment extends Fragment {
         rightRearCamber = (WindowRealTime) view.findViewById(R.id.window_rightRearCamber);
 
         thrustAngle = (WindowRealTime) view.findViewById(R.id.window_thrustAngle);
-        thrustAngle.setResultColor(Color.BLUE);
 
         raiseBtn = (ButtonRaise) view.findViewById(R.id.btn_raise);
         raiseBtn.setChecked(carInUp);
@@ -188,11 +198,11 @@ public class TestResultFragment extends Fragment {
                 if (checked) {
                     contentId = R.string.tip_raiseBtn_down;
                     resId = R.drawable.ib_arrow_down_press1;
-                    questCode = GloVariable.downCar;
+                    questCode = MainApplication.downCar;
                 } else {
                     contentId = R.string.tip_raiseBtn_up;
                     resId = R.drawable.ib_arrow_up_press1;
-                    questCode = GloVariable.upCar;
+                    questCode = MainApplication.upCar;
                 }
 
                 ImageView iv = new ImageView(getActivity());
@@ -207,7 +217,7 @@ public class TestResultFragment extends Fragment {
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                socketClient.send(questCode, 0, null);
+                                if (socketClient != null) socketClient.send(questCode, 0, null);
                             }
                         })
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
@@ -215,13 +225,14 @@ public class TestResultFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 raiseBtn.changeChecked();
                                 ((MainActivity) getActivity()).setRaise(!checked);
-                                socketClient.send(questCode, 2, null);
+                                if (socketClient != null) socketClient.send(questCode, 2, null);
                             }
                         })
                         .create().show();
-                socketClient.send(questCode, 1, null);
+                if (socketClient != null) socketClient.send(questCode, 1, null);
             }
         });
+        if (!raiseBtn.isChecked()) raiseBtn.setBtnEnable(false);
 
         if (MainActivity.referData != null) {
             ReferData copy = MainActivity.referData.copy();
@@ -231,7 +242,6 @@ public class TestResultFragment extends Fragment {
     }
 
     private void loadData(ReferData copy) {
-
         frontTotalToe.setAllValues(copy.getFrontTotalToe());
         leftFrontToe.setAllValues(copy.getLeftFrontToe());
         rightFrontToe.setAllValues(copy.getRightFrontToe(), false);
@@ -266,14 +276,27 @@ public class TestResultFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.testDataUrl);
+        startConnect();
+    }
+
+    public void startConnect() {
+//        socketClient = new NetConnect(handler, MainApplication.testDataUrl);
+
+        if (MainApplication.availableDay > 0) {
+            socketClient = new NetConnect(handler, MainApplication.testDataUrl);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         transFlag = false;
-        socketClient.close();
+        if (socketClient != null) socketClient.close();
+        if (loginConnect != null) loginConnect.close();
         myDialog.dismiss();
     }
 

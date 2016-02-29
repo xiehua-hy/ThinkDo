@@ -1,7 +1,9 @@
 package com.thinkdo.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
@@ -18,8 +20,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.thinkdo.activity.R;
+import com.thinkdo.application.MainApplication;
+import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.db.DbUtil;
-import com.thinkdo.entity.GloVariable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +34,7 @@ public class PickCarFragment extends Fragment {
     private ExpandableListView expand;
     private VehicleCallbacks callback;
     private List<String> data;
-    private int dbIndex = GloVariable.stadb;
+    private int dbIndex = MainApplication.stadb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,15 +112,16 @@ public class PickCarFragment extends Fragment {
         private final String idKey = "id";
         private final String carKey = "car";
         private List<String> groupData;
-        private SparseIntArray groupPos;
+        private SparseIntArray groupPos; //group数据的索引
 
         private SparseArray<List<String>> childData;
-        private SparseArray<SparseIntArray> childPos;
+        private SparseArray<SparseIntArray> childPos; //child数据的索引
 
         public MyAdapter() {
             handleGroupData();
             childData = new SparseArray<>();
             childPos = new SparseArray<>();
+
         }
 
         @Override
@@ -166,11 +170,11 @@ public class PickCarFragment extends Fragment {
             childData.put(groupPosition, mData);
         }
 
-        private List<Map<String, String>> handleGrandData(int groupPosion, int childPosition) {
-            int start = childPos.get(groupPosion).get(childPosition);
-            int end = childPosition == childPos.get(groupPosion).size() - 1 ?
-                    groupPos.get(groupPosion + 1) :
-                    childPos.get(groupPosion).get(childPosition + 1);
+        private List<Map<String, String>> handleGrandData(int groupPosition, int childPosition) {
+            int start = childPos.get(groupPosition).get(childPosition);
+            int end = childPosition == childPos.get(groupPosition).size() - 1 ?
+                    groupPos.get(groupPosition + 1) :
+                    childPos.get(groupPosition).get(childPosition + 1);
 
             List<Map<String, String>> mgrand = new ArrayList<>();
             for (int i = start; i < end; i++) {
@@ -246,6 +250,53 @@ public class PickCarFragment extends Fragment {
                                 R.layout.template_expand_listview,
                                 new String[]{carKey, idKey}, new int[]{R.id.textView1, R.id.textView2});
                         listView.setAdapter(adapter);
+
+                        //自定义数据添加删除功能
+                        if (dbIndex == MainApplication.cusdb) {
+                            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                                @Override
+                                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                                    TextView textView2 = (TextView) view.findViewById(R.id.textView2);
+                                    final String vehicleID = textView2.getText().toString();
+                                    final String groupString = groupData.get(groupPosition);
+
+                                    new AlertDialog.Builder(getActivity())
+                                            .setTitle(R.string.delete)
+                                            .setMessage(R.string.tip_sure_delete)
+                                            .setNegativeButton(R.string.cancel, null)
+                                            .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    //从data直接删除记录
+                                                    for (int i = groupPos.get(groupPosition); i < data.size(); i++) {
+                                                        String[] array = data.get(i).split(";");
+                                                        if (!array[0].equals(groupString)) break;
+                                                        if (array[3].equals(vehicleID)) {
+                                                            data.remove(i);
+                                                            i--;
+                                                        }
+                                                    }
+
+                                                    //删除数据库的记录
+                                                    new Thread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            CustomDbUtil dbUtil = new CustomDbUtil();
+                                                            dbUtil.deleteVehicleInfo(vehicleID);
+                                                        }
+                                                    }).start();
+
+                                                    //更新数据 刷新界面
+                                                    notifyDataSetChanged();
+
+                                                }
+                                            }).create().show();
+                                    return true;
+                                }
+                            });
+
+                        }
+
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -272,6 +323,14 @@ public class PickCarFragment extends Fragment {
             });
 
             return convertView;
+        }
+
+        @Override
+        public void notifyDataSetChanged() {
+            handleGroupData();
+            childData = new SparseArray<>();
+            childPos = new SparseArray<>();
+            super.notifyDataSetChanged();
         }
 
         @Override
@@ -303,4 +362,6 @@ public class PickCarFragment extends Fragment {
             listView.setLayoutParams(params);
         }
     }
+
+
 }

@@ -1,26 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="unitEntry">
-        <item>度分(°\')</item>
-        <item>百分度(°)</item>
+        <item>Degree Minute(°\')</item>
+        <item>Degree(°)</item>
     </string-array>
 
-    <string-array name="unitEntryValue">
+    <string-array name="unitEntryValue" translatable="false">
         <item>1</item>
         <item>2</item>
     </string-array>
 
     <string-array name="toeUnitEntry">
-        <item>度分(°\')</item>
-        <item>百分度(°)</item>
-        <item>毫米(mm)</item>
-        <item>英寸(in)</item>
+
+        <item>Degree Minute(°\')</item>
+        <item>Degree(°)</item>
+        <item>Millimetre(mm)</item>
+        <item>Inch(in)</item>
     </string-array>
 
-    <string-array name="toeUnitEntryValue">
+    <string-array name="toeUnitEntryValue" translatable="false">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+    </string-array>
+
+    <string-array name="languageEntry" translatable="false">
+        <item>简体</item>
+        <item>繁體</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="languageValue" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="axle">
+        <item>1st axle</item>
+        <item>2nd axle</item>
+        <item>3rd axle</item>
+        <item>4th axle</item>
+        <item>5th axle</item>
+        <item>6th axle</item>
+        <item>7th axle</item>
+        <item>8th axle</item>
+        <item>9th axle</item>
+        <item>10th axle</item>
+        <item>11th axle</item>
+        <item>12th axle</item>
+    </string-array>
+
+    <string-array name="axle_short">
+        <item>1st axle</item>
+        <item>2nd axle</item>
+        <item>3rd axle</item>
+        <item>4th axle</item>
+        <item>5th axle</item>
+        <item>6th axle</item>
     </string-array>
 </resources>

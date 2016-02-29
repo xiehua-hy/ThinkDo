@@ -16,7 +16,7 @@ public class ButtonRaise extends LinearLayout {
     private TextView tv;
     private Button btn;
     private String textInUp, textInDown;
-    private boolean mChecked = false;
+    private boolean mChecked = false;  //true表示已举起车身
 
     public ButtonRaise(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -73,12 +73,23 @@ public class ButtonRaise extends LinearLayout {
         mChecked = checked;
     }
 
-    public void setOnClickListener(OnClickListener listener) {
-        btn.setOnClickListener(listener);
+    public void setBtnEnable(boolean enable) {
+        btn.setEnabled(enable);
     }
 
+    public boolean isBtnEnable() {
+        return btn.isEnabled();
+    }
+    /**
+     * @return true表示已举起车身
+     *         false 表示已放下车身
+     * */
     public boolean isChecked() {
         return mChecked;
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        btn.setOnClickListener(listener);
     }
 
     public void changeChecked() {

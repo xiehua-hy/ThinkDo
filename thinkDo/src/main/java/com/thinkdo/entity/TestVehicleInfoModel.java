@@ -1,5 +1,7 @@
 package com.thinkdo.entity;
 
+import com.thinkdo.application.MainApplication;
+
 /**
  * Created by Administrator on 2015/5/29.
  */
@@ -20,9 +22,9 @@ public class TestVehicleInfoModel {
     protected String curToeUnit;
 
     protected String tireDiameter;
-    protected String wheelBase = GloVariable.initValue;
-    protected String frontTread = GloVariable.initValue;
-    protected String RearTread = GloVariable.initValue;
+    protected String wheelBase = MainApplication.initValue;
+    protected String frontTread = MainApplication.initValue;
+    protected String RearTread = MainApplication.initValue;
     protected String remark;
 
     protected boolean cb1 = false;

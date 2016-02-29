@@ -9,9 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.db.CustomDbUtil;
 import com.thinkdo.entity.CustomerModel;
-import com.thinkdo.entity.GloVariable;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.entity.TestVehicleInfoModel;
 import com.thinkdo.fragment.DataPrintFragment;
@@ -107,11 +107,9 @@ public class DataPrintActivity extends Activity implements DataPrintCallback {
             CustomDbUtil db = new CustomDbUtil();
             CustomerModel customer = db.queryCustomer(clientId);
             TestVehicleInfoModel info = db.queryTestVeclieInfo(clientId, testNo);
-            ReferData data = db.queryTestData(clientId, testNo);
 
-            if (customer == null || info == null || data == null) return;
-            new NetQuest(GloVariable.printContent, 0, SaveOrPrintActivity
-                    .getPrintData(customer, info, data)).start();
+            if (customer == null || info == null || referData == null) return;
+            new NetQuest(MainApplication.printContent, 0, referData.getPrintData(customer, info));
             handler.sendEmptyMessage(0);
         }
     }

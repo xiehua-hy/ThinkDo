@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.thinkdo.activity.MainActivity;
+import com.thinkdo.activity.MainActivityLorry;
 import com.thinkdo.activity.MaintenanceActivity;
 import com.thinkdo.activity.R;
 import com.thinkdo.activity.SpecialTestActivity;
 import com.thinkdo.activity.UserDataActivity;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 
 public class FixedPositionFragment extends Fragment implements View.OnClickListener {
     @Override
@@ -41,20 +42,28 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
         if (getActivity() == null) return;
         switch (v.getId()) {
             case R.id.btn_start:
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                //
+                Intent intent = MainApplication.isCar
+                        ? new Intent(getActivity(), MainActivity.class)
+                        : new Intent(getActivity(), MainActivityLorry.class);
                 startActivity(intent);
                 break;
             case R.id.btn_fast:
-                intent = new Intent(getActivity(), MainActivity.class);
-                intent.putExtra("position", GloVariable.fastTestUrl);
+                intent = MainApplication.isCar
+                        ? new Intent(getActivity(), MainActivity.class)
+                        : new Intent(getActivity(), MainActivityLorry.class);
+
+                intent.putExtra("position", MainApplication.fastTestUrl);
                 startActivity(intent);
                 break;
             case R.id.btn_special:
                 intent = new Intent(getActivity(), SpecialTestActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
             case R.id.btn_photo:
                 intent = new Intent(getActivity(), MaintenanceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
             case R.id.btn_user:

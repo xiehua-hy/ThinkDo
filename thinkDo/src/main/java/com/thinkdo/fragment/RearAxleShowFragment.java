@@ -11,12 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.R;
-import com.thinkdo.entity.GloVariable;
+import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ReferData;
 import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
 import com.thinkdo.util.CommonUtil;
 import com.thinkdo.util.DataCircleLoadThread;
 import com.thinkdo.util.MyDialog;
@@ -30,75 +33,83 @@ public class RearAxleShowFragment extends Fragment {
     private RearAxleCallback callback;
     private WindowRealTime rearTotalToe, leftRearCamber, leftRearToe, rightRearToe, rightRearCamber;
     private ButtonRaise raiseBtn;
-
     private boolean carInUp = false, transFlag = false;
-
     private MyDialog myDialog;
     private NetConnect socketClient;
+    private NetSingleConnect loginConnect;
     private DataCircleLoadThread circleLoad;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(Message msg) {
             if (!transFlag) return true;
-            String reply = msg.getData().getString(GloVariable.head);
+            String reply = msg.getData().getString(MainApplication.head);
             if (reply == null) return true;
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == GloVariable.errorUrl) {
-                if (statusCode == GloVariable.erroDiss) {
+            if (backCode == MainApplication.rearShowUrl) {
+                if (!raiseBtn.isBtnEnable()) raiseBtn.setBtnEnable(true);
+
+                if (MainActivity.referData == null)
+                    MainActivity.referData = new ReferData();
+                MainActivity.referData.addRealData(reply);
+
+                ReferData test = MainActivity.referData.copy();
+                test.unitConvert();
+
+                if (MainActivity.referData.isFlush()) {
+                    loadData(test);
+                    MainActivity.referData.setFlush(false);
+                }
+
+                if (carInUp != test.isRaiseStatus()) {
+                    carInUp = !carInUp;
+                    raiseBtn.setChecked(carInUp);
+                    ((MainActivity) getActivity()).setRaise(carInUp);
+                }
+
+                leftRearCamber.setResult(test.getLeftRearCamber());
+                rightRearCamber.setResult(test.getRightRearCamber());
+
+                rearTotalToe.setResult(test.getRearTotalToe());
+                leftRearToe.setResult(test.getLeftRearToe());
+                rightRearToe.setResult(test.getRightRearToe());
+
+                circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
+                        test.getLeftRearCamber().getPercent());
+                circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
+                        test.getRightRearCamber().getPercent());
+
+                circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
+                        test.getRearTotalToe().getPercent());
+                circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
+                        test.getLeftRearToe().getPercent());
+                circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
+                        test.getRightRearToe().getPercent());
+
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
                     myDialog.dismiss();
                 } else {
                     myDialog.show(CommonUtil.getErrorString(statusCode, reply));
                 }
-            } else if (backCode != GloVariable.rearShowUrl && callback != null) {
-                callback.rearAxleNext(backCode);
-            } else {
-                switch (statusCode) {
-                    case 3:
-                        if (MainActivity.referData == null)
-                            MainActivity.referData = new ReferData();
-                        MainActivity.referData.addRealData(reply);
-
-                        ReferData test = MainActivity.referData.copy();
-                        test.unitConvert();
-
-                        if (MainActivity.referData.isFlush()) {
-                            loadData(test);
-                            MainActivity.referData.setFlush(false);
-                        }
-
-                        if (carInUp != test.isRaiseStatus()) {
-                            carInUp = !carInUp;
-                            raiseBtn.setChecked(carInUp);
-                            ((MainActivity) getActivity()).setRaise(carInUp);
-                        }
-
-                        leftRearCamber.setResult(test.getLeftRearCamber());
-                        rightRearCamber.setResult(test.getRightRearCamber());
-
-                        rearTotalToe.setResult(test.getRearTotalToe());
-                        leftRearToe.setResult(test.getLeftRearToe());
-                        rightRearToe.setResult(test.getRightRearToe());
-
-                        circleLoad.loadCirclePic(leftRearCamber.getLinearLayout(),
-                                test.getLeftRearCamber().getPercent());
-                        circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
-                                test.getRightRearCamber().getPercent());
-
-                        circleLoad.loadCirclePic(rearTotalToe.getLinearLayout(),
-                                test.getRearTotalToe().getPercent());
-                        circleLoad.loadCirclePic(leftRearToe.getLinearLayout(),
-                                test.getLeftRearToe().getPercent());
-                        circleLoad.loadCirclePic(rightRearToe.getLinearLayout(),
-                                test.getRightRearToe().getPercent());
-                        break;
-
-                    case 4:
-                        //�exception
-                        break;
+            } else if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
                 }
+            } else if (callback != null) {
+                callback.rearAxleNext(backCode);
             }
 
             return true;
@@ -130,11 +141,11 @@ public class RearAxleShowFragment extends Fragment {
                 if (checked) {
                     contentId = R.string.tip_raiseBtn_down;
                     resId = R.drawable.ib_arrow_down_press1;
-                    questCode = GloVariable.downCar;
+                    questCode = MainApplication.downCar;
                 } else {
                     contentId = R.string.tip_raiseBtn_up;
                     resId = R.drawable.ib_arrow_up_press1;
-                    questCode = GloVariable.upCar;
+                    questCode = MainApplication.upCar;
                 }
 
                 ImageView iv = new ImageView(getActivity());
@@ -149,7 +160,7 @@ public class RearAxleShowFragment extends Fragment {
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                socketClient.send(questCode, 0, null);
+                                if (socketClient != null) socketClient.send(questCode, 0, null);
                             }
                         })
                         .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
@@ -157,14 +168,16 @@ public class RearAxleShowFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 raiseBtn.changeChecked();
                                 ((MainActivity) getActivity()).setRaise(!checked);
-                                socketClient.send(questCode, 2, null);
+                                if (socketClient != null) socketClient.send(questCode, 2, null);
                             }
                         })
                         .create().show();
 
-                socketClient.send(questCode, 1, null);
+                if (socketClient != null) socketClient.send(questCode, 1, null);
             }
         });
+
+        if (!raiseBtn.isChecked()) raiseBtn.setBtnEnable(false);
 
         if (MainActivity.referData != null) {
             ReferData copy = MainActivity.referData.copy();
@@ -193,14 +206,25 @@ public class RearAxleShowFragment extends Fragment {
     public void onResume() {
         super.onResume();
         transFlag = true;
-        socketClient = new NetConnect(handler, GloVariable.rearShowUrl);
+        startConnect();
+    }
+
+    public void startConnect() {
+        if (MainApplication.availableDay > 0) {
+            socketClient = new NetConnect(handler, MainApplication.rearShowUrl);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         transFlag = false;
-        socketClient.close();
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
         myDialog.dismiss();
     }
 
