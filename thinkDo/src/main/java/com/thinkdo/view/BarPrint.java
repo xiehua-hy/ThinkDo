@@ -47,7 +47,7 @@ public class BarPrint extends LinearLayout {
 
     public void setBeforeText(String text) {
         if (text == null || MainApplication.initValue.equals(text)) before.setText("");
-        before.setText(text);
+        else before.setText(text);
     }
 
     public void setBeforeText(int resId) {
@@ -56,7 +56,7 @@ public class BarPrint extends LinearLayout {
 
     public void setAfterText(String text) {
         if (text == null || MainApplication.initValue.equals(text)) after.setText("");
-        after.setText(text);
+        else after.setText(text);
     }
 
     public void setAfterText(int resId) {
@@ -65,7 +65,7 @@ public class BarPrint extends LinearLayout {
 
     public void setMinText(String text) {
         if (text == null || MainApplication.initValue.equals(text)) min.setText("");
-        min.setText(text);
+        else min.setText(text);
     }
 
     public void setMinText(int resId) {
@@ -74,7 +74,7 @@ public class BarPrint extends LinearLayout {
 
     public void setMaxText(String text) {
         if (text == null || MainApplication.initValue.equals(text)) max.setText("");
-        max.setText(text);
+        else max.setText(text);
     }
 
     public void setMaxText(int resId) {

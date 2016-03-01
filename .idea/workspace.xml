@@ -4,6 +4,8 @@
     <shared>
       <config>
         <devices>
+          <device id="tv_1080p" />
+          <device id="tv_720p" />
           <device id="Nexus 7 2013" />
           <device id="Nexus 10" />
           <device id="Nexus 7" />
@@ -36,6 +38,11 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_sample_pic.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_test_result_lorry.xml">
         <config>
           <state>Landscape</state>
@@ -57,10 +64,16 @@
     <list default="true" id="2767fda9-ba93-48cf-8406-1af8c7444734" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/AndroidManifest.xml" afterPath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/aapt/AndroidManifest.xml" afterPath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/aapt/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/view/BarPrint.java" afterPath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/view/BarPrint.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slidingmenu_library/build/generated/source/buildConfig/debug/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" afterPath="$PROJECT_DIR$/slidingmenu_library/build/generated/source/buildConfig/debug/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/slidingmenu_library/build/generated/source/buildConfig/release/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" afterPath="$PROJECT_DIR$/slidingmenu_library/build/generated/source/buildConfig/release/com/jeremyfeinstein/slidingmenu/lib/BuildConfig.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/build/generated/source/buildConfig/debug/com/thinkdo/activity/BuildConfig.java" afterPath="$PROJECT_DIR$/thinkDo/build/generated/source/buildConfig/debug/com/thinkdo/activity/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java" afterPath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java" afterPath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/build/generated/source/r/debug/com/jeremyfeinstein/slidingmenu/lib/R.java" afterPath="$PROJECT_DIR$/thinkDo/build/generated/source/r/debug/com/jeremyfeinstein/slidingmenu/lib/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java" afterPath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java" afterPath="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/res/values/values.xml" afterPath="$PROJECT_DIR$/thinkDo/build/intermediates/exploded-aar/ThinkDo/slidingmenu_library/unspecified/res/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -92,81 +105,97 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MenuActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MenuActivity.java">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.084745">
+              <caret line="416" column="42" selection-start-line="416" selection-start-column="31" selection-end-line="416" selection-end-column="42" />
+              <folding>
+                <element signature="e#7183#7184#0" expanded="true" />
+                <element signature="e#7218#7219#0" expanded="true" />
+                <element signature="e#13260#13261#0" expanded="true" />
+                <element signature="e#13291#13292#0" expanded="true" />
+                <element signature="e#13351#13352#0" expanded="true" />
+                <element signature="e#13382#13383#0" expanded="true" />
+                <element signature="e#13443#13444#0" expanded="true" />
+                <element signature="e#13474#13475#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataPrintFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
-              <folding />
+              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#997#2106#0" expanded="true" />
+                <element signature="e#2105#2106#0" expanded="true" />
+                <element signature="e#2761#2776#0" expanded="true" />
+                <element signature="e#2805#2819#0" expanded="true" />
+                <element signature="e#2846#2858#0" expanded="true" />
+                <element signature="e#2885#2897#0" expanded="true" />
+                <element signature="e#6343#6364#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_menu.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/activity_menu.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
+      <file leaf-file-name="ReferData.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ReferData.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+              <caret line="316" column="0" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
+              <folding>
+                <element signature="e#8941#8942#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BarPrint.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/view/BarPrint.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.53103447">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="include_menu_title.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/include_menu_title.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FixedPositionFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/FixedPositionFragment.java">
+      <file leaf-file-name="ValuesPair.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ValuesPair.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
-              <folding />
+              <caret line="264" column="0" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
+              <folding>
+                <element signature="e#6615#6616#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_fixedposition.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_fixedposition.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shape_drawable_btn.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/drawable/shape_drawable_btn.xml">
+      <file leaf-file-name="RearAxleShowFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/values/colors.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-              <folding />
+              <caret line="96" column="22" selection-start-line="96" selection-start-column="18" selection-end-line="110" selection-end-column="13" />
+              <folding>
+                <element signature="e#1394#4650#0" expanded="true" />
+                <element signature="e#4649#4650#0" expanded="true" />
+                <element signature="e#5758#7870#0" expanded="true" />
+                <element signature="e#6051#6077#0" expanded="true" />
+                <element signature="e#6254#6278#0" expanded="true" />
+                <element signature="e#6873#6888#0" expanded="true" />
+                <element signature="e#6890#7205#0" expanded="true" />
+                <element signature="e#7204#7205#0" expanded="true" />
+                <element signature="e#7250#7263#0" expanded="true" />
+                <element signature="e#7265#7721#0" expanded="true" />
+                <element signature="e#7720#7721#0" expanded="true" />
+                <element signature="e#7869#7870#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1983,7 +2012,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="E:\Android_Studio\Project\ThinkDo" value="5827211603061" />
+        <entry key="E:\Android_Studio\Project\ThinkDo" value="5827289552374" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2456,14 +2485,11 @@
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/TestResultFragment.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/KingpinFragment.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/PushCarFragment.java" />
-        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/FrontAxleShowFragment.java" />
-        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SpecialTestFragment.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_drawer.xml" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MenuActivity.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/net/NetConnect.java" />
-        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/LorryReferData.java" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_frontaxle_show_lorry.xml" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/drawable/selector_alxe_settings.xml" />
@@ -2481,6 +2507,12 @@
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/layout/activity_init.xml" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_fixedposition.xml" />
         <option value="$PROJECT_DIR$/thinkDo/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_sample_pic.xml" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/view/BarPrint.java" />
       </list>
     </option>
   </component>
@@ -2523,18 +2555,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ThinkDo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2565,6 +2585,17 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="thinkDo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThinkDo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2623,12 +2654,35 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ThinkDo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thinkDo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thinkdo" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2643,7 +2697,7 @@
     <property name="ExportApk.BuildType" value="release" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="198" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.SHOW" value="false" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.SHOW" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.SHOW" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2857,7 +2911,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23804227" sideWeight="0.50692964" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.88542825" sideWeight="0.49307036" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43604004" sideWeight="0.49307036" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32814237" sideWeight="0.4971591" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -2865,19 +2920,18 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17430703" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1663113" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20469083" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14872068" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35500878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39043382" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2887,17 +2941,17 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23804227" sideWeight="0.50692964" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44112477" sideWeight="0.49307036" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="1.0" sideWeight="0.49307036" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20469083" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.51277685" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14872068" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35500878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3826474" sideWeight="0.4971591" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38255978" sideWeight="0.4971591" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2907,7 +2961,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32910448" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3632653" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39387757" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -2937,77 +2991,21 @@
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java</url>
+          <line>103</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/FrontAxleShowFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23793103">
-          <caret line="239" column="0" selection-start-line="239" selection-start-column="0" selection-end-line="245" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31609195">
-          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/TestResultFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6965518">
-          <caret line="96" column="73" selection-start-line="96" selection-start-column="73" selection-end-line="96" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/include_user_info.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_drawer.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30858085">
-          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/net/NetConnect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47241378">
-          <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MaintenanceActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="139" column="34" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ReferData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39195403">
-          <caret line="129" column="21" selection-start-line="129" selection-start-column="21" selection-end-line="129" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../SDK/sources/android-19/android/app/Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33103448">
@@ -3091,13 +3089,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ValuesPair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.576271">
-          <caret line="301" column="30" selection-start-line="301" selection-start-column="29" selection-end-line="301" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/LorryReferData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21494253">
@@ -3109,13 +3100,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.47241378">
           <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="23.614786">
-          <caret line="422" column="22" selection-start-line="422" selection-start-column="22" selection-end-line="422" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -3154,13 +3138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivityLorry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15632184">
-          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/LorryDataItem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="5.4551725">
@@ -3173,7 +3150,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="188" column="72" selection-start-line="188" selection-start-column="72" selection-end-line="188" selection-end-column="72" />
           <folding>
-            <element signature="imports" expanded="false" />
             <element signature="e#15760#15785#0" expanded="false" />
             <element signature="e#15856#15871#0" expanded="false" />
             <element signature="e#15914#15927#0" expanded="false" />
@@ -3213,13 +3189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46896553">
-          <caret line="120" column="59" selection-start-line="120" selection-start-column="59" selection-end-line="120" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/drawable-hdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -3229,21 +3198,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/net/SocketClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/application/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
           <folding />
         </state>
       </provider>
@@ -3259,7 +3213,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.121140145">
           <caret line="6" column="51" selection-start-line="6" selection-start-column="51" selection-end-line="6" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3275,45 +3228,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.16190477">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MenuActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/activity_menu.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/include_menu_title.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/drawable/shape_drawable_btn.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3321,15 +3235,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="35" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/FixedPositionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3340,6 +3245,222 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="56" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/drawable/shape_drawable_btn.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.09770115">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/FixedPositionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="59" selection-start-line="21" selection-start-column="59" selection-end-line="21" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/include_menu_title.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/activity_menu.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10119048">
+          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MenuActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#10523#10524#0" expanded="false" />
+            <element signature="e#10556#10557#0" expanded="false" />
+            <element signature="e#11020#11021#0" expanded="false" />
+            <element signature="e#11065#11066#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/net/SocketClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="97" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#623#624#0" expanded="false" />
+            <element signature="e#658#659#0" expanded="false" />
+            <element signature="e#1604#1605#0" expanded="false" />
+            <element signature="e#1643#1644#0" expanded="false" />
+            <element signature="e#1693#1694#0" expanded="false" />
+            <element signature="e#1742#1743#0" expanded="false" />
+            <element signature="e#3642#3643#0" expanded="false" />
+            <element signature="e#3700#3701#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/SamplePicFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="57" selection-start-line="95" selection-start-column="57" selection-end-line="95" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/net/NetConnect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0034482758">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_sample_pic.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.4333334">
+          <caret line="20" column="41" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
+          <folding>
+            <element signature="e#738#756#0" expanded="true" />
+            <element signature="e#1063#1081#0" expanded="true" />
+            <element signature="e#1661#1679#0" expanded="true" />
+            <element signature="e#1986#2004#0" expanded="true" />
+            <element signature="e#2539#2557#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivityLorry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15632184">
+          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/res/layout/fragment_data_print.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../SDK/sources/android-19/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="749" column="36" selection-start-line="749" selection-start-column="36" selection-end-line="749" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/application/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/RearAxleShowFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="96" column="22" selection-start-line="96" selection-start-column="18" selection-end-line="110" selection-end-column="13" />
+          <folding>
+            <element signature="e#1394#4650#0" expanded="true" />
+            <element signature="e#4649#4650#0" expanded="true" />
+            <element signature="e#5758#7870#0" expanded="true" />
+            <element signature="e#6051#6077#0" expanded="true" />
+            <element signature="e#6254#6278#0" expanded="true" />
+            <element signature="e#6873#6888#0" expanded="true" />
+            <element signature="e#6890#7205#0" expanded="true" />
+            <element signature="e#7204#7205#0" expanded="true" />
+            <element signature="e#7250#7263#0" expanded="true" />
+            <element signature="e#7265#7721#0" expanded="true" />
+            <element signature="e#7720#7721#0" expanded="true" />
+            <element signature="e#7869#7870#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.084745">
+          <caret line="416" column="42" selection-start-line="416" selection-start-column="31" selection-end-line="416" selection-end-column="42" />
+          <folding>
+            <element signature="e#7183#7184#0" expanded="true" />
+            <element signature="e#7218#7219#0" expanded="true" />
+            <element signature="e#13260#13261#0" expanded="true" />
+            <element signature="e#13291#13292#0" expanded="true" />
+            <element signature="e#13351#13352#0" expanded="true" />
+            <element signature="e#13382#13383#0" expanded="true" />
+            <element signature="e#13443#13444#0" expanded="true" />
+            <element signature="e#13474#13475#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ReferData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="316" column="0" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
+          <folding>
+            <element signature="e#8941#8942#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/fragment/DataPrintFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#997#2106#0" expanded="true" />
+            <element signature="e#2105#2106#0" expanded="true" />
+            <element signature="e#2761#2776#0" expanded="true" />
+            <element signature="e#2805#2819#0" expanded="true" />
+            <element signature="e#2846#2858#0" expanded="true" />
+            <element signature="e#2885#2897#0" expanded="true" />
+            <element signature="e#6343#6364#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/entity/ValuesPair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="264" column="0" selection-start-line="264" selection-start-column="0" selection-end-line="264" selection-end-column="0" />
+          <folding>
+            <element signature="e#6615#6616#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thinkDo/src/main/java/com/thinkdo/view/BarPrint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53103447">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding />
         </state>
       </provider>

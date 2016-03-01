@@ -375,8 +375,15 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
 
     @Override
     public void dataPrintNext(int position) {
+
+        if (position > 0) {
+            synch(position);
+            return;
+        }
+
+        if (position < -2) return;
         Intent it = new Intent(this, SaveOrPrintActivity.class);
-        if (position == 1) it.putExtra("print", true);
+        if (position == -1) it.putExtra("print", true);
         startActivity(it);
     }
 

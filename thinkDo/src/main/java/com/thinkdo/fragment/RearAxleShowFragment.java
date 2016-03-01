@@ -117,6 +117,13 @@ public class RearAxleShowFragment extends Fragment {
     });
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        myDialog = new MyDialog(getActivity());
+        circleLoad = new DataCircleLoadThread(handler, 2);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_rearaxle_show, container, false);
         init(rootView);
@@ -193,13 +200,6 @@ public class RearAxleShowFragment extends Fragment {
 
         leftRearCamber.setAllValues(copy.getLeftRearCamber(), false);
         rightRearCamber.setAllValues(copy.getRightRearCamber());
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        myDialog = new MyDialog(getActivity());
-        circleLoad = new DataCircleLoadThread(handler, 2);
     }
 
     @Override

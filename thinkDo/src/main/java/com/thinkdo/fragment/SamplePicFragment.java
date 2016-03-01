@@ -106,6 +106,15 @@ public class SamplePicFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         myDialog = new MyDialog(getActivity());
+
+//        Message message = handler.obtainMessage(1);
+//        Bundle bundle = message.getData() == null
+//                ? new Bundle()
+//                : message.getData();
+//
+//        bundle.putString(MainApplication.head, "15&0&0");
+//        message.setData(bundle);
+//        handler.sendMessageDelayed(message, 4000);
     }
 
     @Override

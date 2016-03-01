@@ -1,26 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
+<items version="2" />
 
-    <item
-        jar="E:\Android_Studio\SDK\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
-        <dex dex="E:\Android_Studio\Project\ThinkDo\thinkDo\build\intermediates\pre-dexed\release\support-v4-19.1.0_d6fe4a8195f5b420ddfa9d3453887f565b6e70df.jar" />
-    </item>
-    <item
-        jar="E:\Android_Studio\Project\ThinkDo\thinkDo\build\intermediates\exploded-aar\ThinkDo\slidingmenu_library\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="5837f39c4106f8f0d6e0aeaca8ad868911968bc6">
-        <dex dex="E:\Android_Studio\Project\ThinkDo\thinkDo\build\intermediates\pre-dexed\release\ThinkDo-slidingmenu_library-unspecified_a129a938f3c2c67a274544409b76086144109f65.jar" />
-    </item>
-    <item
-        jar="E:\Android_Studio\Project\ThinkDo\thinkDo\src\main\libs\pinyin4j-2.5.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ae353005f973da1cd8545b54354504c2503f6865">
-        <dex dex="E:\Android_Studio\Project\ThinkDo\thinkDo\build\intermediates\pre-dexed\release\pinyin4j-2.5.0_f1ac5ef9dcf7dca06d96cee34ce6cfab6fbed59e.jar" />
-    </item>
-
-</items>

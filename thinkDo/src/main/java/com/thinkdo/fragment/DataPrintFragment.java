@@ -3,29 +3,59 @@ package com.thinkdo.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.thinkdo.activity.R;
 import com.thinkdo.application.MainApplication;
 import com.thinkdo.entity.ReferData;
-import com.thinkdo.net.NetQuest;
+import com.thinkdo.net.NetConnect;
+import com.thinkdo.net.NetSingleConnect;
+import com.thinkdo.net.SocketClient;
+import com.thinkdo.util.CommonUtil;
 import com.thinkdo.view.BarPrint;
 
 public class DataPrintFragment extends Fragment implements View.OnClickListener {
     private DataPrintCallback callback;
     private int saveBtnVisible = View.VISIBLE;
-    private boolean connect = true;
+    private boolean connect = true, transFlag = false;
     private ReferData data;
+    private NetConnect socketClient;
+    private NetSingleConnect loginConnect;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (connect) new NetQuest(MainApplication.printUrl);
-    }
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (!transFlag) return true;
+            String reply = msg.getData().getString(MainApplication.head);
+            if (reply == null) return true;
+            int backCode = CommonUtil.getQuestCode(reply);
 
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
+            } else if (backCode != MainApplication.printUrl && callback != null) {
+                callback.dataPrintNext(backCode);
+            }
+            return true;
+        }
+    });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,13 +150,38 @@ public class DataPrintFragment extends Fragment implements View.OnClickListener 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        transFlag = true;
+        startConnect();
+    }
+
+    public void startConnect() {
+        if (MainApplication.availableDay > 0 && connect) {
+            socketClient = new NetConnect(handler, MainApplication.printUrl);
+        } else if (!MainApplication.loginFlag) {
+            loginConnect = new NetSingleConnect(handler, MainApplication.loginUrl);
+        } else {
+            Toast.makeText(MainApplication.context, R.string.tip_recharge, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        transFlag = false;
+        if (loginConnect != null) loginConnect.close();
+        if (socketClient != null) socketClient.close();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_save:
-                if (callback != null) callback.dataPrintNext(0);
+                if (callback != null) callback.dataPrintNext(-2);
                 break;
             case R.id.btn_print:
-                if (callback != null) callback.dataPrintNext(1);
+                if (callback != null) callback.dataPrintNext(-1);
                 break;
         }
     }
@@ -156,11 +211,9 @@ public class DataPrintFragment extends Fragment implements View.OnClickListener 
 
     public interface DataPrintCallback {
         /**
-         * @param position
-         *        0 save   <br/>
-         *       1 print
-         *
-         * **/
+         * @param position 0 save   <br/>
+         *                 1 print
+         **/
         void dataPrintNext(int position);
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">鑫车威</string>
+    <string name="app_name" translatable="false">SUCVARY</string>
     <string name="menu">Menu</string>
     <string name="alignment">Alignment</string>
     <string name="preferences">Preferences</string>
