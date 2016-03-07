@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.thinkdo.activity"
     android:versionCode="2"
-    android:versionName="2.3.0">
+    android:versionName="2.6.1">
 
     <uses-sdk
         android:minSdkVersion="17"
@@ -44,10 +44,12 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.thinkdo.activity.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
         <activity
             android:name="com.thinkdo.activity.MainActivityLorry"
+            android:launchMode="singleTask"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" />
         <activity

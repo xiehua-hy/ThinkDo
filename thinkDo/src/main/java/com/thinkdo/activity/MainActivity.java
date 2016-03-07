@@ -418,17 +418,20 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 break;
 
             case MainApplication.samplePictureUrl:
+                transFlag = false;
                 Intent intent = new Intent(this, MaintenanceActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
 
             case MainApplication.specialTestUrl:
+                transFlag = false;
                 intent = new Intent(this, SpecialTestActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
                 break;
             case MainApplication.homeUrl:
+                transFlag = false;
                 Intent it = new Intent(this, MenuActivity.class);
                 startActivity(it);
                 break;

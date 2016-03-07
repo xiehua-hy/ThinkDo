@@ -21,6 +21,7 @@ import com.thinkdo.net.NetQuest;
  */
 public class MaintenanceActivity extends Activity implements SamplePicCallback {
     private final String defaultPassword = "12345";
+    private boolean transFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,18 @@ public class MaintenanceActivity extends Activity implements SamplePicCallback {
         }
 
         getFragmentManager().beginTransaction().replace(R.id.frameLayout, new SamplePicFragment()).commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        transFlag = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        transFlag = false;
     }
 
     @Override
@@ -119,6 +132,7 @@ public class MaintenanceActivity extends Activity implements SamplePicCallback {
 
     @Override
     public void SamplePicNext(int position) {
+        if (!transFlag) return;
         switch (position) {
             case MainApplication.pushcarUrl:
                 redirect(position);
@@ -136,10 +150,12 @@ public class MaintenanceActivity extends Activity implements SamplePicCallback {
                 redirect(position);
                 break;
             case MainApplication.homeUrl:
+                transFlag = false;
                 Intent it = new Intent(this, MenuActivity.class);
                 startActivity(it);
                 break;
             case MainApplication.specialTestUrl:
+                transFlag = false;
                 it = new Intent(this, SpecialTestActivity.class);
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(it);
@@ -148,6 +164,7 @@ public class MaintenanceActivity extends Activity implements SamplePicCallback {
     }
 
     public void redirect(int position) {
+        transFlag = false;
         Intent it = new Intent(this, MainActivity.class);
         it.putExtra("position", position);
         it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_play"
+            android:nextFocusRight="@+id/btn_fast"
+            android:nextFocusUp="@+id/radio0"
             android:text="@string/started_measure"
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />
@@ -39,6 +41,9 @@
             android:layout_marginBottom="@dimen/fixPosition_btn_gap"
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_thunder"
+            android:nextFocusDown="@+id/btn_photo"
+            android:nextFocusLeft="@+id/btn_start"
+            android:nextFocusRight="@+id/btn_special"
             android:text="@string/fast_measure"
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />
@@ -49,6 +54,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_photo"
+            android:nextFocusLeft="@+id/btn_start"
+            android:nextFocusRight="@+id/btn_user"
+            android:nextFocusUp="@+id/btn_fast"
             android:text="@string/photo_monitor"
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />
@@ -70,6 +78,8 @@
             android:layout_marginBottom="@dimen/fixPosition_btn_gap"
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_star"
+            android:nextFocusDown="@+id/btn_user"
+            android:nextFocusLeft="@+id/btn_fast"
             android:text="@string/special_measure"
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />
@@ -81,6 +91,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_user"
+            android:nextFocusLeft="@+id/btn_photo"
+            android:nextFocusUp="@+id/btn_special"
             android:text="@string/user_data"
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />

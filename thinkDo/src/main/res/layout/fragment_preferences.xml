@@ -17,6 +17,8 @@
             android:id="@+id/bar_unitSet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nextFocusDown="@+id/bar_garageSet"
+            android:nextFocusUp="@+id/radio1"
             skd:barIcon="@drawable/ic_unit"
             skd:barTitle="@string/unit_set" />
 
@@ -29,6 +31,8 @@
             android:id="@+id/bar_garageSet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nextFocusDown="@+id/bar_printSet"
+            android:nextFocusUp="@+id/bar_unitSet"
             skd:barIcon="@drawable/ic_garage"
             skd:barTitle="@string/garage_set" />
 
@@ -41,6 +45,8 @@
             android:id="@+id/bar_printSet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nextFocusDown="@+id/bar_language"
+            android:nextFocusUp="@+id/bar_garageSet"
             skd:barIcon="@drawable/ic_print"
             skd:barTitle="@string/print_set" />
 
@@ -53,6 +59,8 @@
             android:id="@+id/bar_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nextFocusDown="@+id/bar_addcar"
+            android:nextFocusUp="@+id/bar_printSet"
             skd:barIcon="@drawable/if_language"
             skd:barTitle="@string/languageSet" />
 
@@ -65,6 +73,7 @@
             android:id="@+id/bar_addcar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:nextFocusUp="@+id/bar_language"
             skd:barIcon="@drawable/if_addcar"
             skd:barTitle="@string/add_car" />
 

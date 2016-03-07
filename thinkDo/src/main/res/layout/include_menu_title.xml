@@ -42,12 +42,18 @@
             android:checked="true"
             android:ellipsize="marquee"
             android:gravity="center"
+            android:nextFocusDown="@+id/btn_start"
+            android:nextFocusLeft="@+id/btn_toggle"
+            android:nextFocusRight="@+id/radio1"
             android:paddingBottom="@dimen/menu_radio_padding"
             android:paddingTop="@dimen/menu_radio_padding"
             android:singleLine="true"
             android:text="@string/alignment"
             android:textColor="@color/font_red_holo"
-            android:textSize="@dimen/menu_font_size" />
+            android:textSize="@dimen/menu_font_size">
+
+            <requestFocus />
+        </RadioButton>
 
         <RadioButton
             android:id="@+id/radio1"
@@ -60,6 +66,9 @@
             android:button="@null"
             android:ellipsize="marquee"
             android:gravity="center"
+            android:nextFocusDown="@+id/bar_unitSet"
+            android:nextFocusLeft="@+id/radio0"
+            android:nextFocusRight="@+id/radio2"
             android:paddingBottom="@dimen/menu_radio_padding"
             android:paddingTop="@dimen/menu_radio_padding"
             android:singleLine="true"
@@ -78,6 +87,7 @@
             android:button="@null"
             android:ellipsize="marquee"
             android:gravity="center"
+            android:nextFocusLeft="@+id/radio1"
             android:paddingBottom="@dimen/menu_radio_padding"
             android:paddingTop="@dimen/menu_radio_padding"
             android:singleLine="true"

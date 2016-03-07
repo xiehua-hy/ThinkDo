@@ -11,4 +11,5 @@
     <color name="light_blue">#99ccff</color>
     <color name="bar_holo">#e9eef2</color>
     <color name="divider">#bcbcbc</color>
+    <color name="bar_focus">#304c5e</color>
 </resources>

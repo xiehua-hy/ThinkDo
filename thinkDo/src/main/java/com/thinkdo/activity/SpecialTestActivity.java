@@ -14,11 +14,25 @@ import com.thinkdo.net.NetQuest;
  * Created by Administrator on 2015/5/7.
  */
 public class SpecialTestActivity extends Activity implements SpecialTestCallback {
+    private boolean transFlag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frame);
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        transFlag = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        transFlag = false;
     }
 
     private void init() {
@@ -47,6 +61,7 @@ public class SpecialTestActivity extends Activity implements SpecialTestCallback
 
     @Override
     public void specialTest(int position) {
+        if (!transFlag) return;
         switch (position) {
             case MainApplication.pushcarUrl:
                 redirect(position);
@@ -64,6 +79,7 @@ public class SpecialTestActivity extends Activity implements SpecialTestCallback
                 redirect(position);
                 break;
             case MainApplication.homeUrl:
+                transFlag = false;
                 Intent it = new Intent(this, MenuActivity.class);
                 startActivity(it);
                 break;
@@ -72,6 +88,7 @@ public class SpecialTestActivity extends Activity implements SpecialTestCallback
     }
 
     public void redirect(int position) {
+        transFlag = false;
         Intent it = new Intent(this, MainActivity.class);
         it.putExtra("position", position);
         it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

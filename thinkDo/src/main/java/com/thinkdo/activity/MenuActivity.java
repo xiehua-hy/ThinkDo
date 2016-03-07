@@ -38,6 +38,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
     private long time = 0;
     private boolean transFlag = false, loginFlag = false;
     private NetConnect socketClient, loginConnect;
+    private final int synch = 9;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -73,6 +74,9 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                             startSynch();
                         }
                     } else deal(backCode);
+                    break;
+                case synch:
+                    socketClient = new NetConnect(handler, MainApplication.synchShowUrl);
                     break;
             }
             return true;
@@ -193,7 +197,7 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
 //        socketClient = new NetConnect(handler, MainApplication.synchShowUrl);
 
         if (MainApplication.availableDay > 0)
-            socketClient = new NetConnect(handler, MainApplication.synchShowUrl);
+            handler.sendEmptyMessageDelayed(synch, 2000);
         else if (!MainApplication.loginFlag) {
             loginFlag = true;
             loginConnect = new NetConnect(handler, MainApplication.loginUrl);
@@ -244,18 +248,22 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 redirect(position);
                 break;
             case MainApplication.samplePictureUrl:
+                transFlag = false;
                 Intent it = new Intent(this, MaintenanceActivity.class);
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(it);
                 break;
             case MainApplication.specialTestUrl:
+                transFlag = false;
                 it = new Intent(this, SpecialTestActivity.class);
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(it);
+                break;
         }
     }
 
     private void redirect(int position) {
+        transFlag = false;
         Intent it = MainApplication.isCar
                 ? new Intent(this, MainActivity.class)
                 : new Intent(this, MainActivityLorry.class);
