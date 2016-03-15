@@ -42,30 +42,9 @@ public class KingpinFragment extends Fragment {
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == MainApplication.loginUrl) {
-                String[] data = SocketClient.parseData(reply);
-                if (data != null && data.length == 2) {
-                    int i;
-                    try {
-                        i = Integer.parseInt(data[1]);
-                    } catch (NumberFormatException e) {
-                        i = 0;
-                    }
-                    MainApplication.device = data[0];
-                    MainApplication.availableDay = i;
-                    MainApplication.loginFlag = true;
-                    startConnect();
-                }
+            if (backCode == MainApplication.kingpinUrl) {
+                if (myDialog.isShow()) myDialog.dismiss();
 
-            } else if (backCode == MainApplication.errorUrl) {
-                if (statusCode == MainApplication.erroDiss) {
-                    myDialog.dismiss();
-                } else {
-                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-                }
-            } else if (backCode != MainApplication.kingpinUrl && callback != null) {
-                callback.kinPingNext(backCode);
-            } else {
                 switch (statusCode) {
                     case 2:
                         wheelStatus = 2;
@@ -111,10 +90,26 @@ public class KingpinFragment extends Fragment {
                             }
                         }
                         break;
-
                 }
+            } else if (backCode == MainApplication.errorUrl && statusCode == MainApplication.erroDiss) {
+                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+            } else if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
+            } else if (callback != null) {
+                callback.kinPingNext(backCode);
             }
-
             return true;
         }
     });

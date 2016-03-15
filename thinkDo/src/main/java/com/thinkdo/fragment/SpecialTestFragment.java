@@ -40,7 +40,21 @@ public class SpecialTestFragment extends Fragment {
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == MainApplication.loginUrl) {
+
+            if (backCode == MainApplication.specialTestUrl) {
+                if (myDialog.isShow()) myDialog.dismiss();
+
+                if (data == null) data = new SpecialTestData();
+                data.addRealData(reply);
+                data.unitConvert();
+                leftWheelbase.setTestText(data.getLeftWheelbase());
+                wheelbase_diff.setTestText(data.getWheelbase_diff());
+                rearWheel.setTestText(data.getRearWheel());
+                frontWheel.setTestText(data.getFrontWheel());
+                axleOffset.setTestText(data.getAxleOffset());
+                wheel_diff.setTestText(data.getWheel_diff());
+                rightWheelbase.setTestText(data.getRightWheelbase());
+            } else if (backCode == MainApplication.loginUrl) {
                 String[] data = SocketClient.parseData(reply);
                 if (data != null && data.length == 2) {
                     int i;
@@ -55,26 +69,10 @@ public class SpecialTestFragment extends Fragment {
                     startConnect();
                 }
 
-            } else if (backCode == MainApplication.errorUrl) {
-                if (statusCode == MainApplication.erroDiss) {
-                    myDialog.dismiss();
-                } else {
-                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-                }
+            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
+                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
             } else if (backCode != MainApplication.specialTestUrl && callback != null) {
                 callback.specialTest(backCode);
-            } else {
-
-                if (data == null) data = new SpecialTestData();
-                data.addRealData(reply);
-                data.unitConvert();
-                leftWheelbase.setTestText(data.getLeftWheelbase());
-                wheelbase_diff.setTestText(data.getWheelbase_diff());
-                rearWheel.setTestText(data.getRearWheel());
-                frontWheel.setTestText(data.getFrontWheel());
-                axleOffset.setTestText(data.getAxleOffset());
-                wheel_diff.setTestText(data.getWheel_diff());
-                rightWheelbase.setTestText(data.getRightWheelbase());
             }
             return true;
         }

@@ -52,6 +52,8 @@ public class TestResultFragment extends Fragment {
             int statusCode = CommonUtil.getStatusCode(reply);
 
             if (backCode == MainApplication.testDataUrl) {
+                if (myDialog.isShow()) myDialog.dismiss();
+
                 if (!raiseBtn.isBtnEnable()) raiseBtn.setBtnEnable(true);
 
                 if (MainActivity.referData == null)
@@ -128,12 +130,8 @@ public class TestResultFragment extends Fragment {
                 circleLoad.loadCirclePic(rightRearCamber.getLinearLayout(),
                         test.getRightRearCamber().getPercent());
 
-            } else if (backCode == MainApplication.errorUrl) {
-                if (statusCode == MainApplication.erroDiss) {
-                    myDialog.dismiss();
-                } else {
-                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-                }
+            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
+                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
             } else if (backCode == MainApplication.loginUrl) {
                 String[] data = SocketClient.parseData(reply);
                 if (data != null && data.length == 2) {
@@ -148,7 +146,6 @@ public class TestResultFragment extends Fragment {
                     MainApplication.loginFlag = true;
                     startConnect();
                 }
-
             } else if (callback != null) {
                 callback.TestResultNext(backCode);
             }

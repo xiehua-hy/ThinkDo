@@ -59,6 +59,7 @@ public class TestResultLorryFragment extends Fragment implements View.OnClickLis
             int statusCode = CommonUtil.getStatusCode(reply);
 
             if (backCode == MainApplication.testDataUrl) {
+                if (myDialog.isShow()) myDialog.dismiss();
 
                 if (MainActivityLorry.lorryReferData == null)
                     MainActivityLorry.lorryReferData = new LorryReferData();
@@ -155,12 +156,8 @@ public class TestResultLorryFragment extends Fragment implements View.OnClickLis
                 circleLoad.loadCirclePic(fourthRightCamber.getLinearLayout(),
                         test.getFourthRightCamber().getPercent());
 
-            } else if (backCode == MainApplication.errorUrl) {
-                if (statusCode == MainApplication.erroDiss) {
-                    myDialog.dismiss();
-                } else {
-                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-                }
+            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
+                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
             } else if (backCode == MainApplication.loginUrl) {
                 String[] data = SocketClient.parseData(reply);
                 if (data != null && data.length == 2) {
