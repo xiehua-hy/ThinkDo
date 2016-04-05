@@ -49,8 +49,6 @@ public class FrontAxleShowFragment extends Fragment {
 
 
             if (backCode == MainApplication.frontShowUrl) {
-                if (myDialog.isShow()) myDialog.dismiss();
-
                 if (!raiseBtn.isBtnEnable()) raiseBtn.setBtnEnable(true);
 
                 if (MainActivity.referData == null)
@@ -106,8 +104,12 @@ public class FrontAxleShowFragment extends Fragment {
                 circleLoad.loadCirclePic(rightKpi.getLinearLayout(),
                         test.getRightKpi().getPercent());
 
-            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
-                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
+                    myDialog.dismiss();
+                } else {
+                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+                }
             } else if (backCode == MainApplication.loginUrl) {
                 String[] data = SocketClient.parseData(reply);
                 if (data != null && data.length == 2) {

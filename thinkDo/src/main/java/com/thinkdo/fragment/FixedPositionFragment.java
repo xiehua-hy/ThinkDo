@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.thinkdo.activity.FastTestActivity;
 import com.thinkdo.activity.MainActivity;
 import com.thinkdo.activity.MainActivityLorry;
 import com.thinkdo.activity.MaintenanceActivity;
@@ -26,11 +27,11 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
         btn = (Button) rootView.findViewById(R.id.btn_fast);
         btn.setOnClickListener(this);
 
-        btn = (Button) rootView.findViewById(R.id.btn_special);
-        btn.setOnClickListener(this);
+//        btn = (Button) rootView.findViewById(R.id.btn_special);
+//        btn.setOnClickListener(this);
 
-        btn = (Button) rootView.findViewById(R.id.btn_photo);
-        btn.setOnClickListener(this);
+//        btn = (Button) rootView.findViewById(R.id.btn_photo);
+//        btn.setOnClickListener(this);
 
         btn = (Button) rootView.findViewById(R.id.btn_user);
         btn.setOnClickListener(this);
@@ -49,12 +50,13 @@ public class FixedPositionFragment extends Fragment implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btn_fast:
-                intent = MainApplication.isCar
-                        ? new Intent(getActivity(), MainActivity.class)
-                        : new Intent(getActivity(), MainActivityLorry.class);
-
-                intent.putExtra("position", MainApplication.fastTestUrl);
-                startActivity(intent);
+//                intent = MainApplication.isCar
+//                        ? new Intent(getActivity(), MainActivity.class)
+//                        : new Intent(getActivity(), MainActivityLorry.class);
+//
+//                intent.putExtra("position", MainApplication.fastTestUrl);
+//                startActivity(intent);
+                startActivity(new Intent(getActivity(), FastTestActivity.class));
                 break;
             case R.id.btn_special:
                 intent = new Intent(getActivity(), SpecialTestActivity.class);

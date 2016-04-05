@@ -7,14 +7,13 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.thinkdo.application.MainApplication;
-import com.thinkdo.fragment.FastTestFragment;
-import com.thinkdo.fragment.FastTestFragment.FastTestCallback;
+import com.thinkdo.fragment.TestResultFragment;
 import com.thinkdo.net.NetQuest;
 
 /**
  * Created by Administrator on 2015/5/6.
  */
-public class FastTestActivity extends Activity implements FastTestCallback {
+public class FastTestActivity extends Activity implements TestResultFragment.TestResultCallback {
     private boolean checked = false;
 
     @Override
@@ -31,7 +30,7 @@ public class FastTestActivity extends Activity implements FastTestCallback {
             getActionBar().setDisplayHomeAsUpEnabled(true);
             getActionBar().setTitle(R.string.fast_measure);
         }
-        getFragmentManager().beginTransaction().replace(R.id.frameLayout, new FastTestFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.frameLayout, new TestResultFragment()).commit();
     }
 
     @Override
@@ -64,15 +63,16 @@ public class FastTestActivity extends Activity implements FastTestCallback {
         checked = check;
     }
 
-    @Override
-    public void fastTestNext(int position) {
-
-    }
 
     private void warn() {
         new AlertDialog.Builder(this, AlertDialog.THEME_HOLO_LIGHT)
                 .setIconAttribute(android.R.attr.alertDialogIcon)
                 .setTitle(R.string.tip_raiseBtn_down).setPositiveButton(R.string.sure, null)
                 .create().show();
+    }
+
+    @Override
+    public void TestResultNext(int position) {
+
     }
 }

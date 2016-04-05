@@ -110,8 +110,8 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
         BarItem item = (BarItem) findViewById(R.id.barItem_hostSet);
         item.setOnClickListener(this);
 
-        item = (BarItem) findViewById(R.id.barItem_db);
-        item.setOnClickListener(this);
+//        item = (BarItem) findViewById(R.id.barItem_db);
+//        item.setOnClickListener(this);
 
         item = (BarItem) findViewById(R.id.barItem_about);
         item.setOnClickListener(this);
@@ -238,9 +238,9 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
             case MainApplication.kingpinUrl:
                 redirect(position);
                 break;
-            case MainApplication.testDataUrl:
-                redirect(position);
-                break;
+//            case MainApplication.testDataUrl:
+//                redirect(position);
+//                break;
             case MainApplication.rearShowUrl:
                 redirect(position);
                 break;
@@ -253,12 +253,12 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(it);
                 break;
-            case MainApplication.specialTestUrl:
-                transFlag = false;
-                it = new Intent(this, SpecialTestActivity.class);
-                it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(it);
-                break;
+//            case MainApplication.specialTestUrl:
+//                transFlag = false;
+//                it = new Intent(this, SpecialTestActivity.class);
+//                it.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//                startActivity(it);
+//                break;
         }
     }
 
@@ -331,10 +331,10 @@ public class MenuActivity extends SlidingFragmentActivity implements OnClickList
                 Intent intent = new Intent(this, HostSetActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.barItem_db:
-                intent = new Intent(this, DBUpdateActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.barItem_db:
+//                intent = new Intent(this, DBUpdateActivity.class);
+//                startActivity(intent);
+//                break;
             case R.id.barItem_register:
                 if (MainApplication.loginFlag) {
                     intent = new Intent(this, RegisterActivity.class);

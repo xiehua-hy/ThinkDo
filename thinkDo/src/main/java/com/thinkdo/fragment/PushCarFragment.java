@@ -46,9 +46,30 @@ public class PushCarFragment extends Fragment {
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == MainApplication.pushcarUrl) {
-                if (myDialog.isShow()) myDialog.dismiss();
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
 
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
+                    myDialog.dismiss();
+                } else {
+                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+                }
+            } else if (backCode != MainApplication.pushcarUrl && callback != null) {
+                callback.pushCarNext(backCode);
+            } else {
                 switch (statusCode) {
                     case 0:
                         tv.setText(R.string.pushCar_tip_init);
@@ -81,10 +102,12 @@ public class PushCarFragment extends Fragment {
                         tv.setText(R.string.pushCar_tip_stop);
                         iv.setImageResource(R.drawable.if_stop);
                         break;
+
                     case 5:
                         tv.setText(R.string.pushCar_tip_data_handle);
                         iv.setImageResource(R.drawable.if_stop);
                         break;
+
                     case 6:
                         if (callback != null) callback.pushCarNext(MainApplication.testDataUrl);
                         break;
@@ -104,6 +127,7 @@ public class PushCarFragment extends Fragment {
                             }
                             arrowThread.loadCirclePic(iv, data);
                         }
+
                         if (data == 0) tv.setText("");
                         break;
                     case 10:
@@ -126,24 +150,6 @@ public class PushCarFragment extends Fragment {
                         }).start();
                         break;
                 }
-            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
-                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-            } else if (backCode == MainApplication.loginUrl) {
-                String[] data = SocketClient.parseData(reply);
-                if (data != null && data.length == 2) {
-                    int i;
-                    try {
-                        i = Integer.parseInt(data[1]);
-                    } catch (NumberFormatException e) {
-                        i = 0;
-                    }
-                    MainApplication.device = data[0];
-                    MainApplication.availableDay = i;
-                    MainApplication.loginFlag = true;
-                    startConnect();
-                }
-            } else if (callback != null) {
-                callback.pushCarNext(backCode);
             }
             return true;
         }

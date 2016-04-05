@@ -55,9 +55,8 @@ public class FrontAxleLorryFragment extends Fragment implements View.OnClickList
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == MainApplication.frontShowUrl) {
-                if (myDialog.isShow()) myDialog.dismiss();
 
+            if (backCode == MainApplication.frontShowUrl) {
                 if (MainActivityLorry.lorryReferData == null)
                     MainActivityLorry.lorryReferData = new LorryReferData();
                 MainActivityLorry.lorryReferData.addRealData(reply);
@@ -142,8 +141,12 @@ public class FrontAxleLorryFragment extends Fragment implements View.OnClickList
                         test.getSecondRightKpi().getPercent());
 
 
-            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
-                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
+                    myDialog.dismiss();
+                } else {
+                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+                }
             } else if (backCode == MainApplication.loginUrl) {
                 String[] data = SocketClient.parseData(reply);
                 if (data != null && data.length == 2) {

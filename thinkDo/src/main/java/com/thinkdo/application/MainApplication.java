@@ -24,7 +24,7 @@ import java.util.Locale;
  * Created by xh on 15/5/8.
  */
 public class MainApplication extends Application {
-    public static final boolean isCar = false;
+    public static final boolean isCar = true;
     //key
     public static final String curVersion = "version";
     public static final String hostIpKey = "hostIpKey";

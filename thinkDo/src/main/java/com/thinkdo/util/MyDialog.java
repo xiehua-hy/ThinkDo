@@ -35,8 +35,6 @@ public class MyDialog {
     }
 
     public boolean isShow() {
-        if (dialog != null)
-            return dialog.isShowing();
-        return false;
+        return dialog.isShowing();
     }
 }

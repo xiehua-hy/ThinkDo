@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -100,8 +99,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         rb = (RadioButton) findViewById(R.id.radio_kingpin);
         rb.setOnClickListener(this);
 
-        rb = (RadioButton) findViewById(R.id.radio_fast);
-        rb.setOnClickListener(this);
+//        rb = (RadioButton) findViewById(R.id.radio_fast);
+//        rb.setOnClickListener(this);
 
         rb = (RadioButton) findViewById(R.id.radio_rear);
         rb.setOnClickListener(this);
@@ -109,8 +108,8 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
         rb = (RadioButton) findViewById(R.id.radio_front);
         rb.setOnClickListener(this);
 
-        rb = (RadioButton) findViewById(R.id.radio_print);
-        rb.setOnClickListener(this);
+//        rb = (RadioButton) findViewById(R.id.radio_print);
+//        rb.setOnClickListener(this);
 
         fragmentCommit(new ManufacturerFragment());
 
@@ -119,7 +118,7 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (!autoDown && id != R.id.radio_fast && id != R.id.radio_rear && id != R.id.radio_front && id != R.id.radio_print) {
+        if (!autoDown&& id != R.id.radio_rear && id != R.id.radio_front) {
             warn();
             return;
         }
@@ -167,9 +166,9 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             case R.id.radio_push:
                 fragmentCommit(new PushCarFragment());
                 break;
-            case R.id.radio_fast:
-                fragmentCommit(new TestResultFragment());
-                break;
+//            case R.id.radio_fast:
+//                fragmentCommit(new TestResultFragment());
+//                break;
             case R.id.radio_kingpin:
                 fragmentCommit(new KingpinFragment());
                 break;
@@ -181,11 +180,11 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
             case R.id.radio_front:
                 fragmentCommit(new FrontAxleShowFragment());
                 break;
-            case R.id.radio_print:
-                DataPrintFragment printFragment = new DataPrintFragment();
-                if (referData != null) printFragment.setReferData(referData.copy());
-                fragmentCommit(printFragment);
-                break;
+//            case R.id.radio_print:
+//                DataPrintFragment printFragment = new DataPrintFragment();
+//                if (referData != null) printFragment.setReferData(referData.copy());
+//                fragmentCommit(printFragment);
+//                break;
         }
 
         changeRadioBtnTextColor(checkId);
@@ -399,11 +398,11 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 radioId = R.id.radio_kingpin;
                 break;
 
-            case MainApplication.fastTestUrl:
-
-            case MainApplication.testDataUrl:
-                radioId = R.id.radio_fast;
-                break;
+//            case MainApplication.fastTestUrl:
+//
+//            case MainApplication.testDataUrl:
+//                radioId = R.id.radio_fast;
+//                break;
 
             case MainApplication.rearShowUrl:
                 radioId = R.id.radio_rear;
@@ -413,9 +412,9 @@ public class MainActivity extends Activity implements OnClickListener, Manufactu
                 radioId = R.id.radio_front;
                 break;
 
-            case MainApplication.printUrl:
-                radioId = R.id.radio_print;
-                break;
+//            case MainApplication.printUrl:
+//                radioId = R.id.radio_print;
+//                break;
 
             case MainApplication.samplePictureUrl:
                 transFlag = false;

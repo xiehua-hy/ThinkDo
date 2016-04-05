@@ -27,6 +27,7 @@ import com.thinkdo.db.VehicleDbUtil;
 public class ManufacturerFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnTouchListener {
     private GridView gridView;
     private final int bitmapDimen = 153;
+    private final int offset = 1;
     private int countryCount = 3;
     private int count = 3002;
     private ManufacturerCallback callback;
@@ -68,7 +69,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             30060, 30061};
 
     private int[] ImageId_CN = {
-            R.drawable.manu_search, R.drawable.manu_def,
+            R.drawable.manu_search,
             R.drawable.manu_1, R.drawable.manu_2,
             R.drawable.manu_3, R.drawable.manu_4, R.drawable.manu_5,
             R.drawable.manu_6, R.drawable.manu_7, R.drawable.manu_8,
@@ -116,7 +117,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.manu_133, R.drawable.manu_134, R.drawable.manu_135};
 
     private int[] ImageId_EUP = {
-            R.drawable.manu_search_en, R.drawable.manu_def_en,
+            R.drawable.manu_search_en,
             R.drawable.eur_manu_1, R.drawable.eur_manu_2,
             R.drawable.eur_manu_3, R.drawable.eur_manu_4,
             R.drawable.eur_manu_5, R.drawable.eur_manu_6,
@@ -151,7 +152,7 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
             R.drawable.eur_manu_63, R.drawable.eur_manu_64};
 
     private int[] ImageId_NA = {
-            R.drawable.manu_search_en, R.drawable.manu_def_en,
+            R.drawable.manu_search_en,
             R.drawable.na_manu_1, R.drawable.na_manu_2,
             R.drawable.na_manu_3, R.drawable.na_manu_4,
             R.drawable.na_manu_5, R.drawable.na_manu_6,
@@ -276,10 +277,10 @@ public class ManufacturerFragment extends Fragment implements AdapterView.OnItem
         int manId = 0;
         String info = null;
         int dbIndex;
-        if (position > 1) {
+        if (position > offset - 1) {
             //标准数据
             dbIndex = MainApplication.stadb;
-            manId = getManuID()[position - 2];
+            manId = getManuID()[position - offset];
             info = new VehicleDbUtil().queryManufacturerInfo(manId);
         } else {
             //自定义数据

@@ -38,7 +38,7 @@
             android:id="@+id/btn_fast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/fixPosition_btn_gap"
+
             android:background="@drawable/shape_drawable_btn"
             android:drawableTop="@drawable/ic_thunder"
             android:nextFocusDown="@+id/btn_photo"
@@ -48,18 +48,18 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/fixPosition_btn_font_size" />
 
-        <Button
-            android:id="@+id/btn_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_drawable_btn"
-            android:drawableTop="@drawable/ic_photo"
-            android:nextFocusLeft="@+id/btn_start"
-            android:nextFocusRight="@+id/btn_user"
-            android:nextFocusUp="@+id/btn_fast"
-            android:text="@string/photo_monitor"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/fixPosition_btn_font_size" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_photo"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/shape_drawable_btn"-->
+            <!--android:drawableTop="@drawable/ic_photo"-->
+            <!--android:nextFocusLeft="@+id/btn_start"-->
+            <!--android:nextFocusRight="@+id/btn_user"-->
+            <!--android:nextFocusUp="@+id/btn_fast"-->
+            <!--android:text="@string/photo_monitor"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="@dimen/fixPosition_btn_font_size" />-->
 
 
     </LinearLayout>
@@ -71,18 +71,18 @@
         android:gravity="center_vertical"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_special"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/fixPosition_btn_gap"
-            android:background="@drawable/shape_drawable_btn"
-            android:drawableTop="@drawable/ic_star"
-            android:nextFocusDown="@+id/btn_user"
-            android:nextFocusLeft="@+id/btn_fast"
-            android:text="@string/special_measure"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/fixPosition_btn_font_size" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_special"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="@dimen/fixPosition_btn_gap"-->
+            <!--android:background="@drawable/shape_drawable_btn"-->
+            <!--android:drawableTop="@drawable/ic_star"-->
+            <!--android:nextFocusDown="@+id/btn_user"-->
+            <!--android:nextFocusLeft="@+id/btn_fast"-->
+            <!--android:text="@string/special_measure"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="@dimen/fixPosition_btn_font_size" />-->
 
 
         <Button

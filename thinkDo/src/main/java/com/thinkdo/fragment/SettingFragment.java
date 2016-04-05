@@ -31,8 +31,8 @@ public class SettingFragment extends Fragment implements View.OnClickListener {
         barItem = (BarItem) rootView.findViewById(R.id.bar_language);
         barItem.setOnClickListener(this);
 
-        barItem = (BarItem) rootView.findViewById(R.id.bar_addcar);
-        barItem.setOnClickListener(this);
+//        barItem = (BarItem) rootView.findViewById(R.id.bar_addcar);
+//        barItem.setOnClickListener(this);
 
         return rootView;
     }

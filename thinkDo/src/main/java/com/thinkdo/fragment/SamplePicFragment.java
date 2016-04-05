@@ -39,9 +39,30 @@ public class SamplePicFragment extends Fragment {
             int backCode = CommonUtil.getQuestCode(reply);
             int statusCode = CommonUtil.getStatusCode(reply);
 
-            if (backCode == MainApplication.samplePictureUrl) {
-                if (myDialog.isShow()) myDialog.dismiss();
+            if (backCode == MainApplication.loginUrl) {
+                String[] data = SocketClient.parseData(reply);
+                if (data != null && data.length == 2) {
+                    int i;
+                    try {
+                        i = Integer.parseInt(data[1]);
+                    } catch (NumberFormatException e) {
+                        i = 0;
+                    }
+                    MainApplication.device = data[0];
+                    MainApplication.availableDay = i;
+                    MainApplication.loginFlag = true;
+                    startConnect();
+                }
 
+            } else if (backCode == MainApplication.errorUrl) {
+                if (statusCode == MainApplication.erroDiss) {
+                    myDialog.dismiss();
+                } else {
+                    myDialog.show(CommonUtil.getErrorString(statusCode, reply));
+                }
+            } else if (backCode != MainApplication.samplePictureUrl && callback != null) {
+                callback.SamplePicNext(backCode);
+            } else {
                 Bitmap bitmap = msg.getData().getParcelable(MainApplication.simpleBitmap);
                 switch (statusCode) {
                     case 0:
@@ -65,24 +86,6 @@ public class SamplePicFragment extends Fragment {
                         iv5.setImageBitmap(bitmap);
                         break;
                 }
-            } else if (backCode == MainApplication.loginUrl) {
-                String[] data = SocketClient.parseData(reply);
-                if (data != null && data.length == 2) {
-                    int i;
-                    try {
-                        i = Integer.parseInt(data[1]);
-                    } catch (NumberFormatException e) {
-                        i = 0;
-                    }
-                    MainApplication.device = data[0];
-                    MainApplication.availableDay = i;
-                    MainApplication.loginFlag = true;
-                    startConnect();
-                }
-            } else if (backCode == MainApplication.errorUrl && statusCode != MainApplication.erroDiss) {
-                myDialog.show(CommonUtil.getErrorString(statusCode, reply));
-            } else if (callback != null) {
-                callback.SamplePicNext(backCode);
             }
             return true;
         }

@@ -64,18 +64,18 @@
             skd:barIcon="@drawable/if_language"
             skd:barTitle="@string/languageSet" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/divider" />
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/divider" />-->
 
-        <com.thinkdo.view.BarItem
-            android:id="@+id/bar_addcar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nextFocusUp="@+id/bar_language"
-            skd:barIcon="@drawable/if_addcar"
-            skd:barTitle="@string/add_car" />
+        <!--<com.thinkdo.view.BarItem-->
+            <!--android:id="@+id/bar_addcar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:nextFocusUp="@+id/bar_language"-->
+            <!--skd:barIcon="@drawable/if_addcar"-->
+            <!--skd:barTitle="@string/add_car" />-->
 
     </LinearLayout>
 </ScrollView>

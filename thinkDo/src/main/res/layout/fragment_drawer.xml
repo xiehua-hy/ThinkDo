@@ -19,12 +19,12 @@
         skd:barTextColor="@android:color/white"
         skd:barTitle="@string/net_set" />
 
-    <com.thinkdo.view.BarItem
-        android:id="@+id/barItem_db"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        skd:barTextColor="@android:color/white"
-        skd:barTitle="@string/db_update" />
+    <!--<com.thinkdo.view.BarItem-->
+        <!--android:id="@+id/barItem_db"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--skd:barTextColor="@android:color/white"-->
+        <!--skd:barTitle="@string/db_update" />-->
 
     <com.thinkdo.view.BarItem
         android:id="@+id/barItem_register"
